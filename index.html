@@ -1,0 +1,33 @@
+---
+title: Home
+layout: default
+project: Facets
+---
+<p>This webpage is simple because I like simple. You may want something complicated: check out my more complex projects below.</p>
+<h2>Projects</h2>
+<ul class="spaced-list">
+    <li><a href="/projects/mofdb.html">MofDB</a><br/>~5 million row chemoinformatics database and API</li>
+    <li><a href="/projects/facets.html">Facets</a><br/>Tenure tracking for Northwestern University</li>
+    <li><a href="/projects/facedeck.html">Facedeck</a><br/>Student name/photo flashcards for professors at Northwestern
+    </li>
+    <li><a href="/projects/herpetology.html">Herpetology.pro</a><br/>A platform for reptile/amphibian education</li>
+    <li>Numerous brochureware sites for businesses, individuals, and non-profits.
+        <a target="_blank" href="https://andreacraft.com/">1</a>
+        <a target="_blank" href="https://www.davemeyersonlaw.com/">2</a>
+        <a target="_blank" href="https://pentax.com/">3</a>
+        <a target="_blank" href="https://andrealyon.com/">4</a>
+        <a target="_blank" href="https://defendergeneralsoffice.com/">5</a>
+        <a target="_blank" href="https://impactchicago.org/">6</a>
+        <a target="_blank" href="https://dance.andreacraft.com/">7</a>
+    </li>
+</ul>
+<h2>Posts</h2>
+<ol class="spaced-list">
+    {% for post in site.posts %}
+    <li>
+        <i><span>{{ post.date | date_to_string }}</span></i>
+        <br/>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ol>

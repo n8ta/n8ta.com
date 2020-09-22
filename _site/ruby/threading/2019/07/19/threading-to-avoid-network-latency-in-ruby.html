@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > Threading In Ruby: avoiding the bottleneck of network latency by using ruby's built in threading
+
+<article class="post">
+<p>Let say you want to scrape 9000 pages of a website. Order doesn’t matter and the real bottleneck is the ping to the external server. Code like this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">def</span> <span class="nf">network_task</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">http</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'url?page='</span><span class="o">+</span><span class="n">page</span><span class="p">)</span> <span class="c1">#pseudo code</span>
+    <span class="o">...</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">page</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed_page</span>
+<span class="k">end</span>
+<span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">9000</span>
+    <span class="n">network_task</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="n">data</span></code></pre></figure>
+
+<p>Is going to take around RTT*9000 seconds to run. Where RTT is the round trip time to the server.</p>
+
+<p>However the webserver can probably handle at least 5 simulteanous request, so there’s no need for pages 2,3,4,5 to wait on page 1 to complete. To accomplish this we’ll use Ruby’s built in threads. Threads accept a block of code and execute it outside the normal flow of the program. You can then re-join the threads when you want to be sure they have completed.</p>
+
+<p>A few examples to give you an idea of how this works:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="no">Thread</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">2</span> <span class="p">}</span>
+<span class="nb">puts</span> <span class="n">x</span>
+<span class="c1"># outputs 1</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="no">Thread</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> 
+    <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+    <span class="nb">puts</span> <span class="n">x</span>
+<span class="k">end</span>
+<span class="c1"># outputs 1, 2</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="no">Thread</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> 
+    <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+    <span class="nb">puts</span> <span class="n">x</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="n">x</span>
+<span class="c1"># first outputs 1</span>
+<span class="c1"># then outputs  1, 2</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">thread</span> <span class="o">=</span> <span class="no">Thread</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+<span class="p">}</span>
+<span class="n">thread</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+<span class="nb">puts</span> <span class="n">x</span>
+<span class="c1"># outputs 1, 2</span></code></pre></figure>
+
+<p>Okay with the basic idea of threads in mind we can then parallelize our above program to run serveral network requests simultaneously. First we will establish a queue of tasks for all threads to pull from.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># array of threads</span>
+<span class="n">queue</span> <span class="o">=</span> <span class="no">Queue</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">pages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">..</span><span class="mi">9000</span>
+<span class="n">pages</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="p">{</span>
+    <span class="n">queue</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="c1"># put 0 through 9000 in the queue</span>
+<span class="p">}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">def</span> <span class="nf">network_task</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">http</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'url?page='</span><span class="o">+</span><span class="n">page</span><span class="p">)</span> <span class="c1">#pseudo code</span>
+    <span class="o">...</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">page</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed_page</span>
+<span class="k">end</span>
+<span class="n">num_threads</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thrd</span><span class="o">|</span> <span class="p">{</span>
+    <span class="n">threads</span> <span class="o">&lt;&lt;</span> <span class="no">Thread</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="c1"># add the new thread to the array</span>
+        <span class="k">while</span> <span class="n">queue</span><span class="p">.</span><span class="nf">length</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+             <span class="n">page</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+             <span class="n">network_task</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">page</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">threads</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">thrd</span><span class="o">|</span> <span class="p">{</span>
+    <span class="n">thrd</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>  <span class="c1"># Wait for all threads to complete here</span>
+<span class="p">}</span>
+<span class="nb">puts</span> <span class="n">data</span></code></pre></figure>
+
+<p>Now we are making multiple network requests at the same time with can get a total runtime closer to 9000*RTT/num_threads. Bear in mind this inverse relationship between number of threads and total time isn’t entirely accurate and you will reach a plateau. When I was scraping <a href="https://www.herpmapper.org/">www.herpmapper.org/</a> 
+for <a href="/project/herpetology">another project</a>, I generated the following data:</p>
+
+<p><img src="https://i.postimg.cc/76bVR40f/threads.png" /></p>
+
+<p>From 1 thread to 4 I see a near 500% speed up.</p>
+
+<p>As you can see past 4/5 threads there really wasn’t a performance improvement. And while this is specific to their server but the idea should be clear: there are huge performance improvements available BUT simply using as many threads as possible is not going to increase performance past some bottleneck.</p>
+
+<p>Hope this helps you get started in threading with ruby.</p>
+
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>

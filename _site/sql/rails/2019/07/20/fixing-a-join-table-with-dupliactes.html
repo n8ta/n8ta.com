@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > The easiest way to fix a join table with duplicate entries
+
+<article class="post">
+<p>I recently create some join tables I blissfully let a script run to populate them. The script ran for a few hours and it added about 20k entries which seemed reasonable. Only after it finished did I realize I had failed to create unique constraints on the join table so there were tons of duplicates. So here’s how you can remove duplicates from a join table in rails after the fact.</p>
+
+<p>Let’s say you have two models, “model” and “other_model” and you want to remove duplicates from their join table. The easiest thing to do is:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Model</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">model</span><span class="o">|</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">other_model</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">other_model</span><span class="p">.</span><span class="nf">uniq</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Yup it’s that easy (:</p>
+
+<p>You’re models probably look something like this:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Model</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">has_and_belongs_to_many</span> <span class="ss">:other_model</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">OtherModel</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">has_and_belongs_to_many</span> <span class="ss">:model</span>
+<span class="k">end</span></code></pre></figure>
+
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>

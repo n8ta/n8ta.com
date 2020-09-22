@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > Investigating Bad Certificates (Let's Encrypt Downtime)
+
+<article class="post">
+<pre><code class="language-apache-conf">AH01909: localhost:443:0 server certificate does NOT include an ID which matches the server name
+AH02562: Failed to configure certificate n8ta.com:443:0 (with chain), check /path/to/certificates/n8ta.com.crt
+SSL Library Error: error:0906D06C:PEM routines:PEM_read_bio:no start line (Expecting: TRUSTED CERTIFICATE) -- Bad file contents or format - or even just a forgotten SSLCertificateKeyFile?
+SSL Library Error: error:140DC009:SSL routines:SSL_CTX_use_certificate_chain_file:PEM lib
+</code></pre>
+
+<blockquote>
+  <p>tl;dr: if you’re using Let’s Encrypt and your certificates were scheduled to renewed  (cron in my case) they probably failed to renew and now contain a json error message instead of a cert. openssl is very fairly throwing an error when asked to parse json.</p>
+</blockquote>
+
+<p>This morning I discovered apache had failed to start and got some vague messages from the apache error log (above). Something was wrong with 
+my certs. To verify openssl was up to date I tried:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade
+...
+W: GPG error: https://oss-binaries.phusionpassenger.com/apt/passenger xenial Release: 
+The following signatures couldn<span class="s1">'t be verified because the public key is not available: NO_PUBKEY 561F9B9CAC40B2F7
+...
+</span></code></pre></div></div>
+<p>I had a few outdated keys so I updated those</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">sudo </span>apt-key adv <span class="nt">--keyserver</span> hkp://keyserver.ubuntu.com:80 <span class="nt">--recv-keys</span> 561F9B9CAC40B2F7
+</code></pre></div></div>
+<p>After that <code class="language-plaintext highlighter-rouge">apt-get update &amp;&amp; apt-get upgrade</code> ran successfully. I restart apache. Still dead in the water same error.
+Taking a look at the certs themselves I see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> openssl x509 <span class="nt">-in</span> n8ta.com.crt
+unable to load certificate
+139967348754072:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:708:Expecting: TRUSTED CERTIFICATE
+</code></pre></div></div>
+<p>Hmm so the cert is invalid for some reason. Let’s take a look at it manually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">cat </span>n8ta.com.crt
+<span class="o">{</span>
+  <span class="s2">"type"</span>: <span class="s2">"urn:acme:error:serverInternal"</span>,
+  <span class="s2">"detail"</span>: <span class="s2">"The service is down for maintenance or had an internal error. Check https://letsencrypt.status.io/ for more details."</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>That’s not a ceritifcate! Let’s Encrpyt went down when my cron job to renew certs was running and my certs get filled with json error messages. Ran the script to renew certs and all was well. 
+If you’re looking for a good solution for free certificates checkout my guide on Let’s Encrypt and L(ets)E(ncrypt)GO.</p>
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>

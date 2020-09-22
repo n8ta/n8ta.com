@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > Running rails behind apache with a reverse proxy
+
+<article class="post">
+<p>I suspect many people don’t have this problem but I ran into it so I thought I’d document it. In order to minimize my AWS bill I wanted to run a website built in rails (this one!) on the same AWS instance that was already running apache. So if you need to do the same here’s what you do:</p>
+
+<p>Run your rails app on a port other than port 80, anything works even if it’s not exposed to the public. The traffic will flow like this:</p>
+
+<pre>
+User -&gt; Port (80) -&gt; Apache -&gt; Port (xyz) --&gt; Rails
+</pre>
+
+<p>First you’ll need to install the necessary apache modules</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a2enmod proxy proxy_ajp proxy_http rewrite deflate headers proxy_balancer proxy_connect proxy_html</code></pre></figure>
+
+<p>Then, add a virtual host in your /etc/apache2/sites-enabled/something-something.conf file or wherever you specify your virtual hosts.
+It should look like this:</p>
+
+<figure class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="p">&lt;</span><span class="nl">VirtualHost</span><span class="sr"> *:80</span><span class="p">&gt;</span> 
+     ProxyPreserve
+    <span class="nc">Host</span> <span class="ss">On</span> 
+    <span class="ss">Redirect</span> <span class="ss">permanent</span> / https://www.n8ta.com/ <span class="c"># Forward to https </span>
+    <span class="nc">ServerName</span> site.com 
+    <span class="ss">ServerAlias</span> www.site.com 
+&lt;/VirtualHost&gt; <span class="c"># and a second for ssl, </span>
+<span class="p">&lt;</span><span class="nl">VirtualHost</span><span class="sr"> *:443</span><span class="p">&gt;</span> 
+     <span class="nc">ProxyPreserveHost</span> <span class="ss">On</span> 
+     <span class="ss">ProxyPass</span> / http://0.0.0.0:3000/ <span class="c"># apache --&gt; rails connection is not secured as it's local to the machine </span>
+     <span class="nc">ProxyPassReverse</span> / http://0.0.0.0:3000/ 
+     <span class="ss">ServerName</span> site.com 
+     <span class="ss">ServerAlias</span> www.site.com 
+     <span class="ss">SSLEngine</span> <span class="ss">on</span> 
+     <span class="ss">SSLCertificateFile</span> /path/to/a.crt 
+     <span class="ss">SSLCertificateKeyFile</span> /path/to/a.key 
+&lt;/VirtualHost&gt;</code></pre></figure>
+
+<p>Restart apache with</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">service apache2 restart</code></pre></figure>
+
+<p>or whatever tool you use to manage services.</p>
+
+<p>And you’re golden, you now have a rails app and an apache server running simultaneously.</p>
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>

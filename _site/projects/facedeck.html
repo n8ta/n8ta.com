@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="contact">
+    <ul>
+        <div id="me">
+            <img class='special' src="/assets/images/nate.png"/>
+        </div>
+        <li>
+            <a target="_blank" href="mailto:n8@u.northwestern.edu">
+                <img src="/assets/images/mail.png"/>
+                n8@u.northwestern.edu
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="https://github.com/n8ta">
+                <img src="/assets/images/github.png"/>
+                n8ta@Github
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="https://www.linkedin.com/in/nathaniel-tracy-amoroso-549374101/">
+                <img src="/assets/images/linkedin.png"/>
+                Linkedin
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="/assets/files/resume.pdf">
+                <img src="/assets/images/resume.png"/>
+                Resume
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > Facedeck
+
+<article class="project">
+<h3 id="purpose">Purpose</h3>
+
+<p>Facedeck provides a deck of cards (with student photos) that professors can flip through to learn their students names. 
+The stack of cards adapts as you get students right and wrong so you can practice those you get wrong more.</p>
+
+<p>Facedeck has existed at northwestern for a long time and I had the project or rewriting it (the existing project was in laravel and was poorly structured which made it difficult to extend). 
+I was able to rewrite the system in less than a week (with about 30% the line of code of the old system) and then get started on new features.</p>
+
+<p>The other group facedeck serves is residence hall leaders. Since there’s no good API available for finding out which students are in a resident hall, 
+I added API endpoints that Student Affairs uses to create custom groups on facedeck.</p>
+
+<h3 id="tech">Tech</h3>
+
+<ol>
+  <li>API for custom groups of students</li>
+  <li>Vanilla JS stack of cards</li>
+  <li>Canvas learning tool integration</li>
+</ol>
+
+<p>While I would have loved to use react for the front end of facedeck (especially the stack portion). McCormick IT prioritizes maintainability since it supports dozens of applications with a small team.
+This means doing things the same way everywhere is hugely important for developer efficiency. For the same reason bootstrap
+is used heavily. The app’s own stylesheet is less than 100 lines. K.I.S.S.</p>
+
+<p>The API for facedeck allows the office of student  affairs to perform the normal CRUD actions on custom groups of students and specify who is in them + who can view them. The API uses json. Here’s the api spec I wrote <a href="https://rentry.co/9wb26">https://rentry.co/9wb26</a>.</p>
+
+<p>So facedeck is a rails app with a big old javascript class to handle the interactive stack component. This is what that component looks like before a students name is revealed</p>
+
+<p>Before a professor sees their class they are given a list of terms and then classes (in that term) to pick from. The data is all pulled from
+Northwestern’s registrar in real time (with caching of course, we’re not trying to be rude). Here’s what that look like before they reveal the students name:</p>
+
+<p>Forgive the blurs I don’t want to share anyone’s photo that they don’t want shared.</p>
+
+<p><img src="/assets/images/facedeck/start_start.png" alt="stack view reveal mode" /></p>
+
+<p>And here is what it looks like after 
+<img src="/assets/images/facedeck/start_mid_answer.png" alt="stack view reveal mode" /></p>
+
+<p>The system also provides tooltips the first time you see a page explaining how everythig works.</p>
+
+<p>The app looks view similar in canvas (only the menu bar is omitted for a more consistent experience with canvas).
+<img src="/assets/images/facedeck/canvas_integration.png" alt="stack view within canvas" /></p>
+
+<p>So that’s what it does!</p>
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>

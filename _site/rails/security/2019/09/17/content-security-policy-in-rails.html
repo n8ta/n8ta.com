@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111016820-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-111016820-3');
+    </script>
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+    <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+<div id="header-and-page">
+    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+    <div>
+        <a href="/">Home</a> > Setting up Security Headers & Cookies in Production Rails 5
+
+<article class="post">
+<h2 id="security-headers">Security Headers</h2>
+<h3 id="resources-for-verifying-your-headers-are-correct">Resources for verifying your headers are correct</h3>
+<p><a href="https://securityheaders.com/">securityheaders.com</a><br />
+<a href="https://observatory.mozilla.org//">observatory.mozilla.org</a><br /></p>
+
+<h3 id="csp">CSP</h3>
+<p>Read about what CSP is and why it matters check <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">this out</a>.
+CSP is configured for rails in <code class="language-plaintext highlighter-rouge">config/initalizers/content_security_policy.rb</code>. Here’s an example security policy.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">content_security_policy</span> <span class="k">do</span> <span class="o">|</span><span class="n">policy</span><span class="o">|</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">default_src</span> <span class="ss">:self</span><span class="p">,</span> <span class="ss">:https</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">font_src</span>    <span class="ss">:self</span><span class="p">,</span> <span class="ss">:https</span><span class="p">,</span> <span class="ss">:data</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">img_src</span>     <span class="ss">:self</span><span class="p">,</span> <span class="ss">:https</span><span class="p">,</span> <span class="ss">:data</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">object_src</span>  <span class="ss">:none</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">script_src</span>  <span class="ss">:self</span><span class="p">,</span> <span class="s2">"code.jquery.com"</span><span class="p">,</span> <span class="s2">"cdn.datatables.net"</span> <span class="s2">"cdnjs.cloudflare.com"</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">style_src</span>   <span class="ss">:self</span><span class="p">,</span> <span class="s2">"cdnjs.cloudflare.com"</span> <span class="s2">"cdn.datatables.net"</span> <span class="s2">"use.fontawesome.com"</span>
+  <span class="n">policy</span><span class="p">.</span><span class="nf">frame_src</span> <span class="s2">"*.duosecurity.com 'self'"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>The default policy is require https and only load content from ourselves. So if someone injects <code class="language-plaintext highlighter-rouge">&lt;script src='malicious.co.uk'&gt;&lt;/script&gt;</code> into the DOM it will violate the CSP and the browser will refuse to load it. Now we may want to include our our js, in this case jquery. So we can add any domain we want to the script_src policy. Any time you load a script or a style from a new domain you’ll need to add it to the CSP. Now it’s still possible for the script we load at code.jquery.com to change without our knowledge. To prevent this checkout the SRI section.</p>
+
+<p>It’s important to allow duo frames if you’re using MFA. Otherwise frame_src none is fine.</p>
+
+<p>It’s also good practice to download the files available at each of the CDNs listed and serve them yourself (and then remove them from the CSP). This prevents your code breaking what cdn.datatables.net goes down. And if you’re not using SRI it prevents malicious code from being injected into the page.</p>
+
+<h3 id="other-headers">Other Headers</h3>
+<p>Here’s a good default to put in <code class="language-plaintext highlighter-rouge">config/enviorments/production.rb</code></p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">config</span><span class="p">.</span><span class="nf">action_dispatch</span><span class="p">.</span><span class="nf">default_headers</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">'Referrer-Policy'</span> <span class="o">=&gt;</span> <span class="s1">'same-origin'</span><span class="p">,</span>
+      <span class="s1">'X-Content-Type-Options'</span> <span class="o">=&gt;</span> <span class="s1">'nosniff'</span><span class="p">,</span>
+      <span class="s1">'X-Frame-Options'</span> <span class="o">=&gt;</span> <span class="s1">'SAMEORIGIN'</span><span class="p">,</span>
+      <span class="s1">'X-XSS-Protection'</span> <span class="o">=&gt;</span> <span class="s1">'1; mode=block'</span><span class="p">,</span>
+      <span class="s1">'Feature-Policy'</span> <span class="o">=&gt;</span> <span class="s2">"accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; fullscreen 'self'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'; picture-in-picture 'none'; speaker 'self'; sync-xhr 'none'; usb 'none'; vr 'none'"</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p><strong>Referer-Policy</strong>: “same-origin” means do not tell any OTHER website we link to where the user came from. It is necessary to use same-origin instead of no-referrer as no-referrer breaks links like: <code class="language-plaintext highlighter-rouge">link_to user_path(@user), method: :delete</code> that use a special http action.</p>
+
+<p><strong>X-Content-Type-Options:</strong> “nosniff” means that the browser should trust the Content-Type send by the webserver eg. If they download a file called <code class="language-plaintext highlighter-rouge">user_upload.js.json</code> which was supposed to be json and the server believes is json but really contains malicious js form a user the browser will under no circumstances execute the file as javascript and treat it as json as the server directed.</p>
+
+<p><strong>X-Frame-Options:</strong> “SAMEORIGIN”: No one can <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code> us but ourselves.</p>
+
+<p><strong>X-XSS-Protection:</strong> “1; mode=block” Instruct the browser to make its best attempt to prevent XSS and if detected simply stop rendering.</p>
+
+<p><strong>Feature-Policy:</strong> ‘…’ Feature policy is a new header governing how the page and children (like other &lt;iframe’d&gt; pages) can access the devices features. Features include things like audio/video/motion/vr. If you need these features you chance this policy but turning them all off is a good default since most sites do not use them. As of September 2019 <a href="https://github.com/w3c/webappsec-feature-policy/issues/189">there is no way to disable all features without listing them</a>.</p>
+
+<h2 id="secure-cookie-session-store">Secure Cookie Session Store</h2>
+<p>Delete <code class="language-plaintext highlighter-rouge">config/initalizers/session_store.rb</code> 
+We’re going to configure cookies differently for each enviornment in <code class="language-plaintext highlighter-rouge">config/enviornments/*</code> 
+For production we prefix the key with <em>__Secure</em> which means it can only be read/written over https.
+We also add same_site: strict so that our app’s session cookie (differnet from the SSO cookie) isn’t sent to anyone else.</p>
+<h4 id="development">Development</h4>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span>
+  <span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">session_store</span> <span class="ss">:cookie_store</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<h4 id="production--staging">Production / Staging</h4>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span>
+  <span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">session_store</span> <span class="ss">:cookie_store</span><span class="p">,</span> <span class="ss">key: </span><span class="s1">'__Secure-session'</span><span class="p">,</span> <span class="ss">same_site: :strict</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="script-resource-integrity">Script Resource Integrity</h2>
+<p>To prevent scripts from being changed (eg jquery getting embedded with a key logger at a later date). We can serve a hash of our scripts and stylesheets along with their url. 
+So this</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.4.1.min.js"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+<p>Becomes</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://code.jquery.com/jquery-3.4.1.min.js"</span> <span class="na">integrity=</span><span class="s">"sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+<p>Then the browser downloads jquery-3.4.1 and if it’s hash doesn’t match the one we provided in the integrity attribute it won’t be used. <strong>This may break the page</strong> but that’s preferable to running unknown code. A great resource to generate these easily is <a href="https://www.srihash.org">www.srihash.org/</a></p>
+
+</article>
+
+    </div>
+</div>
+
+</body>
+</html>
