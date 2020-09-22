@@ -55,8 +55,10 @@
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>Now let’s see how it works.</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p1 = Person.create(name: "P1!")
+<p>Now let’s see how it works in the rails console</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bundle exec rails console
+
+p1 = Person.create(name: "P1!")
 p2 = Person.create(name: "P2!")
 bike = Bike.create(owner: p1, seller: p2)
 bike.owner.name

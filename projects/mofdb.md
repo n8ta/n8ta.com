@@ -1,11 +1,9 @@
 ---
 layout: project
 project: mofDB
+external_url: https://mof.tech.northwestern.edu
 title:  "mofDB is a database for high throughput screenings of metal organic frameworks. >4 Million Records"
 ---
-
-<img alt='link icon' src="/assets/images/external.png" class="external-img"/>
-[mof.tech.northwestern.edu](https://mof.tech.northwestern.edu)
 
 ### Purpose
 

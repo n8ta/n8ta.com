@@ -40,8 +40,10 @@ class Person < ApplicationRecord
 end
 ```
 
-Now let's see how it works.
+Now let's see how it works in the rails console
 ```
+$ bundle exec rails console
+
 p1 = Person.create(name: "P1!")
 p2 = Person.create(name: "P2!")
 bike = Bike.create(owner: p1, seller: p2)

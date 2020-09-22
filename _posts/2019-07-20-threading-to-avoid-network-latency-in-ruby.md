@@ -88,11 +88,11 @@ puts data
 Now we are making multiple network requests at the same time with can get a total runtime closer to 9000*RTT/num_threads. Bear in mind this inverse relationship between number of threads and total time isn't entirely accurate and you will reach a plateau. When I was scraping <a href='https://www.herpmapper.org/'>www.herpmapper.org/</a> 
 for <a href='/project/herpetology'>another project</a>, I generated the following data:
 
-<img src="https://i.postimg.cc/76bVR40f/threads.png"/>
+<img src="/assets/images/graph.png"/>
 
 From 1 thread to 4 I see a near 500% speed up.
 
-As you can see past 4/5 threads there really wasn't a performance improvement. And while this is specific to their server but the idea should be clear: there are huge performance improvements available BUT simply using as many threads as possible is not going to increase performance past some bottleneck.
+As you can see past 4/5 threads there really wasn't a performance improvement. And while this is specific to their server the idea should be clear: there are huge performance improvements available BUT simply using as many threads as possible is not going to increase performance past some bottleneck. And will likely decrease performance at some point due to overhead.
 
 Hope this helps you get started in threading with ruby.
 
