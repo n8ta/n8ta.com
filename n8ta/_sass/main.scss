@@ -8,6 +8,7 @@ h1 {
 article {
 
   &.post pre {
+    margin-top: 2rem;
     max-width: 800px;
     overflow: scroll;
   }
@@ -29,12 +30,15 @@ h1 {
 html {
   font-size: 140%;
   background-color: #fafafa;
+  font-family: Georgia, serif;
 }
 
 body {
-  margin: 0rem auto 1rem auto;
+  margin: 1rem auto 1rem auto;
   border-left: 1px solid black;
   padding: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   max-width: 40rem;
   display: grid;
   grid-template-columns: 1fr min-content;
