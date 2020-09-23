@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: ls
+      - run: touch id_rsa
       - run: echo ${{ secrets.ID_RSA }} >> ./id_rsa
       - run: chmod 400 ./id_rsa
       - run: ssh -i ./id_rsa cicd@18.222.56.243 cd /home/bitnami/htdocs/n8ta-jekyll && git pull && bundle exec jekyll build"
