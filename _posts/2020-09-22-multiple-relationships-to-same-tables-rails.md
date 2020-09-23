@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Multiple belongs_to relationships to the same model rails"
+title:  "Multiple belongs_to / has_many relationships to the same model rails"
 date:   2020-09-22 09:00:00 +0700
 categories: [Rails]
 ---
