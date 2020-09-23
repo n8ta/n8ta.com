@@ -1,0 +1,8 @@
+name: deploy-to-roku
+on: [push]
+jobs:
+  deploy-to-roku:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ls
