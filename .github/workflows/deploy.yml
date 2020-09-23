@@ -8,4 +8,4 @@ jobs:
       - run: 'echo "${{ secrets.ID_RSA }}" > id_rsa'
       - run: ls
       - run: chmod 400 ./id_rsa
-      - run: ssh -i ./id_rsa cicd@18.222.56.243 "cd /home/bitnami/htdocs/n8ta-jekyll && git pull && bundle exec jekyll build"
+      - run: ssh -i ./id_rsa cicd@18.222.56.243 /home/cicd/pull.sh
