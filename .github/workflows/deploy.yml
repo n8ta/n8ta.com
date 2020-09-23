@@ -8,4 +8,4 @@ jobs:
       - run: 'echo "${{ secrets.ID_RSA }}" > id_rsa'
       - run: ls
       - run: chmod 400 ./id_rsa
-      - run: ssh -i ./id_rsa cicd@18.222.56.243 /home/cicd/pull.sh
+      - run: ssh -o "StrictHostKeyChecking=no" -i ./id_rsa cicd@18.222.56.243 /home/cicd/pull.sh
