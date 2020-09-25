@@ -71,6 +71,7 @@ This creates a nice two way relationships and lets us developers use pretty name
 You may decide you want to add additional data to your join_table (How many visits, purchase price etc). I'll cover this in another post. This involves creating a model to represent the join.
 
 ### Robust Join Table Example
+
 ```ruby
 # db/migrate/xyz_people_own_and_visit_buildings.rb
 class PeopleOwnAndVisitBuildings < ActiveRecord::Migration[6.0]
