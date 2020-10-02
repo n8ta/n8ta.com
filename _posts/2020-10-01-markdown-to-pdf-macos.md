@@ -5,19 +5,28 @@ date:   2020-10-01 09:00:00 +0700
 categories: [macOS, homebrew, pandoc, pdf, markdown]
 ---
 
-I write my homework in markdown and my professor want pdfs. Here's what I do
+I write my homework in markdown and my professors usually want pdfs.
+ Here's what I do
 
 ## Install dependencies
-[pandoc](https://pandoc.org/)
-> "If you need to convert files from one markup format into another, pandoc is your swiss-army knife. Pandoc can convert between the following formats:"
-
-[basictex](https://tug.org/mactex/morepackages.html)
-basictex provides pdflatex, a lib needed by pandoc to convert markdown -> pdf
 
 ```bash
+# Install homebrew (see below)
 brew install pandoc
 brew cask install basictex
 ````
+
+<a href='https://brew.sh/' target='_blank'>homebrew</a>
+
+This is the main macOS package manager. If you do any programming on macOS you'll need it eventually. Follow the instruction on their homepage to install.
+
+<a href='https://pandoc.org/' target='_blank'>pandoc</a>
+> "If you need to convert files from one markup format into another, pandoc is your swiss-army knife..."
+
+<a href='https://tug.org/mactex/morepackages.html' target='_blank'>basictex</a>
+
+basictex provides pdflatex, a lib needed by pandoc to convert markdown -> pdf
+
 
 ## Do it
 ```bash
