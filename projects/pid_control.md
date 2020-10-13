@@ -1,7 +1,7 @@
 ---
-project: microcontroller
+project: PID Control of a Brushed DC Motor using a PIC32 Microcontroller
 layout: project
-title:  "PID motor control with the PIC32 microcontroller"
+title:  "PID Control of a Brushed DC Motor using a PIC32 Microcontroller"
 ---
 
 ### Purpose
