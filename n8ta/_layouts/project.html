@@ -1,17 +1,9 @@
 ---
 layout: default
 ---
+<div class="card">
 
-<a href="/">Home</a> > {{ page.project }}
-
-{% if page.external_url %}
-<div>
-    <br/>
-    <img alt='link icon' src="/assets/images/external.png" class="external-img"/>
-    <a href="{{ page.external_url }}" target="_blank">{{ page.external_url | slice: 8, 1000 }}</a>
+    <article class="project">
+        {{ content }}
+    </article>
 </div>
-{% endif %}
-
-<article class="project">
-    {{ content }}
-</article>

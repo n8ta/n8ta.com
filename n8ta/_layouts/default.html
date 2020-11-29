@@ -2,46 +2,54 @@
 ---
 <html lang="en">
 {% include head.html %}
-<body>
-<div id="info">
-    <div id="me">
-        <div>
-            <img class='special' src="/assets/images/nate.png"/>
+<body class="font-size-18">
+{% include halfmoon.html %}
+
+<div class="main-content">
+    <div id="info-wrap">
+        <div id='info-card' class="card">
+            <div id="info">
+
+                <div id="me">
+                    <div>
+                        <img class='rounded-circle img-fluid special' src="/assets/images/nate-square.png"/>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <a target="_blank" href="mailto:n8@u.northwestern.edu">
+                            <img src="/assets/images/mail-white.png"/>
+                            n8@u.northwestern.edu
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/n8ta">
+                            <img src="/assets/images/github-white.png"/>
+                            n8ta@Github
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/nathaniel-tracy-amoroso-549374101/">
+                            <img src="/assets/images/linkedin-white.png"/>
+                            Linkedin
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/assets/files/NateTracyAmoroso-Resume.pdf">
+                            <img src="/assets/images/resume-white.png"/>
+                            Resume
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <ul>
-        <li>
-            <a target="_blank" href="mailto:n8@u.northwestern.edu">
-                <img src="/assets/images/mail.png"/>
-                n8@u.northwestern.edu
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="https://github.com/n8ta">
-                <img src="/assets/images/github.png"/>
-                n8ta@Github
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="https://www.linkedin.com/in/nathaniel-tracy-amoroso-549374101/">
-                <img src="/assets/images/linkedin.png"/>
-                Linkedin
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="/assets/files/NateTracyAmoroso-Resume.pdf">
-                <img src="/assets/images/resume.png"/>
-                Resume
-            </a>
-        </li>
-    </ul>
-</div>
-<div id="header-and-page">
-    <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
-    <div>
-        {{ content }}
+    <div id="header-and-page">
+        {% include header.html %}
+        <div>
+            {{ content }}
+        </div>
     </div>
 </div>
-
 </body>
 </html>

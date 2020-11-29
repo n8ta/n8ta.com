@@ -15,7 +15,7 @@ People (have) has_and_belongs_to_many buildings.
 Assume we have tables for people and buildings.
 
 First we'll create a new migration (you may not be using bundler)
-```
+```bash
 $ bundle exec rails g migration people_own_and_visit_buildings
 ```
 
@@ -48,8 +48,9 @@ class Building < ApplicationRecord
 end
 ```
 
+
 Let's see how it works
-```bash
+<code class='bash'>
 $ bundle exec rails console
 p1 = Person.create(name: "Nate")
 p2 = Person.create(name: "Li")
@@ -65,7 +66,7 @@ p1.locations << build2
 p2.locations << build2
 build2.visitors.pluck(:name)
 => ["Nate", "Li"]
-```
+</code>
 
 This creates a nice two way relationships and lets us developers use pretty names like visitors and properties when writing code.
 You may decide you want to add additional data to your join_table (How many visits, purchase price etc). I'll cover this in another post. This involves creating a model to represent the join.
@@ -100,6 +101,5 @@ class PeopleOwnAndVisitBuildings < ActiveRecord::Migration[6.0]
     add_index "person_building_owned", ["person_id", "building_id"], unique: true
   end
 end
-
 ```
  

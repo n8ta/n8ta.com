@@ -68,6 +68,7 @@ DEPENDENCIES
   jekyll
   kramdown-parser-gfm
   n8ta!
+  rouge
 
 BUNDLED WITH
    2.1.4

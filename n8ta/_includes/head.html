@@ -11,7 +11,15 @@
     </script>
     <link rel="stylesheet" href="/assets/css/styles.css"/>
     <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="/assets/css/halfmoon.min.css">
     <link rel="stylesheet" href="/assets/css/atom-one-dark.css">
+    <script src="/assets/js/halfmoon.min.js"></script>
     <script src="/assets/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            halfmoon.toggleDarkMode();
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+
 </head>

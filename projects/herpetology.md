@@ -4,7 +4,7 @@ project: Herpetology.pro
 title:  "HerpetologyPro: Teaching people about herpetology and to identify herps in their area."
 ---
 
-<img alt='link icon' src="/assets/images/external.png" class="external-img"/>
+<img alt='link icon' src="/assets/images/external-white.png" class="external-img"/>
 [herpetology.pro](https://herpetology.pro)
 
 ### Purpose

@@ -1,0 +1,25 @@
+<div class="card" id="header">
+    <a id='homepage-link' href="/">
+        <h1 class="mt-0">Nate Tracy-Amoroso</h1>
+    </a>
+    {% if page.project %}
+    <div class='font-size-14' id="breadcrumb">
+        <nav aria-label="Breadcrumb navigation example">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item">{{ page.project }}</li>
+            </ul>
+        </nav>
+    </div>
+    {% elsif page.title %}
+    <div>
+        <a href="/">Home</a> > {{ page.title }}
+    </div>
+    {% else %}
+    <p class="left">
+        I'm Nate Tracy-Amoroso, a full stack developer from the instruction set architecture to front end js.
+        I pride myself on writing brief, efficient, and maintainable code.
+
+    </p>
+    {% endif %}
+</div>
