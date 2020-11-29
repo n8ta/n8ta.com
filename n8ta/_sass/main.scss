@@ -2,6 +2,15 @@ a:visited, a {
   color: blue;
 }
 
+body {
+  background-image: url('/assets/images/hex copy.png') !important;
+  background-repeat: repeat;
+}
+
+a {
+  //color: #51a55b !important;
+  text-decoration: underline;
+}
 
 article {
 
