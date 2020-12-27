@@ -4,7 +4,6 @@
 */
 
 
-console.info('run----')
 document.addEventListener('DOMContentLoaded',function() {
     const latest_post = document.getElementById('latest-post')
     if (latest_post) {
