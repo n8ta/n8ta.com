@@ -23,6 +23,15 @@ h1 {
   margin-bottom: 0;
 }
 
+#latest-post {
+  margin-top: 1rem;
+  padding: .5rem;
+  background-color: #ffff85;
+  border-radius: .3rem;
+  display: none
+  //border: 1px solid orange
+}
+
 #homepage-link {
   text-decoration: none;
 }
