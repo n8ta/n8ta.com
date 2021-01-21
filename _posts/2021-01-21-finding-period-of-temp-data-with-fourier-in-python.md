@@ -64,7 +64,7 @@ And tada!
 Period of the signal is 964 s = 16.07 mins
 {% endhighlight %}
 
-[#tldr on why this works](moral) 
+[#tldr on why this works](#moral) 
 
 Okay you're still here, maybe you're more interested in what the hell is happening here if so read on. First let's look at this raw data,
 that's always important when data processing.
