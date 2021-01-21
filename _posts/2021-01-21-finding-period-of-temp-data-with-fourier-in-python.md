@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Finding the period of temperature data using the fast fourier transform in python"
-date:   2020-01-21 09:00:00 +0700
+date:   2021-01-21 09:00:00 +0700
 categories: [Electronics, RaspberryPi]
 ---
 
