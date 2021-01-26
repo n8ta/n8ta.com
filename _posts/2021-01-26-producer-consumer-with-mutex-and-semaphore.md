@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Solving the producer consumer problem with pthread_mutex_t and sem_t semaphores"
-date:   2021-01-26 09:00:00 +0700
+title:  "Solving the producer consumer problem with pthread_mutex_t alone"
+date:   2021-01-26 10:00:00 +0700
 categories: [C++,C,mutex,pthreads,semaphores]
 ---
 
-C code for a producer consumer ring buffer using semaphores for synchronization.
+C code for a producer consumer buffer using semaphores for synchronization.
 
-Note that all the code is valid I just haven't included the struct used for passing around the semaphore, mutexes, and buffer as 
+Note that all the code is valid I just haven't included the struct used for passing around the semaphores, mutex, and buffer as
 that will be specific to your buffer.
 
 The approach is thoroughly described in the code comments.
@@ -30,12 +30,12 @@ int main() {
     sem_t empty = sem_open("/empty_slots", O_CREAT );
     sem_t full = sem_open("/full_slots", O_CREAT);
     for (int i = 0; i < size; i++) {
-        sem_post(ring->empty);  
+        sem_post(empty);  
     }
 
     // Maybe make some threads here and call push n pull below
     return 0;
-    
+
 }
 
 // Producer
