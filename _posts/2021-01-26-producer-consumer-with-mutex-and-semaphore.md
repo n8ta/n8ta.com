@@ -73,7 +73,7 @@ int produce(/* spinlock and your args */) {
 }
 
 // Consumer
-int consume(/* mutex, empty, full and your args */) {
+int consume(/* spinlock and your args */) {
 
     while (true) {
         acquire_lock(spinlock));
