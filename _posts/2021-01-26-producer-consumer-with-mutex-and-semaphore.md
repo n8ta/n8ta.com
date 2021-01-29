@@ -1,89 +1,95 @@
 ---
 layout: post
-title:  "Solving the producer consumer problem with pthread_mutex_t alone"
-date:   2021-01-26 10:00:00 +0700
-categories: [C++,C,mutex,pthreads,semaphores]
+title:  "Solving the producer consumer problem with an atomic_compare_and_swap spinlock"
+date:   2021-01-29 10:00:00 +0700
+categories: [C++,C,mutex,spinlock]
 ---
 
-A quick word about semaphores. Unless you need reference a semaphore acrosss multiple processes I highly recommend using
-`sem_init` over `sem_open`. `sem_open` creates semaphores that can persist beyond the life of your process if you don't properly close them.
-Say if you ctrl+c to stop a deadlocked program.
+Spinlocks are incredibly fast when there is 1 consumer and 1 producer. When there are more threads they are far slower than a semaphore
+or conditional variable implementation.
+
+For our spinlock we'll be using atomic_compare_and_swap. An atomic operation that takes three args 
+1. *int to the lock
+2. Expected value of the lock
+3. The value to swap into the lock if the value from step 2 is found in the lock.
+
+It then returns the found value of the spinlock which you must check. If the value is the value from #2 you've acquired the lock.
+If not you must keep spinning.
 
 
-C code for a producer consumer buffer using semaphores for synchronization. This implementation only allows one thread to use the buffer at
-a time.
-
-Note that all the code is valid I just haven't included the struct used for passing around the semaphores, mutex, and buffer as
+Note that all the code is valid I just haven't included the struct used for passing around the spinlock and buffer as
 that will be specific to your buffer.
 
 The approach is thoroughly described in the code comments.
 
 {% highlight C %}
 
-#include <semaphore.h>
-#include <fcntl.h>
-#include <errno.h>
+
+#define FREE 0
+#define LOCKED 1
+
+#define true 1
+#define false 0
+
+// gcc built in: may be different for your compiler
+#define atomic_compare_and_swap(destptr, oldval, newval) __sync_bool_compare_and_swap(destptr, oldval, newval)
 
 int main() {
-
-    // You may only modify the buffer (not pictured) if you lock this mutex
-    pthread_mutex_t mutex;
-    pthread_mutex_init(&mutex, NULL);
-
-    // These semaphores track the # of full and empty slots in the buffer
-    // Note we init the empty semaphore to the total # of slots as
-    // it starts out empty.
-    empty = (sem_t*) malloc(sizeof(sem_t));
-    full = (sem_t*) malloc(sizeof(sem_t));
-    // number of empty slots if the size of the buffer
-    sem_init(empty, 0, size); 
-    sem_init(full, 0, 0);
-    // Maybe make some threads here and call push n pull below
-    return 0;
-
+    spinlock = FREE ;
 }
 
-// Producer
-int produce(/* mutex, empty, full and your args */) {
 
-    // For a push to continue empty must not be 0 so we wait for 
-    // empty != 0. When that happens sem_wait calls empty-- 
-    // and pushing begins.
-    sem_wait(empty);
-    
-    // Get exclusive use of the buffer
-    pthread_mutex_lock(mutex);
+void acquire_lock(int* lock) {
+    // Constantly check if lock is FREE and if so 
+    // replace it's value with with LOCKED and return
+    while (atomic_compare_and_swap(lock, FREE, LOCKED)) {};
+}
+
+void release_lock(int* lock) {
+    // No races here as we have the lock
+    *lock = FREE;
+}
+
+
+// Producer
+int produce(/* spinlock and your args */) {
+
+    while (true) {
+        acquire_lock(spinlock));
+        // If we can push break out of this loop
+        // If not the ring is full and we must release the lock
+        // To avoid contention on the lock iteself then we spin
+        // on the can_push function.
+        if (can_push()) { break; } 
+        release_lock(spinlock);
+        // spin on can_push to avoid stopping the consumer from getting the lock
+        while (!can_push()) {}; 
+    }   
 
     // PUSH ITEM ONTO THE BUFFER
-
-    // Now that we've added an item there is one more full slot.
-    // sem_post adds one to full possibly waking up a consumer
-    sem_post(full);
-
-    // Release the mutex for the next person
-    pthread_mutex_unlock(mutex);
+    
+    release_lock(spinlock)
     return 0;
 }
 
 // Consumer
 int consume(/* mutex, empty, full and your args */) {
 
-    // To pull we need at least one full slot. Aka full != 0, so we wait 
-    // on the semaphore full./ When full is non-zero we are 
-    // unblocked and sem_wait decrements it.
-    sem_wait(full);
+    while (true) {
+        acquire_lock(spinlock));
+        // If we can pull break out of this loop
+        // If not the ring is empty and we must release the lock
+        // To avoid contention on the lock iteself then we spin
+        // on the can_pull function.
+        if (can_pull()) { break; } 
+        release_lock(spinlock);
+        // spin on can_pull to avoid stopping the producer from getting the lock
+        while (!can_pull()) {}; 
+    }   
 
-    // Get exclusive use of the buffer
-    pthread_mutex_lock(mutex);
-
-    // PULL AN ITEM OF THE BUFFER
+    // PULL ITEM FROM THE BUFFER
     
-    // Now that we've pulled there's one more empty slot so add one 
-    // to empty possibly waking up a producer
-    sem_post(empty);
-
-    // Release the mutex for the next person
-    pthread_mutex_unlock(mutex);
+    release_lock(spinlock)
     return 0;
 }
 {% endhighlight %}

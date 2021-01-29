@@ -1,19 +1,25 @@
 ---
 layout: post
-title:  "Solving the producer consumer problem with mutexes (pthread_mutex_t) and conditional variables (pthread_cond_t)"
+title:  "Solving the producer consumer problem with mutexes (pthread_mutex_t) and semaphores (sem_t)"
 date:   2021-01-26 10:00:00 +0700
-categories: [C++,C,mutex,pthreads,conditionals]
+categories: [C++,C,mutex,pthreads,semaphores]
 ---
 
-C code for a producer consumer buffer using mutexes and conditional variables for synchronization.
+A quick word about semaphores. Unless you need reference a semaphore acrosss multiple processes I highly recommend using 
+`sem_init` over `sem_open`. `sem_open` creates semaphores that can persist beyond the life of your process if you don't properly close them.
+Say if you ctrl+c to stop a deadlocked program. 
 
-Note that all the code is valid I just haven't included the struct used for passing around the conditions, mutex, and buffer as
+C code for a producer consumer buffer using mutexes and semaphores for synchronization.
+
+Note that all the code is valid I just haven't included the struct used for passing around the semaphores, mutex, and buffer as
 that will be specific to your buffer.
 
 The approach is thoroughly described in the code comments.
 
 {% highlight C %}
 
+#include <semaphore.h>
+#include <fcntl.h> // For O_CREAT flag
 
 
 int main() {
