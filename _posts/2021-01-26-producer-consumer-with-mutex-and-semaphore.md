@@ -5,7 +5,13 @@ date:   2021-01-26 10:00:00 +0700
 categories: [C++,C,mutex,pthreads,semaphores]
 ---
 
-C code for a producer consumer buffer using semaphores for synchronization.
+A quick word about semaphores. Unless you need reference a semaphore acrosss multiple processes I highly recommend using
+`sem_init` over `sem_open`. `sem_open` creates semaphores that can persist beyond the life of your process if you don't properly close them.
+Say if you ctrl+c to stop a deadlocked program.
+
+
+C code for a producer consumer buffer using semaphores for synchronization. This implementation only allows one thread to use the buffer at
+a time.
 
 Note that all the code is valid I just haven't included the struct used for passing around the semaphores, mutex, and buffer as
 that will be specific to your buffer.
@@ -15,8 +21,8 @@ The approach is thoroughly described in the code comments.
 {% highlight C %}
 
 #include <semaphore.h>
-#include <fcntl.h> // For O_CREAT flag
-
+#include <fcntl.h>
+#include <errno.h>
 
 int main() {
 
@@ -25,14 +31,13 @@ int main() {
     pthread_mutex_init(&mutex, NULL);
 
     // These semaphores track the # of full and empty slots in the buffer
-    // Not we init the empty semaphore to the total # of slots as
+    // Note we init the empty semaphore to the total # of slots as
     // it starts out empty.
-    sem_t empty = sem_open("/empty_slots", O_CREAT );
-    sem_t full = sem_open("/full_slots", O_CREAT);
-    for (int i = 0; i < size; i++) {
-        sem_post(empty);  
-    }
-
+    empty = (sem_t*) malloc(sizeof(sem_t));
+    full = (sem_t*) malloc(sizeof(sem_t));
+    // number of empty slots if the size of the buffer
+    sem_init(empty, 0, size); 
+    sem_init(full, 0, 0);
     // Maybe make some threads here and call push n pull below
     return 0;
 
