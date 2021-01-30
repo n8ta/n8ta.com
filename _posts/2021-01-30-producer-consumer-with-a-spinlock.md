@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Solving the producer consumer problem with an atomic_compare_and_swap spinlock"
-date:   2021-01-26 10:00:00 +0700
+date:   2021-01-30 10:00:00 +0700
 categories: [C++,C,mutex,spinlock]
 ---
 
