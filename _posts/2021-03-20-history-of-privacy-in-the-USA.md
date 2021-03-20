@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "History of Privacy in the USA"
-date:   2021-03-15 10:00:00 +0700
+date:   2021-03-20 10:00:00 +0700
 categories: [ethics]
 ---
 I made this as a summary of the following paper.
