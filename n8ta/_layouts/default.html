@@ -9,41 +9,49 @@
             <img class='special' src="/assets/images/nate.png"/>
         </div>
     </div>
-    <ul>
-        <li>
-            <a target="_blank" href="mailto:n8@u.northwestern.edu">
-                <img src="/assets/images/mail.png"/>
-                n8@u.northwestern.edu
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="https://github.com/n8ta">
-                <img src="/assets/images/github.png"/>
-                n8ta@Github
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="https://www.linkedin.com/in/nathaniel-tracy-amoroso-549374101/">
-                <img src="/assets/images/linkedin.png"/>
-                Linkedin
-            </a>
-        </li>
-        <li>
-            <a target="_blank" href="/assets/files/NateTracyAmoroso-Resume.pdf">
-                <img src="/assets/images/resume.png"/>
-                Resume
-            </a>
-        </li>
-    </ul>
+    <div>
+        <ul>
+            <li>
+                <a target="_blank" href="mailto:n8@u.northwestern.edu">
+                    <img src="/assets/images/mail.png"/>
+                    n8@u.northwestern.edu
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="https://github.com/n8ta">
+                    <img src="/assets/images/github.png"/>
+                    n8ta@Github
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="https://www.linkedin.com/in/nathaniel-tracy-amoroso-549374101/">
+                    <img src="/assets/images/linkedin.png"/>
+                    Linkedin
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="/assets/files/NateTracyAmoroso-Resume.pdf">
+                    <img src="/assets/images/resume.png"/>
+                    Resume
+                </a>
+            </li>
+        </ul>
+<!--        <br/>-->
+<!--        <em>Fun Reading</em>-->
+<!--        <ul class="small">-->
+<!--            <li><a href="https://solar.lowtechmagazine.com/">Low Tech Magazine</a></li>-->
+<!--            <li>More to come...</li>-->
+<!--        </ul>-->
+    </div>
 </div>
 <div id="header-and-page">
     <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
     {% for post in site.posts %}
-    {% if page.url == "/index.html" or page.url == "/"  %}
-        <div id="latest-post" data-time='{{ post.date | date: "%s" }}'>
-            <div><strong>New Post</strong> {{ post.date | date: "%b %d" }}</div>
-            <a href="{{ post.url }}">{{ post.title }}</a>
-        </div>
+    {% if page.url == "/index.html" or page.url == "/" %}
+    <div id="latest-post" data-time='{{ post.date | date: "%s" }}'>
+        <div><strong>New Post</strong> {{ post.date | date: "%b %d" }}</div>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+    </div>
     {% endif %}
     {% endfor %}
     <div>

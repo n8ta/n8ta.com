@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "History of Privacy in the USA"
+title:  "History of Privacy Law"
 date:   2021-03-20 10:00:00 +0700
 categories: [ethics]
 ---
