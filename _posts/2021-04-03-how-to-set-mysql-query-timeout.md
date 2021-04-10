@@ -35,7 +35,6 @@ In general this file is loaded because
 #
 # ...
 #
-
 !includedir /etc/mysql/conf.d/
 !includedir /etc/mysql/mysql.conf.d/ <---
 {% endhighlight %}
