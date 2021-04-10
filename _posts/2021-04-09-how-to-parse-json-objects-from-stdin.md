@@ -37,7 +37,7 @@ implementation.
 <tr>
     <td>Extra chars at the end?</td>
     <td><code>json.decoder.JSONDecodeError</code></td>
-    <td>No</td>
+    <td>Leaves them</td>
 </tr>
 </tbody>
 </table>
