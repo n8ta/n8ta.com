@@ -1,3 +1,9 @@
 theme: n8ta
 sass:
   style: compact
+plugins:
+  - jekyll-feed
+title: "Nate Tracy-Amoroso's Homepage"
+description: "Tech and Whatever Else"
+url: "https://n8ta.com"
+author: "Nate Tracy-Amoroso"

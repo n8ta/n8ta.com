@@ -56,9 +56,9 @@ def add(a, b):
 
 doctest won't be able to find that there is a docstring on the add function because the decorator threw through it away here:
 {% highlight python %}
-        def inner(*args, **kwargs): 
-            return _func(*args, **kwargs) + the_arg # _func has the docstring
-        return inner # but inner doesn't becuase it's a brand new function
+def inner(*args, **kwargs): 
+    return _func(*args, **kwargs) + the_arg # _func has the docstring
+return inner # but inner doesn't becuase it's a brand new function
 {% endhighlight  %}
 
 All we have to do is add [one line ](#important_line)
