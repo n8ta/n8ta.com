@@ -20,7 +20,7 @@ def factory(the_arg):
         return inner
     return decorator
 
-@factory("blah)
+@factory("blah")
 def new_function():
     pass
 {% endhighlight  %}
