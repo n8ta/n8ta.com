@@ -19,6 +19,10 @@ def factory(the_arg):
         inner.__doc__ = _func.__doc__ 
         return inner
     return decorator
+
+@factory("blah)
+def new_function():
+    pass
 {% endhighlight  %}
 
 I like using doctest for python3 to write tests. It looks like this
