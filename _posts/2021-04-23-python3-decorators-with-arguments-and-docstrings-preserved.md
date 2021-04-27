@@ -13,16 +13,29 @@ def factory(the_arg):
     def decorator(_func): 
         # Decorator creates this function 'inner' to replace the original
         def inner(*args, **kwargs): 
-            print(f"Look we can use {the_arg} here!")
-            return _func(*args, **kwargs)
+            print(f"Pre function : {the_arg}")
+            return_val = _func(*args, **kwargs)
+            print(f"Post function : {the_arg}")
+            return return_val
         # Assign the original functions docstring to the new version 'inner'
         inner.__doc__ = _func.__doc__ 
         return inner
     return decorator
 
-@factory("blah")
+@factory("some_arg")
 def new_function():
-    pass
+    print("Hello from new_function")
+
+new_function()
+
+{% endhighlight  %}
+
+{% highlight shell %}
+> python3 example.py
+Pre function : some_arg
+Hello from new_function
+Post function : some_arg
+
 {% endhighlight  %}
 
 I like using doctest for python3 to write tests. It looks like this
