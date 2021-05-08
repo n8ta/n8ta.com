@@ -6,7 +6,7 @@ title:  "FACETS: Faculty Advancement Consolidated Evaluation Tracking System for
 
 ### Purpose
 
-FACETS is a tool I built at Northwestern University to track professors through the tenure process at Northwestern university. The tool gets used by the administration, faculty, and professors at other universities to compile all the information 
+FACETS is a tool I built at Northwestern University to track professors through the tenure process. The tool gets used by the administration, faculty, and professors at other universities to compile all the information 
 needed to discuss a tenure case.
 
 Unfortunately this system is only accessible to professor @ Northwestern so you likely cannot see the [live site](https://facets.mccormick.northwestern.edu/). There are many screenshots below.
@@ -14,22 +14,26 @@ Unfortunately this system is only accessible to professor @ Northwestern so you 
 ### Tech
 
 FACETS is essentially a complicated file storage system that provisions access on the fly based on human resources data.
-The system parses those apis responses to determine if someone is a professor, what kind of professor they are, and then decides which cases
-and how much of each case they can view. The system also allows for custom roles to be added to users like Department Administrator,
-Dean, Provost, etc. which all allow different levels of access. 
+The system parses those apis responses to determine:
+
+1. Are they a professor? 
+2. What kind? Full, assistant, instruction? 
+3. Whose cases can they view?
+4. Which documents in those cases?
+
+FAECTS also allows for custom roles to be added to users like Department Administrator,
+Dean, Provost, etc. which all allow different levels of access for special admin folks.
 
 The other complexity the system handles is allowing people who do not have access to a Northwestern University single-sign-on account (netid) to access the system to upload their reference letters (about faculty up for tenure).
-To handle these people I design facets to generate secure one time use tokens that can be emailed and allow the recipient to upload
+To handle these people I added the ability facets to generate secure one time use tokens that can be emailed and allow the recipient to upload
 a single document into the case (and then revoke access). The tokens look something like this [facets.mccormick.northwestern.edu/tokens/35783cf2672835428f8c08f88c9f7da3b024d292](#).
 
 The coolest features for the end users are, 
 
 1. PDF merge of entire case or selected docs (I swear MANY people merge the case into one pdf and print it),
 2. ZIP of selected documents
-3. Auto file naming (previously the deparment administrators renamed all files by hand to match a convention)
+3. Auto file naming (previously the department administrators renamed all files by hand to match a convention)
 4. Drag and drop file upload (dropzone.js -> rails endpoint)
- 
-
  
 Here's a few of those features
 
