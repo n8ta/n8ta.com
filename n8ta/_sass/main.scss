@@ -10,7 +10,6 @@ article {
   &.post pre {
     margin-top: 2rem;
     max-width: 800px;
-    overflow: scroll;
   }
 
   img {
@@ -94,13 +93,22 @@ body {
   }
 }
 
+figure {
+  margin-left: 0
+}
+
 @media (width < 1000px) {
+  html {
+    font-size: 250%
+  }
   body {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
           'info'
           'content';
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   #info {
     li {
