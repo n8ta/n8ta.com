@@ -2,6 +2,10 @@ a:visited, a {
   color: blue;
 }
 
+code {
+
+}
+
 h1 {
   margin-top: 0;
 }
@@ -97,7 +101,7 @@ figure {
   margin-left: 0
 }
 
-@media (width < 1000px) {
+@media (width < 800px) {
   html {
     font-size: 250%
   }

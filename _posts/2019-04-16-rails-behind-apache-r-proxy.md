@@ -19,6 +19,7 @@ a2enmod proxy proxy_ajp proxy_http rewrite deflate headers proxy_balancer proxy_
 {% endhighlight %}
 Then, add a virtual host in your /etc/apache2/sites-enabled/something-something.conf file or wherever you specify your virtual hosts.
 It should look like this:
+
 {% highlight apache %}
 
 <VirtualHost *:80> 
