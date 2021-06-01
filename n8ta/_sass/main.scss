@@ -102,9 +102,6 @@ figure {
 }
 
 @media (width < 800px) {
-  html {
-    font-size: 250%
-  }
   body {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
