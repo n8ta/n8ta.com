@@ -182,3 +182,14 @@ A few flags worth knowing are
 
 That's all I have for you today! If you have ideas for what you'd like to see in an intermediate interactive `awk`
 guide, shoot me an email (on homepage).
+
+-Nate
+
+<br/><br/><br/><br/><br/><br/><br/>
+<hr/>
+
+Licensing notes: 
+
+Some examples are pulled from the [GNU awk users guide](https://www.gnu.org/software/gawk/manual/gawk.html) under the [GNU Free Documentation License](https://www.gnu.org/software/gawk/manual/gawk.html#GNU-Free-Documentation-License)
+
+[awkjs](https://www.npmjs.com/package/awkjs) is used under the [MIT license](https://github.com/petli-full/awkjs/blob/master/LICENSE)
