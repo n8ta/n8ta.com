@@ -122,7 +122,34 @@ figure {
   }
 }
 
+.awk_input {
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: 0;
+  outline: none;
+  font-family: "Source Code Pro", Monaco, monospace;
+  margin-bottom: 0rem;
+}
 
+.awk_text {
+  width: 100%;
+  background-color: #f4f3ec;
+  font-family: "Source Code Pro", Monaco, monospace;
+  margin-bottom: 1rem;
+  outline: none;
+  &#mail_list {
+    height: 14rem;
+  }
+}
+
+pre.awk_output {
+  margin-top: 0;
+  background-color: black;
+  color: white;
+  font-size: 0.75rem;
+  font-family: "Source Code Pro", Monaco, monospace;
+}
 
 .spaced-list {
   li {
