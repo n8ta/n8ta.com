@@ -31,7 +31,7 @@ Jean-Paul 555-2127  jean.campanorum@nyu.edu     R
 </textarea>
 
 
-Let's try an easy example with no pattern. Printing the first column. 
+Let's try an easy example with no pattern. Printing the first column. (Press enter to run) 
 
 Try printing multiple columns `$2 $3`. Try adding a space between those columns by
 using " " (no spaces needed for concatenation)
