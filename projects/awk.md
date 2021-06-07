@@ -47,6 +47,8 @@ Let's try an easy example with no pattern. Printing the first column. (Press ent
 Next let's print columns `$1` and `$2` separated by a space `" "` <br/>That looks like this : `$1 " " $2`<br/> `print` will accept multiple arguments separated by
 spaces (no plus signs here)
 
+You'll need to modify the code this time, adding " "
+
 {% include awk_console.html awk_file="mail_list" awk_soln="hello_world2" awk_init="awk '{ print $1 $2 }' mail_list" %}
 
 Okay how about a pattern? You saw `$1` means column one. How about printing the phone number for every Bill?
