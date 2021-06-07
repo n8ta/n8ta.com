@@ -61,7 +61,7 @@ async function handle_enter(input) {
     } else {
         console.info(oracle_output.output, output.stdout)
         outputNode.classList.add("incorrect")
-        outputNode.innerText = ">>> Doesn't match my solution\n" + output.stdout
+        outputNode.innerText = ">>> Doesn't match known solution. Try again or press 'Reveal Solution'\n" + output.stdout
     }
 
 }
