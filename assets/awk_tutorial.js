@@ -90,6 +90,9 @@ function reveal(button) {
     input.value = SOLUTIONS[awk_soln];
     handle_enter(input);
 }
+function awk_run(button) {
+    handle_enter(button.parentElement.querySelector('.awk_input'))
+}
 
 document.addEventListener("DOMContentLoaded", function (event) {
     const inputs = document.getElementsByClassName('awk_input');
