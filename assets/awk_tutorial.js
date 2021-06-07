@@ -78,7 +78,8 @@ const SOLUTIONS = {
     'logical1': 'awk \'$2 >= 65 && $3 == "USA" {print $1}\' people',
     'logical2': 'awk \'$2 >= 65 || $3 == "NG" {print $1}\' people',
     'multPatt': 'awk \'$3 == "USA" && $2 >= 65 { usa += 1 } $3 != "USA" && $2 >= 65 { non_usa += 1 } END { print usa " " non_usa }\' people',
-    'odd': 'awk \'NR % 2 == 1 { print $0 }\' people'
+    'odd': 'awk \'NR % 2 == 1 { print $0 }\' people',
+    'column_2': 'awk \'$1 == "Bill" { print $2 } $2 == "555-3430" { print $1 }\' mail_list',
 }
 
 function reveal(button) {
@@ -87,7 +88,7 @@ function reveal(button) {
     const input = button.parentElement.querySelector('.awk_input');
     console.info(input)
     input.value = SOLUTIONS[awk_soln];
-    // handle_enter(input);
+    handle_enter(input);
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {

@@ -53,6 +53,15 @@ Okay how about a pattern? You saw `$1` means column one. How about printing the 
 
 {% include awk_console.html awk_file="mail_list" awk_soln="column_1" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
 
+Next let's try multiple patterns. In addition to printing all Bill's phone numbers let's print the name of the person with 
+the phone number `555-3430`.
+
+```pattern1 { code1 } pattern2 { code2 }```
+
+{% include awk_console.html awk_file="mail_list" awk_soln="column_2" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
+
+
+
 awk variables can be initialized in a `BEGIN { code here }` pattern or just default to 0. Here's an example where we add
 5 so s for each line. awk also supplies a `length()` function that can accept a column.
 
