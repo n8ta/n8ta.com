@@ -1,0 +1,61 @@
+
+.awk_text {
+  width: 100%;
+  background-color: #f4f3ec;
+  margin-bottom: 1rem;
+  outline: none;
+
+  &#mail_list {
+    height: 14rem;
+  }
+
+  &#people {
+    height: 15rem;
+  }
+
+  font-family: "Source Code Pro", Monaco, monospace;
+}
+
+
+.awk {
+  font-family: "Source Code Pro", Monaco, monospace;
+  //font-size: 1rem;
+  textarea.awk_input.consoleH2 {
+    height: 3rem;
+  }
+
+  textarea.awk_input {
+    font-size: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border: 0;
+    outline: none;
+
+    height: 2rem;
+    margin-bottom: 0rem;
+    padding: 0.5rem;
+    padding-bottom: 0;
+  }
+
+  pre.awk_output {
+    display: none;
+    padding: 0.5rem;
+    margin-top: 0;
+    background-color: rgba(31, 29, 29, 0.94);
+    color: white;
+
+    &.exception, &.incorrect {
+      color: red;
+    }
+
+    &.correct {
+      background-color: forestgreen;
+    }
+  }
+
+  .awk_reveal {
+    margin-top: 0.5rem;
+
+  }
+}
