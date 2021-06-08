@@ -53,7 +53,11 @@ html {
 
 
 body {
-  margin: 1rem auto 1rem auto;
+  &.no_info {
+    grid-column-gap: 0;
+    max-width: 40rem;
+  }
+  margin: 0rem auto 0rem auto;
   padding: 2rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -104,6 +108,9 @@ figure {
 }
 
 @media (width < 800px) {
+  html {
+    font-size: 150%;
+  }
   body {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
@@ -111,6 +118,7 @@ figure {
           'info'
           'content';
     padding-left: 1rem;
+    grid-column-gap: 0;
     padding-right: 1rem;
   }
   #info {

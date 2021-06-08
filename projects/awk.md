@@ -62,8 +62,6 @@ the phone number `555-3430`.
 
 {% include awk_console.html awk_file="mail_list" awk_soln="column_2" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
 
-
-
 awk variables can be initialized in a `BEGIN { code here }` pattern or just default to 0. Here's an example where we add
 5 to s for each line. awk also supplies a `length()` function that can accept a column.
 
