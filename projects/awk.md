@@ -65,7 +65,7 @@ the phone number `555-3430`.
 
 
 awk variables can be initialized in a `BEGIN { code here }` pattern or just default to 0. Here's an example where we add
-5 so s for each line. awk also supplies a `length()` function that can accept a column.
+5 to s for each line. awk also supplies a `length()` function that can accept a column.
 
 The `END` pattern matches once after all rows are complete.
 
@@ -89,14 +89,14 @@ Let's try and use if else to print (senior) + the name of everyone whose age is 
 
 <textarea class="awk_text" id="people">
 Frances-Spence         90    USA
-明美,あけみ              52    JP
+菅義偉                  72    JP
 Nate                   21    USA
-DojaCat                21    USA
+Moondog                83    USA
 Michael-Fastbender     42    USA
-氏                     42    CN
+沈向洋                  54    CN
 Jordan-Etude           13    USA
 Aditi-Acharya          83    IN
-정                     75    KR
+차미영                   41    KR
 Navya-Reddy            55    IN
 Bolade-Ibrahim         28    NG
 Jean-Bartik            87    USA
@@ -135,7 +135,7 @@ Multiple patterns looks like this
 
 `awk 'pattern1 { code1 } pattern2 { code2 } END { finalCode }' people`
 
-Your solution should be two numbers separated by a space `3 2`
+Your solution should be two numbers separated by a space `4 2`
 
 {% include awk_console.html awk_file="people" awk_soln="multPatt" awk_init="awk '{}' people" consoleClass="consoleH2" %}
 
