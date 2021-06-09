@@ -16,7 +16,7 @@ async function handle_enter(input) {
 
     const sourceText = document.getElementById(input.parentElement.dataset['awk_file']).value
     console.info(sourceText)
-    const awkStr = input.value.replace("\n", "");
+    const awkStr = input.innerHTML.replace("\n", "");
     if (!awkStr.startsWith(CMD_START)) {
         alert("Your command must start with `awk '`");
         return
@@ -80,6 +80,7 @@ const SOLUTIONS = {
     'multPatt': 'awk \'$3 == "USA" && $2 >= 65 { usa += 1 } $3 != "USA" && $2 >= 65 { non_usa += 1 } END { print usa " " non_usa }\' people',
     'odd': 'awk \'NR % 2 == 1 { print $0 }\' people',
     'column_2': 'awk \'$1 == "Bill" { print $2 } $2 == "555-3430" { print $1 }\' mail_list',
+    'phonenum': 'awk \'$1 == "Bill" { print $2 } $2 == "555-3430" { print $1 }\' mail_list',
 }
 
 function reveal(button) {
@@ -87,7 +88,7 @@ function reveal(button) {
     console.info(awk_soln)
     const input = button.parentElement.querySelector('.awk_input');
     console.info(input)
-    input.value = SOLUTIONS[awk_soln];
+    input.innerHTML = SOLUTIONS[awk_soln];
     handle_enter(input);
 }
 function awk_run(button) {

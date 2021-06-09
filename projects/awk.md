@@ -13,8 +13,11 @@ code for each match.
 `awk` is available on almost every single linux system.
 
 ```text
-pattern { code } #  runs when line matches pattern
-{ code } #  matches any line
+#  runs if line matches pattern
+pattern { code }
+    
+#  matches any line 
+{ code } 
 ```
 
 Here's an example of an awk command that just returns its input. Click into the terminal and press `enter`.
@@ -60,7 +63,7 @@ the phone number `555-3430`.
 
 ```pattern1 { code1 } pattern2 { code2 }```
 
-{% include awk_console.html awk_file="mail_list" awk_soln="column_2" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
+{% include awk_console.html awk_file="mail_list" awk_soln="phonenum" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
 
 awk variables can be initialized in a `BEGIN { code here }` pattern or just default to 0. Here's an example where we add
 5 to s for each line. awk also supplies a `length()` function that can accept a column.
@@ -100,8 +103,9 @@ Bolade-Ibrahim         28    NG
 Jean-Bartik            87    USA
 Leslie-Lamport         80    USA           
 </textarea>
-For example
+
 ```
+# Output format:
 (senior) Frances Spence
 Nate
 DojaCat

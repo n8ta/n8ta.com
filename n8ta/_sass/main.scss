@@ -14,8 +14,9 @@ h1 {
 article {
 
   &.post pre:not(.awk_output) {
-    margin-top: 2rem;
-    max-width: 800px;
+  //  //margin-top: 2rem;
+    max-width: 40rem;
+    //overflow: scroll;
   }
 
   img {
@@ -107,19 +108,19 @@ figure {
   margin-left: 0
 }
 
-@media (width < 800px) {
-  html {
-    font-size: 150%;
-  }
+@media screen and (max-width: 1000px) {
   body {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
           'info'
           'content';
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     grid-column-gap: 0;
-    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 1rem;
+    max-width: unset;
   }
   #info {
     li {
