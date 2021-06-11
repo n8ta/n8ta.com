@@ -7,4 +7,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: 'echo "${{ secrets.ID_RSA }}" > id_rsa'
       - run: chmod 400 ./id_rsa
-      - run: ssh -o "StrictHostKeyChecking=no" -i ./id_rsa cicd@n8ta.com /home/cicd/nate.sh
+      - run: ssh -o "StrictHostKeyChecking=no" -i ./id_rsa cicd@n8ta.com /home/cicd/nate
