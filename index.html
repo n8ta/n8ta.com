@@ -2,33 +2,42 @@
 title: Nate Tracy-Amoroso's Personal Website
 layout: default
 ---
-<p> I'm Nate Tracy-Amoroso, a full stack developer from the instruction set architecture to front end js. I pride myself on writing brief, efficient, and maintainable code.
+<p> I'm Nate Tracy-Amoroso, a full stack developer from the instruction set architecture to front end js.
+    I pride myself on writing fast, legible, and maintainable code.
 </p>
-<pre>Currently in the <a target="_blank" href="https://www.smbc-comics.com/index.php?db=comics&id=2177">dunning kruger valley</a></pre>
-<h2>Projects</h2>
-<ul class="spaced-list">
-    <li><a href="/projects/awk.html">Basic awk</a><br>A simple interactive introduction to awk</li>
-    <li><a href="/projects/pid_control.html">PID Control</a><br/>PID Control of a brushed DC motor on the PIC32 Microcontroller</li>
-    <li><a href="/projects/mofdb.html">MofDB</a><br/>~5 million row chemoinformatics database and API</li>
-    <li><a href="/projects/facets.html">Facets</a><br/>Tenure tracking for Northwestern University</li>
-    <li><a href="/projects/facedeck.html">Facedeck</a><br/>Student name/photo flashcards for professors at Northwestern
-    </li>
-    <li><a href="/projects/herpetology.html">Herpetology.pro</a><br/>A platform for reptile/amphibian education</li>
-    <li>Numerous brochureware sites for businesses, individuals, and non-profits.
-        <a target="_blank" href="https://www.davemeyersonlaw.com/">1</a>
-        <a target="_blank" href="https://pentaxs.com/">2</a>
-        <a target="_blank" href="https://andrealyon.com/">3</a>
-        <a target="_blank" href="https://defendergeneralsoffice.com/">4</a>
-        <a target="_blank" href="https://impactchicago.org/">5</a>
-    </li>
-</ul>
-<h2>Posts</h2>
-<ol class="spaced-list">
-    {% for post in site.posts %}
-    <li>
-        <i><span>{{ post.date | date_to_string }}</span></i>
-        <br/>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-    {% endfor %}
-</ol>
+<section>
+    <h2>Projects</h2>
+    <ul class="spaced-list">
+        <li><a href="/projects/awk.html">Basic awk </a><span class="new">new</span><br/>A simple interactive
+            introduction to
+            awk<br/></li>
+        <li><a href="/projects/pid_control.html">PID Control</a><br/>PID Control of a brushed DC motor on the PIC32
+            Microcontroller
+        </li>
+        <li><a href="/projects/mofdb.html">MofDB</a><br/>~5 million row chemoinformatics database and API</li>
+        <li><a href="/projects/facets.html">Facets</a><br/>Tenure tracking for Northwestern University</li>
+        <li><a href="/projects/facedeck.html">Facedeck</a><br/>Student name/photo flashcards for professors at
+            Northwestern
+        </li>
+        <li><a href="/projects/herpetology.html">Herpetology.pro</a><br/>A platform for reptile/amphibian education</li>
+        <li>Numerous brochureware sites for businesses, individuals, and non-profits.
+            <a target="_blank" href="https://www.davemeyersonlaw.com/">1</a>
+            <a target="_blank" href="https://pentaxs.com/">2</a>
+            <a target="_blank" href="https://andrealyon.com/">3</a>
+            <a target="_blank" href="https://defendergeneralsoffice.com/">4</a>
+            <a target="_blank" href="https://impactchicago.org/">5</a>
+        </li>
+    </ul>
+</section>
+<section>
+    <h2>Posts</h2>
+    <ol class="spaced-list">
+        {% for post in site.posts %}
+        <li>
+            <i><time datetime="{{post.date}}">{{ post.date | date_to_string }}</time></i>
+            <br/>
+            <a href="{{ post.url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+    </ol>
+</section>

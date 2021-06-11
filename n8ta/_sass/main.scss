@@ -1,5 +1,7 @@
 @import "awk.scss";
 
+$alert_yellow: #ffff85;
+
 a:visited, a {
   color: blue;
 }
@@ -29,10 +31,11 @@ h1 {
   margin-bottom: 0;
 }
 
+
 #latest-post {
   margin-top: 1rem;
   padding: .5rem;
-  background-color: #ffff85;
+  background-color: $alert_yellow;
   border-radius: .3rem;
   display: none
   //border: 1px solid orange
@@ -104,13 +107,24 @@ body {
   }
 }
 
+
+span.new {
+  background-color: $alert_yellow;
+  border-radius: .1rem;
+  //color: white;
+  padding: 0.2rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  margin-left: 0.3rem;
+
+}
 figure {
   margin-left: 0
 }
 
 @media screen and (max-width: 1000px) {
   body {
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: auto auto;
     grid-template-areas:
           'info'

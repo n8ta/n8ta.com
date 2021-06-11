@@ -3,7 +3,7 @@
 <html lang="en">
 {% include head.html %}
 <body>
-<div id="info">
+<aside id="info">
     <div id="me">
         <div>
             <img class='special' src="/assets/images/nate-small.png"/>
@@ -43,20 +43,24 @@
             </li>
         </ul>
     </div>
-</div>
+</aside>
 <div id="header-and-page">
     <a id='homepage-link' href="/"><h1>Nate Tracy-Amoroso</h1></a>
+
     {% for post in site.posts %}
     {% if page.url == "/index.html" or page.url == "/" %}
     <div id="latest-post" data-time='{{ post.date | date: "%s" }}'>
         <div><strong>New Post</strong> {{ post.date | date: "%b %d" }}</div>
         <a href="{{ post.url }}">{{ post.title }}</a>
     </div>
+
     {% endif %}
     {% endfor %}
+
     <main>
         {{ content }}
     </main>
+
 </div>
 
 </body>

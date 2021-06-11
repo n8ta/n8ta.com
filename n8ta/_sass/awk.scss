@@ -39,7 +39,7 @@ $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
     width: 100%;
   }
 
-  div.awk_output {
+  samp.awk_output {
     width: 100%;
     display: none;
     padding: 0.5rem;
