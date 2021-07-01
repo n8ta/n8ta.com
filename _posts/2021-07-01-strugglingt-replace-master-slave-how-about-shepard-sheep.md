@@ -19,7 +19,7 @@ ageist, and other nonesense [mostly bad arguements on quora](https://www.quora.c
 There have been a lot of a suggestions
 1. parent/child
 2. leader/follower
-3. primary/replicate
+3. primary/replica
 
 
 But all of these share one thing. They lack
