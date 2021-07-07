@@ -5,7 +5,7 @@ date:   2021-07-01 10:00:00 +0700
 categories: []
 ---
 
-`Master` and `slave` are everywhere in computer science. 
+`Master` and `slave` are everywhere in computer science.
 
 A `master` database server handles the writes and passes
 them out to read replicas or `slaves`.
