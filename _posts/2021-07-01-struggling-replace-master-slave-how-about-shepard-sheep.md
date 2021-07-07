@@ -39,7 +39,7 @@ But all of these share one thing. They lack
 
 So I present my own alternative.
 
-<img src="/assets/images/flock.jpg" />
+<img src="/assets/images/flock.jpg" alt="Photo of a shepard and their sheep in a large green field. 75%  of the image is a sunny sky."/>
 <small><a style="color: black" href="https://photostockeditor.com/image/man-standing-in-front-of-group-of-lamb-2363">source</a></small>
 
 # Shepard and Sheep
