@@ -1,0 +1,1 @@
+%x(bundle exec jekyll serve -l)

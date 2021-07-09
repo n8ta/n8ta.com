@@ -18,7 +18,7 @@ def factory(the_arg):
             print(f"Post function : {the_arg}")
             return return_val
         # Assign the original functions docstring to the new version 'inner'
-        inner.__doc__ = _func.__doc__ 
+        inner.__doc__ = _func.__doc__  
         return inner
     return decorator
 
