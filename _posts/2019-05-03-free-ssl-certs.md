@@ -7,9 +7,9 @@ categories: [SSL]
 
 SSL certificates can cost anywhere from $12-$100s of dollars a year, and since you can now get them for free I don't see a great reason to buy them.
 
-In this guide I'm going to be assuming that you have your own web server setup that you can figure to look in an arbitrary directory for SSL certs / keys. I'm also going to be assuming you've purchased a domain name and added an A record (or similar) pointing at your ip.
+In this guide I'm going to be assuming that you have your own web server setup that you can configure to look in an arbitrary directory for SSL certs / keys. I'm also going to be assuming you've purchased a domain name and added an A record (or similar) pointing at your ip.
 
-We're going to setup automatically renewing SSL certificates with Lego a cli get certs, and cron to automatically run lego.
+We're going to setup automatically renewing SSL certificates with LEGO (let's encrypto Go) a cli to get certs, and cron to automatically run LEGO.
 
 I'm going to be doing this on a basic aws linux instance running Amazon Linux V2, which uses the yum package manager. Things should be fairly similar running Ubuntu/Debian.
 ### Step 1 - Install the lego binary
@@ -21,7 +21,7 @@ sudo mv lego /usr/bin
 {% endhighlight %}
 
 ### Step 2 - Setup folders and renewal script
-Next head to wherever you want your certs installed, for me that'll be /etc/certs. 
+Next head to wherever you want your certs installed, for me that'll be `/etc/certs`. 
 {% highlight bash %}
 sudo -s
 mkdir /etc/certs
@@ -31,7 +31,7 @@ echo "service apache2 stop; lego --email='your-email@servicecom' --domains='www.
 {% endhighlight %}
 
 
-You'll need to fill in your email and domain. You can add as many --domains='something.com' as you like. I just did the www subdomain and root. You'll also need to change the call to service to whatever service manager you use to turn your webserver off and on (lego temporarily uses port 80 to get certificates so you need to free the port).
+You'll need to fill in your email and domain. You can add as many `--domains='something.com'` as you like. I just did the www subdomain and root. You'll also need to change the call to service to whatever service manager you use to turn your webserver off and on (lego temporarily uses port 80 to get certificates so you need to free the port).
 ### Step 3 - Make the script executable and run it from cron
 {% highlight bash %}
 chmod +x renew.sh
@@ -50,4 +50,4 @@ sudo lego --email='your-email@servicecom' --domains='www.your_domain.com' --doma
 {% endhighlight %}
 
 And you're all set. You should see two new folders:
-accounts and certificates in /etc/certs.~~~~
+accounts and certificates in `/etc/certs`.

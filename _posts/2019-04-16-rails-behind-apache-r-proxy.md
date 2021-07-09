@@ -5,6 +5,16 @@ date:   2019-04-16 06:20:00 +0700
 categories: [Rails, Apache]
 ---
 
+## Future Nate Note:
+This is a terrible hack. You shouldn't do this. You should the apache passenger module `mod_passenger` to run passenger behind apache.
+
+This post rescribes how to proxy all traffic for a vhost to an internal port running a passenger standalone server. This is a bad
+way to do things. Follow [this guide](https://www.phusionpassenger.com/library/config/apache/intro.html) instead.
+
+
+## Original Post
+
+
 I suspect many people don't have this problem but I ran into it so I thought I'd document it. In order to minimize my AWS bill I wanted to run a website built in rails (this one!) on the same AWS instance that was already running apache. So if you need to do the same here's what you do:
 
 Run your rails app on a port other than port 80, anything works even if it's not exposed to the public. The traffic will flow like this:

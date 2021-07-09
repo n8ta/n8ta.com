@@ -15,7 +15,8 @@ group :development, :test do
 end
 {% endhighlight %}
 
-Next we'll need to setup our factories. A factory is an easily called snippet that creates a model for you. In general they are found in the test/ spec/ and factories/ directories. I generally put mine in spec/factories/model_name.rb. So for an an example model of a user, we might provide a firstname, lastname, Department (a belongs to relationship), and username.
+Next we'll need to setup our factories. A factory is an easily called snippet that creates a model for you. In general they are found in the `test/` `spec/` 
+and `factories/` directories. I generally put mine in `spec/factories/model_name.rb`. So for an an example model of a user, we might provide a firstname, lastname, Department (a belongs to relationship), and username.
 
 {% highlight ruby %}
 # spec/factories/user.rb
