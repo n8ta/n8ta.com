@@ -5,6 +5,8 @@ date:   2021-04-03 10:00:00 +0700
 categories: [ethics]
 ---
 
+- Warning: This can cause long running `mysqldump` commands to stop too soon.
+
 Open up `/etc/mysql/mysql.conf.d/mysqld.cnf` and add a `max_execution_time` line to the mysqld section
 {% highlight yaml %}
 # /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -26,8 +28,11 @@ max_execution_time = 30000 <---- 30s
 {% endhighlight %}
 
 In general this file is loaded because
-`/etc/mysql/my.cnf` includes it. `/etc/mysql/conf.d/` is client settings and `/etc/mysql/mysql.conf.d/` is server settings
-(like timeout).
+`/etc/mysql/my.cnf` includes it. 
+
+`/etc/mysql/conf.d/` is client settings 
+
+`/etc/mysql/mysql.conf.d/` is server settings (like timeout).
 {% highlight yaml %}
 # /etc/mysql/my.cnf
 
@@ -39,5 +44,5 @@ In general this file is loaded because
 !includedir /etc/mysql/mysql.conf.d/ <---
 {% endhighlight %}
 
-I like this because occassionally some user will come up with an API request that triggers a query which takes hours and this will lookup the whole
-server until I fix it manually. Even a long timeout like 30s means these users don't take down the service for very long.
+I like this because occassionally some user will come up with an API request that triggers a query which takes hours and this will lockup the whole
+server until I fix it manually.
