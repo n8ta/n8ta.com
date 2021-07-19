@@ -1,5 +1,5 @@
 @import "awk.scss";
-
+@import  "./highlight.scss";
 $alert_yellow: #ffff85;
 
 a:visited, a {
@@ -14,13 +14,9 @@ h1 {
   margin-top: 0;
 }
 article {
-
   &.post pre:not(.awk_output) {
-  //  //margin-top: 2rem;
     max-width: 40rem;
-    //overflow: scroll;
   }
-
   img {
     max-width: 100%;
   }

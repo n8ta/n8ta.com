@@ -1,6 +1,4 @@
 theme: n8ta
-sass:
-  style: compact
 plugins:
   - jekyll-feed
 title: "Nate Tracy-Amoroso's Homepage"
