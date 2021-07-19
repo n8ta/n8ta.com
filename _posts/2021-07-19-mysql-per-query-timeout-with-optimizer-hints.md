@@ -24,8 +24,9 @@ end
 ```
 
 
-It's been easy to set a max query execution time in mysql for awhile. However this breaks mysqldump and other long
-running commands. [post](/mysql/2021/04/02/how-to-set-mysql-query-timeout.html). 
+It's been easy to set a GLOBAL max query execution time in mysql for awhile. However this breaks mysqldump and other long
+running commands. [post](/mysql/2021/04/02/how-to-set-mysql-query-timeout.html). I prefer an opt-in system where 
+I can wrap only the problematic queries.
 
 So I've been searching for a way to do better per-query timeouts and here it is!
 
