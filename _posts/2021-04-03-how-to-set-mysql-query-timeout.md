@@ -2,7 +2,7 @@
 layout: post
 title:  "How to setup a query timeout for mysql 5.7 on Ubuntu 18.04"
 date:   2021-04-03 10:00:00 +0700
-categories: [ethics]
+categories: [mysql]
 ---
 
 - Warning: This can cause long running `mysqldump` commands to stop too soon.
