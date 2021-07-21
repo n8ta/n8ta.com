@@ -1,6 +1,7 @@
 theme: n8ta
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 title: "Nate Tracy-Amoroso's Homepage"
 description: "Tech and Whatever Else"
 url: "https://n8ta.com"
