@@ -5,6 +5,7 @@ pre {
 $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
 
 .awk_text {
+  padding-top: 0.5rem;
   width: 100%;
   background-color: #f4f3ec;
   margin-bottom: 1rem;
@@ -12,6 +13,9 @@ $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
 
   &#mail_list {
     height: 14rem;
+  }
+  &#earnings {
+    height: 15rem;
   }
 
   &#people {
@@ -26,7 +30,28 @@ $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
     font-family: $terminal_fonts;
     box-sizing: border-box;
   }
+  position: relative;
 
+  .awk_file_name_hover {
+    position: absolute;
+    margin-top: -.4rem;
+    background-color: white;
+    font-size: .7rem;
+    margin-left: 1rem;
+  }
+
+  textarea.awk_src {
+    padding-top: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    resize: vertical;
+    &.awk_src_medium {
+      height: 9rem;
+    }
+    &.awk_src_large {
+      height: 12rem;
+    }
+  }
   div.awk_input {
     background-color: black;
     color: white;
@@ -60,4 +85,10 @@ $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
     margin-top: 0.5rem;
 
   }
+}
+
+.awk_text {
+  resize: vertical;
+  width: 100%;
+  background-color: white;
 }
