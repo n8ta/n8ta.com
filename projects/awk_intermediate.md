@@ -40,7 +40,7 @@ Bill         555-1337    billiam.billy@cal.tech.edu         R
 So let's see if you remember what you've learned last time. Print the email address of every Bill or Becky.
 This time we'll be writing longer awk programs so we'll run our awk from awk files with `awk -f file.awk input.txt`.
 
-Edit the `.awk` file and then hit run when you're ready (or cmd + enter inside the textbook).
+Edit the `.awk` file and then hit run when you're ready.
 
 {% include awk_file.html awk_src="exercise_1" awk_soln="exercise_1" awk_file="mail_list" init="{ print $0 }" %} 
 
