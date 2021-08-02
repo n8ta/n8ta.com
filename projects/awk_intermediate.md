@@ -12,7 +12,7 @@ title:  "Intermediate awk: An interactive guide to awk's arrays and loops"
 code for each match.
 `awk` is available on almost every single linux system.
 
-But you already new that. Because you've done the "[Basic awk: an interactive introduction to awk](/awk.html)" 
+But you already new that. Because you've done the "[Basic awk: an interactive introduction to awk](/projects/awk.html)" 
 tutorial already.
 
 Here's the same mail_list data we worked with last time. Feel free to edit it.
