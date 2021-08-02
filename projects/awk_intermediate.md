@@ -1,10 +1,9 @@
 ---
 layout: post
-title:  "Intermediate awk: An interactive guide to intermediate awk"
+title:  "Intermediate awk: An interactive guide to awk's arrays and loops"
 ---
 
-### Intermediate awk: An interactive guide to intermediate awk 
-#### Arrays and Loops
+### Intermediate awk: An interactive guide to awk's arrays and loops
 
 <script src="/assets/awk.js?3"></script>
 <script src="/assets/awk_tutorial_2.js?2"></script>
