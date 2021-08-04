@@ -15,8 +15,7 @@ async function handle_enter(input) {
     const soln = input.parentElement.dataset['awk_soln']
 
     const sourceText = document.getElementById(input.parentElement.dataset['awk_file']).value
-    console.info(sourceText)
-    const awkStr = input.innerHTML.replace("\n", "");
+    const awkStr = input.textContent.replace("\n", "");
     if (!awkStr.startsWith(CMD_START)) {
         alert("Your command must start with `awk '`");
         return
@@ -37,8 +36,8 @@ async function handle_enter(input) {
 
     try {
         output = await call_awk(sourceText, awkStrParsed);
-    } catch {
-        console.info("adding exception");
+    } catch (error) {
+        console.info("adding exception", error);
         outputNode.classList.add('exception')
         outputNode.innerText = "Exception: An unknown error occurred... \n(make sure expressions are inside {}s)";
         return
