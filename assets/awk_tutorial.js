@@ -81,6 +81,8 @@ const SOLUTIONS = {
     'odd': 'awk \'NR % 2 == 1 { print $0 }\' people',
     'column_2': 'awk \'$1 == "Bill" { print $2 } $2 == "555-3430" { print $1 }\' mail_list',
     'phonenum': 'awk \'$1 == "Bill" { print $2 } $2 == "555-3430" { print $1 }\' mail_list',
+    'beginend': 'awk \'BEGIN { print "I run first" } { print "I run every line" } END { print "I run last" }\' mail_list',
+    'beginend2': 'awk \'BEGIN { x = 1000 } { x += 1 } END { print x }\' mail_list',
 }
 
 function reveal(button) {

@@ -6,7 +6,7 @@ title:  "Basic awk: An interactive introduction to awk"
 ### Basic `awk`: An interactive introduction to awk
 
 <script src="/assets/awk.js?2"></script>
-<script src="/assets/awk_tutorial.js?3"></script>
+<script src="/assets/awk_tutorial.js?5"></script>
 
 `awk` is a language that takes whitespace separated input files (columns), matches them against patterns, and executes
 code for each match.
