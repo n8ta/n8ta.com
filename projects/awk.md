@@ -6,21 +6,21 @@ title:  "Basic awk: An interactive introduction to awk"
 ### Basic `awk`: An interactive introduction to awk
 
 <script src="/assets/awk.js?2"></script>
-<script src="/assets/awk_tutorial.js?2"></script>
+<script src="/assets/awk_tutorial.js?3"></script>
 
 `awk` is a language that takes whitespace separated input files (columns), matches them against patterns, and executes
 code for each match.
 `awk` is available on almost every single linux system.
 
 ```text
-#  runs if line matches pattern
+# For every line execute code if the pattern matches that line
 pattern { code }
     
-#  matches any line 
+# Run code for every line
 { code } 
 ```
 
-Here's an example of an awk command that just returns its input. Click into the terminal and press `enter`.
+Here's an example of an awk command that just returns its input (`$0` refers to the full source line). Click into the terminal and press `enter`.
 
 {% include awk_console.html awk_file="mail_list" awk_soln="hello_world0" awk_init="awk '{ print $0 }' mail_list" %}
 
@@ -43,7 +43,7 @@ Eyau         555-1133    eyau@campos.cmyk.rgb               R
 Bill         555-1337    billiam.billy@cal.tech.edu         R
 </textarea>
 
-Let's try an easy example with no pattern. Printing the first column. (Press enter to run)
+Let's try an easy example with no pattern. Printing the first column (`$1`). (Press enter to run)
 
 {% include awk_console.html awk_file="mail_list" awk_soln="hello_world" awk_init="awk '{ print $1 }' mail_list" %}
 
