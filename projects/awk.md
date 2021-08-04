@@ -95,19 +95,19 @@ Let's try and use if else to print (senior) + the name of everyone whose age is 
 
 
 <textarea class="awk_text" id="people">
-Frances-Spence                 90         USA
-菅義偉                            72         JP
-Nate                           21         USA
-Moondog                        83         USA
-Michael-Fastbender             42         USA
-沈向洋                            54         CN
-Jordan-Etude                   13         USA
-Aditi-Acharya                  83         IN
-차미영                            41         KR
-Navya-Reddy                    55         IN
-Bolade-Ibrahim                 28         NG
-Jean-Bartik                    87         USA
-Leslie-Lamport                 80         USA
+Frances-Spence         90    USA
+菅義偉                  72    JP
+Nate                   21    USA
+Moondog                83    USA
+Michael-Fastbender     42    USA
+沈向洋                  54    CN
+Jordan-Etude           13    USA
+Aditi-Acharya          83    IN
+차미영                   41    KR
+Navya-Reddy            55    IN
+Bolade-Ibrahim         28    NG
+Jean-Bartik            87    USA
+Leslie-Lamport         80    USA  
 </textarea>
 
 ```
