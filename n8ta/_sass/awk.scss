@@ -26,6 +26,7 @@ $terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
 }
 
 .awk {
+  margin-bottom: 1rem;
   * {
     font-family: $terminal_fonts;
     box-sizing: border-box;

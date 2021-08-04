@@ -72,9 +72,8 @@ These blocks run on every line.
 Try running these two examples to get an idea of how BEGIN and END work.
 
 {% include awk_console.html awk_file="mail_list" awk_soln="beginend" awk_init="awk 'BEGIN { print \"I run first\" } { print \"I run every line\" } END { print \"I run last\" }' mail_list"%}
-<br/>
-{% include awk_console.html awk_file="mail_list" awk_soln="beginend2" awk_init="awk 'BEGIN { x = 1000 } { x += 1 } END { print x }' mail_list" %}
 
+{% include awk_console.html awk_file="mail_list" awk_soln="beginend2" awk_init="awk 'BEGIN { x = 1000 } { x += 1 } END { print x }' mail_list" %}
 
 Here's an example where we add 5 to s for each line. awk also supplies a `length()` function that can accept a column.
 Can you sum the length of everyone's name?
