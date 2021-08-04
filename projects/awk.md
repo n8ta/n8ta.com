@@ -56,7 +56,7 @@ You'll need to modify the code this time, adding " "
 
 Okay how about a pattern? You saw `$1` means column one. How about printing the phone number for every Bill?
 
-{% include awk_console.html awk_file="mail_list" awk_soln="column_1" awk_init="awk '$1 == \"Bill\" { print $1 }' mail_list" %}
+{% include awk_console.html awk_file="mail_list" awk_soln="column_1" awk_init="awk '$1 == \"Bill\" { }' mail_list" %}
 
 Next let's try multiple patterns. In addition to printing all Bill's phone numbers let's print the name of the person with 
 the phone number `555-3430`.
