@@ -1,0 +1,59 @@
+.awk2 {
+  &, * {
+    font-family: "Source Code Pro", Monaco, "Andale Mono", monospace;
+    box-sizing: border-box
+  }
+  .awk_source_container {
+    position: relative;
+    .awk_source_filename {
+      position: absolute;
+      top: -.4rem;
+      font-size: 0.7rem;
+      left: .5rem;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      background-color: white;
+    }
+    .awk_source {
+      font-size: .75rem;
+      padding: 0;
+      resize: vertical;
+      width: 100%;
+      padding-top: 0.5rem;
+      height: 5rem;
+      &.awk_src_medium {
+        height: 9rem;
+      }
+      &.awk_src_large {
+        height: 20rem;
+      }
+    }
+    .buttons {
+      padding-bottom:.3rem;
+      position: absolute;
+      right: .8rem;
+      bottom: .4rem;
+      .run {
+        background-color: green;
+        border-color: green;
+      }
+    }
+  }
+  .awk_output {
+    width: 100%;
+    display: none;
+    padding: 0.5rem;
+    margin: 0;
+    font-size: .8rem;
+    background-color: rgba(31, 29, 29, 0.94);
+    color: white;
+
+    &.exception, &.incorrect {
+      color: red;
+    }
+
+    &.correct {
+      background-color: forestgreen;
+    }
+  }
+}

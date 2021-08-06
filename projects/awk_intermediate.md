@@ -41,7 +41,7 @@ This time we'll be writing longer awk programs so we'll run our awk from awk fil
 
 Edit the `.awk` file and then hit run when you're ready.
 
-{% include awk_file.html awk_src="exercise_1" awk_soln="exercise_1" awk_file="mail_list" init="{ print $0 }" %} 
+{% include awk_file.html filename="exercise-1" soln="exercise_1" txt_source="mail_list" init="{ print $0 }" %} 
 
 `awk` arrays are dictionaries where keys can be anything (though they are stringified) and values can also be anything. 
 Like all `awk` variables arrays require no initialization. Anything that you index into `arr[$1]` is assumed to be an 
@@ -79,47 +79,36 @@ Try it out. Sum the earnings (column 2) of each person. At the end print the tot
 over everyone's earnings next. (Note: you might want to use an `END` pattern here)
 
 
-{% include awk_file.html awk_src="exercise_2" awk_soln="exercise_2" awk_file="earnings" init="{ print $0 }" %} 
+{% include awk_file.html filename="exercise_2" soln="exercise_2" txt_source="earnings" init="{ print $0 }" %} 
 
 Okay fine. You summed them. Let's print them all. `awk` has for-each syntax. It looks like this.
 
 `for (key in arr) {  print key " " arr[key] }`
 
 Now let's have you print everyone's name and their total using the for syntax (separated by a single space).
-{% include awk_file.html awk_src_class="awk_src_medium" awk_src="exercise_3" awk_soln="exercise_3" awk_file="earnings" init="{ print $0 }" %} 
+{% include awk_file.html awk_src_class="awk_src_medium" filename="exercise_3" soln="exercise_3" txt_source="earnings" init="{ print $0 }" %} 
 
 
 Good good. Okay now can you use a temporary variable to find the person with the highest total? This will require
 combining `for (key in arr)` and if statements like `if (val > max) { max = val }` 
 
-{% include awk_file.html awk_src_class="awk_src_medium" awk_src="exercise_4" awk_soln="exercise_4" awk_file="earnings" init="{ print $0 }" %}
+{% include awk_file.html awk_src_class="awk_src_medium" filename="exercise_4" soln="exercise_4" txt_source="earnings" init="{ print $0 }" %}
 
 Arrays can of course also uses numbers as indices. 
-I'm going to skip over explaining the for loop syntax because it's just like many other languages except with no type. 
-```awk
-END {
+I'm going to skip over explaining the for loop syntax because it's just like many other languages except with no type on `i`.
+
+{% include awk_file.html awk_src_class="awk_src_medium" filename="loop_example" soln="loop_example" txt_source="earnings" init="END {
     for (i = 0; i < 10; i++) {
         arr[i] = i*i;
-        print i " => " arr[i]
+        print i \" => \" arr[i]
     }
-}
-```
-```
-0 => 0
-1 => 1
-2 => 4
-3 => 9
-4 => 16
-5 => 25
-6 => 36
-7 => 49
-8 => 64
-9 => 81
-```
+}" %}
 
-I'm going to give you an array. Your job is to loop through it and at each index print the index, a space, and the running total thus far.
 
-{% include awk_file.html awk_src_class="awk_src_large" awk_src="exercise_5" awk_soln="exercise_5" awk_file="earnings" init="END {
+
+Next up, I'm going to give you an array. Your job is to loop through it and at each index print the index, a space, and the running total thus far.
+
+{% include awk_file.html awk_src_class="awk_src_large" filename="exercise_5" soln="exercise_5" txt_source="earnings" init="END {
     arr[0] = 0
     arr[1] = 1
     for (i = 2 ; i < 100; i++) {        
@@ -140,7 +129,7 @@ If you don't know what that is go read the wikipedia page and come back.
 Okay welcome back. Use `delete` to remove every non-prime. After removing all the non-primes loop from 0 to 100 and use something like `if (number in primes)` to print
 only the remaining numbers.
 
-{% include awk_file.html awk_src_class="awk_src_large" awk_src="exercise_6" awk_soln="exercise_6" awk_file="earnings" init="END {
+{% include awk_file.html awk_src_class="awk_src_large" filename="exercise_6" soln="exercise_6" txt_source="earnings" init="END {
     for ( i = 1; i < 100; i++) {
         arr[i] = i
     }

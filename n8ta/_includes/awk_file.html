@@ -1,12 +1,20 @@
-<div class="awk">
-    <div data-awk_file="{{ include.awk_file }}" data-awk_soln="{{ include.awk_soln }}">
-        <span class="awk_file_name_hover">{{ include.awk_src }}.awk</span>
-        <textarea class="awk_src {{ include.awk_src_class }}">
+<!--
+filename - Name of file you are writing awk in (.awk added)
+soln - key of solution in awk_tutorial2.js
+txt_source - id of text file with source text (.txt added)
+awk_src_class - applied to text area to set height
+-->
+<div class="awk2" data-txt_source="{{include.txt_source}}" data-soln="{{include.soln}}">
+    <div class="awk_source_container">
+        <span class="awk_source_filename">{{ include.filename }}.txt</span>
+<textarea class="awk_source {{include.awk_src_class}} " aria-label="Enter your awk code here" id="{{include.awk_file}}">
 {{ include.init }}
-        </textarea><br/>
-        <div role='textbox' class="awk_input">awk -f {{ include.awk_src }}.awk {{ include.awk_file }}.txt</div>
-        <samp class="awk_output"></samp>
-        <button class="awk_run" onClick="run_awk_input(this)">Run</button>
-        <button class="awk_reveal" onClick="reveal(this)">Reveal Solution</button>
+</textarea>
+        <div class="buttons">
+            <button>Run</button>
+            <button>Show Solution</button>
+        </div>
     </div>
+    <samp class="awk_output">BLAH</samp>
+
 </div>
