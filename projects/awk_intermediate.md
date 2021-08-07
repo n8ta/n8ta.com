@@ -18,7 +18,7 @@ tutorial already.
 Here's the same mail_list data we worked with last time. Feel free to edit it.
 <div class="awk">
 <span class="awk_file_name_hover">mail_list.txt</span>
-<textarea class="awk_text" id="mail_list">
+<textarea aria-label="Mail list text source file" class="awk_text" id="mail_list">
 Amelia       555-5553    amelia.zodiacusque@gmail.com       F
 Anthony      555-3412    anthony.asserturo@hotmail.com      A
 Becky        555-7685    becky.algebrarum@gmail.com         A
@@ -51,7 +51,7 @@ So if you wanted to add the number in column 2 under the name in column 1 you co
 
 <div class="awk"><br/>
 <span class="awk_file_name_hover">earnings.txt</span>
-<textarea class="awk_text" id="earnings">
+<textarea aria-label="Earnings text source file" class="awk_text" id="earnings">
 Frances-Spence         90     USA
 菅義偉                  72     JP
 Nate                   -21    USA
