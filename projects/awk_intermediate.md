@@ -13,41 +13,9 @@ code for each match.
 `awk` is available on almost every single linux system.
 
 But you already new that. Because you've done the "[Basic awk: an interactive introduction to awk](/projects/awk.html)" 
-tutorial already.
+tutorial already. We're diving right in and I won't be re-explaining things from basic awk. Fair warning. 
 
-Here's the same mail_list data we worked with last time. Feel free to edit it.
-<div class="awk">
-<span class="awk_file_name_hover">mail_list.txt</span>
-<textarea aria-label="Mail list text source file" class="awk_text" id="mail_list">
-Amelia       555-5553    amelia.zodiacusque@gmail.com       F
-Anthony      555-3412    anthony.asserturo@hotmail.com      A
-Becky        555-7685    becky.algebrarum@gmail.com         A
-Bill         555-1675    bill.drowning@hotmail.com          A
-Broderick    555-0542    broderick.aliquotiens@yahoo.com    R
-Camilla      555-2912    camilla.infusarum@skynet.be        R
-Fabius       555-1234    fabius.undevicesimus@ucb.edu       F
-Julie        555-6699    julie.perscrutabor@skeeve.com      F
-Yoeu         555-1331    yoeu.blah@blarg.co.uk              F
-Martin       555-6480    martin.codicibus@hotmail.com       A
-Samuel       555-3430    samuel.lanceolis@shu.edu           A
-Jean-Paul    555-2127    jeanpaul.campanorum@nyu.edu        R
-Eyau         555-1133    eyau@campos.cmyk.rgb               R
-Bill         555-1337    billiam.billy@cal.tech.edu         R
-</textarea>
-</div>
-
-So let's see if you remember what you've learned last time. Print the email address of every Bill or Becky.
-This time we'll be writing longer awk programs so we'll run our awk from awk files with `awk -f file.awk input.txt`.
-
-Edit the `.awk` file and then hit run when you're ready.
-
-{% include awk_file.html filename="exercise-1" soln="exercise_1" txt_source="mail_list" init="{ print $0 }" %} 
-
-`awk` arrays are dictionaries where keys can be anything (though they are stringified) and values can also be anything. 
-Like all `awk` variables arrays require no initialization. Anything that you index into `arr[$1]` is assumed to be an 
-empty array.
-
-So if you wanted to add the number in column 2 under the name in column 1 you could do this. `sums[$1] += $2`.
+Here's the some similar earnings data to last time. People are listed multiple times. 
 
 <div class="awk"><br/>
 <span class="awk_file_name_hover">earnings.txt</span>
@@ -75,6 +43,23 @@ Leslie-Lamport         80     USA
 </textarea>
 </div>
 
+This time we'll be writing longer awk programs so we'll run our `awk` from `.awk` files (think .c .py .js, .rs) with `awk -f file.awk input.txt`.
+
+Edit the `.awk` file and click the 
+<button disabled class='awk_example_button'>awk -f exercise.awk source.txt</button> 
+command in the textbox when you're ready (or mac: `cmd+enter` win: `ctrl+enter`).
+
+You can also view my solution by clicking <button disabled class='awk_example_button'>Show Solution</button>
+
+The first challenge is a <small>tiny</small> review. Print the entire row `$0` if the name is "Frances-Spence"
+
+{% include awk_file.html filename="exercise-1" soln="exercise_1" txt_source="earnings" init="{ print $0 }" %} 
+
+`awk` arrays are dictionaries where keys can be anything (though they are stringified) and values can also be anything. 
+Like all `awk` variables arrays require no initialization. 
+
+If you wanted to add the number in column 2 under the name in column 1 you could do this `sums[$1] += $2`.
+
 Try it out. Sum the earnings (column 2) of each person. At the end print the total earnings of Moondog &nbsp; `arr["Moondog"]` &nbsp;. We'll go over how to loop
 over everyone's earnings next. (Note: you might want to use an `END` pattern here)
 
@@ -97,7 +82,8 @@ combining `for (key in arr)` and if statements like `if (val > max) { max = val 
 Arrays can of course also uses numbers as indices. 
 I'm going to skip over explaining the for loop syntax because it's just like many other languages except with no type on `i`.
 
-{% include awk_file.html awk_src_class="awk_src_medium" filename="loop_example" soln="loop_example" txt_source="earnings" init="END {
+{% include awk_file.html awk_src_class="awk_src_medium" filename="loop_example" soln="loop_example" txt_source="earnings" 
+init="END {
     for (i = 0; i < 10; i++) {
         arr[i] = i*i;
         print i \" => \" arr[i]
@@ -106,7 +92,7 @@ I'm going to skip over explaining the for loop syntax because it's just like man
 
 
 
-Next up, I'm going to give you an array. Your job is to loop through it and at each index print the index, a space, and the running total thus far.
+Next up, I'm going to give you an array. Your job is to loop through it and at each index print the index, a space, and the running total (inclusive) thus far.
 
 {% include awk_file.html awk_src_class="awk_src_large" filename="exercise_5" soln="exercise_5" txt_source="earnings" init="END {
     arr[0] = 0
@@ -114,6 +100,7 @@ Next up, I'm going to give you an array. Your job is to loop through it and at e
     for (i = 2 ; i < 100; i++) {        
         arr[i] += arr[i-1] + arr[i-2]
     }
+    # Don't touch above here ^
     # Print the index and running total from 0 to 99
 }
 " %}

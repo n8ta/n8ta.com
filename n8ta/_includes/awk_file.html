@@ -6,13 +6,13 @@ awk_src_class - applied to text area to set height
 -->
 <div class="awk2" data-txt_source="{{include.txt_source}}" data-soln="{{include.soln}}">
     <div class="awk_source_container">
-        <span class="awk_source_filename">{{ include.filename }}.txt</span>
+        <span class="awk_source_filename">{{ include.filename }}.awk</span>
 <textarea class="awk_source {{include.awk_src_class}} " aria-label="Enter your awk code here" id="{{include.awk_file}}">
 {{ include.init }}
 </textarea>
         <div class="buttons">
-            <button>Run</button>
-            <button>Show Solution</button>
+            <button onClick="run(this)" title="You can also use cmd + enter"><code>awk -f {{include.filename}}.awk {{include.txt_source}}.txt</code></button>
+            <button onClick="reveal(this)">Show Solution</button>
         </div>
     </div>
     <samp class="awk_output">BLAH</samp>

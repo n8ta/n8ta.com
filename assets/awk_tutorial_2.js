@@ -1,22 +1,38 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const source_areas = document.querySelectorAll('.awk_source');
+    console.info("sources", source_areas, source_areas.length);
+
+    for (let i = 0; i < source_areas.length; i++) {
+        source_areas[i].addEventListener('keydown', async function (event) {
+            if (event.metaKey && event.keyCode === 13) {
+                const parent = source_areas[i].parentElement.parentElement;
+                await run_awk_input(parent);
+            }
+        })
+    }
+});
+
+
 async function call_awk(sourceText, awk_command) {
-    console.info("source text", sourceText, "\nawk command", awk_command)
     const awk = await awkJS()
     return awk.awk(sourceText, awk_command, [])
 }
 
 const SOLUTIONS = {
-    'exercise_1': '{ if ($1 == "Bill" || $1 == "Becky") { print $3 } }',
+    'exercise_1': '$1 == "Frances-Spence" { print $0 }',
     'exercise_2': '{ arr[$1] += $2 } END { print arr["Moondog"] }',
     'exercise_3': '{ arr[$1] += $2 } \nEND { \n    for (key in arr) {\n         print key " " arr[key]\n     }\n }',
     'exercise_4': '{ arr[$1] += $2 } \n' +
         'END { \n' +
-        '    max = "not_set";\n' +
+        '    max = "not_set"\n' +
+        '    max_person = "not_set"\n' +
         '    for (key in arr) {\n' +
         '         if (arr[key] > max || max == "not_set") {\n' +
         '             max = arr[key]\n' +
+        '             max_person = key\n' +
         '         }\n' +
         '    }\n' +
-        '    print max\n' +
+        '    print max_person\n' +
         ' }',
     'exercise_5': 'END { \n' +
         '    arr[0] = 0\n' +
@@ -29,6 +45,12 @@ const SOLUTIONS = {
         '        print i " " total\n' +
         '    } \n' +
         '}\n',
+    'loop_example': 'END {\n' +
+        '    for (i = 0; i < 10; i++) {\n' +
+        '        arr[i] = i*i;\n' +
+        '        print i \" => \" arr[i]\n' +
+        '    }\n' +
+        '}',
     'exercise_6': 'END {\n' +
         '    for ( i = 1; i < 100; i++) {\n' +
         '        arr[i] = i\n' +
@@ -45,56 +67,70 @@ const SOLUTIONS = {
 }
 
 
-async function run_awk_input(button) {
-    const awkCommand = button.parentElement.querySelector('.awk_src').value; // awk command
-    const outputNode = button.parentElement.querySelector('.awk_output'); // where output goes
-    const docId = button.parentElement.dataset['awk_file'];
-    console.info(docId, button.parentElement.dataset);
-    const awkFileText = document.getElementById(docId).value;
-    console.info("awkfiletext", awkFileText, "awkCommand", awkCommand);
-    outputNode.style.display = "block";
+async function run_awk_input(root) {
+    const root_metadata = metadata_from_root(root);
+    const output_node = root_metadata.output_node;
+
+    output_node.classList.remove('exception')
+    output_node.classList.remove("correct")
+    output_node.classList.remove("incorrect")
 
 
     let output = null;
     try {
-        output = await call_awk(awkFileText, awkCommand);
+        output = await call_awk(root_metadata.text_source_content, root_metadata.awk_source_content);
     } catch {
-        console.info("adding exception");
-        outputNode.classList.add('exception')
-        outputNode.innerText = "Exception: An unknown error occurred... \n(make sure expressions are inside {}s)";
+        output_node.classList.add('exception')
+        output_node.innerText = "Exception: An unknown error occurred... \n(make sure expressions are inside {}s)";
         return
     }
+
     if (output.stderr !== "") {
-        console.info("adding exception");
-        outputNode.classList.add('exception')
-        outputNode.innerText = "Exception: " + output.stderr;
+        output_node.classList.add('exception')
+        output_node.innerText = "Exception: " + output.stderr;
         return
     }
-    outputNode.classList.remove('exception')
-    outputNode.classList.remove("correct")
-    outputNode.classList.remove("incorrect")
 
 
-    const oracle_output = await call_awk(awkFileText, SOLUTIONS[button.parentElement.dataset['awk_soln']]);
+    const oracle_output = await call_awk(
+        root_metadata.text_source_content,
+        root_metadata.soln);
 
     if (oracle_output.stdout === output.stdout) {
-        outputNode.classList.add("correct")
-        outputNode.innerText = output.stdout;
+        output_node.classList.add("correct")
+        output_node.innerText = output.stdout;
     } else {
-        console.info(oracle_output.output, output.stdout)
-        outputNode.classList.add("incorrect")
-
-        outputNode.innerText = ">>> Doesn't match known solution. Try again or press 'Reveal Solution'\n" + output.stdout
+        output_node.classList.add("incorrect")
+        output_node.innerText = "> Doesn't match known solution. Try again or press 'Reveal Solution'\n" + output.stdout
     }
 
 }
 
+function run(button) {
+    run_awk_input(button.parentElement.parentElement.parentElement);
+}
 
 function reveal(button) {
-    const awk_soln = button.parentElement.dataset['awk_soln'];
-    const awk_src = button.parentElement.querySelector('.awk_src');
-    awk_src.value = SOLUTIONS[awk_soln];
-    console.info(awk_src);
-    const run_button = awk_src.parentElement.parentElement.querySelector('.awk_run')
-    run_awk_input(run_button);
+    const root = button.parentElement.parentElement.parentElement;
+    const rootmetadata = metadata_from_root(root);
+    rootmetadata.awk_source_node.value = rootmetadata.soln;
+    run_awk_input(root);
+}
+
+function metadata_from_root(root) {
+    const text_source_id = root.dataset['txt_source'];
+    const text_source_node = document.getElementById(text_source_id);
+    const text_source_content = text_source_node.value;
+    const awk_source_node = root.querySelector('.awk_source');
+    const awk_source_content = awk_source_node.value;
+    const output_node = root.querySelector('.awk_output');
+    return {
+        'soln': SOLUTIONS[root.dataset['soln']],
+        text_source_id,
+        text_source_node,
+        text_source_content,
+        awk_source_node,
+        awk_source_content,
+        output_node,
+    };
 }

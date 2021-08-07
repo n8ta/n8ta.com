@@ -1,6 +1,10 @@
+$fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
+.awk_example_button {
+  font-family: $fonts;
+}
 .awk2 {
   &, * {
-    font-family: "Source Code Pro", Monaco, "Andale Mono", monospace;
+    font-family: $fonts;
     box-sizing: border-box
   }
   .awk_source_container {
@@ -50,10 +54,12 @@
 
     &.exception, &.incorrect {
       color: red;
+      display: inline-block;
     }
 
     &.correct {
       background-color: forestgreen;
+      display: inline-block;
     }
   }
 }
