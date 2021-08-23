@@ -6,7 +6,7 @@ categories: [Rails, Apache]
 ---
 
 ## Future Nate Note:
-This is a terrible hack. You shouldn't do this. You should the apache passenger module `mod_passenger` to run passenger behind apache.
+This is a terrible hack. You shouldn't do this. You should use the apache passenger module `mod_passenger` to run passenger behind apache.
 
 This post rescribes how to proxy all traffic for a vhost to an internal port running a passenger standalone server. This is a bad
 way to do things. Follow [this guide](https://www.phusionpassenger.com/library/config/apache/intro.html) instead.
