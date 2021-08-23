@@ -44,4 +44,5 @@ Feel free to shoot me an email if you think I'm wrong.
 
 PS:
 
-Yes Yes I know this is small potatoes but come on. I realized the problem the first time I setup this header.
+Yes Yes I know this is small potatoes and only even comes into play once someone manages to get malicious js running
+on your page. But still, the fix is easy, let's do it.
