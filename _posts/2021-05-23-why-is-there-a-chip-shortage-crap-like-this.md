@@ -28,13 +28,13 @@ Buttons have no state.
 Third they violate assumptions; we expect to control fan speed either not at all or by
 turning a nob. They use neither and have a series of buttons.
 
-Had they needed to make this product in 1950 it would have been two light switches. That's it. No circuit border behind
+Had they needed to make this product in 1950 it would have been two light switches. That's it. No circuit board behind
 the lightswitch, no buttons, nothing. Instead they use more tech than they need by about 70 years.
 
 A few other things I'd like to see have their circuit boards ripped out:
 
 1. Microwaves (just 1 button to add 30s please, idk what the rest are for)
-2. Cars (not all of them just no over the air updates please)
+2. Cars (not all the circuit boards, just no over the air updates please)
 3. Smart-insert-noun (lightblubs, refrigerators, ac units, etc.)
 
 Anyway next time you buy something choose the dumb version. It'll last twice as long and cost half as much.
