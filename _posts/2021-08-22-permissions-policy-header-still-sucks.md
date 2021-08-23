@@ -7,10 +7,12 @@ categories: [http]
 
 The HTTP header permissions policy (formerly feature-policy) controls what features the page can use. Eg. USB, accelerometer, battery, camera...
 
-The most secure permissions policy header looks like this:
+The most secure permissions policy header looks like this (apache config): 
+<br/>Note: The `=()` is an empty list. It could contain things like `self`, `https://blah.com` to specify who can
+use the feature
 
-<code> 
-Permissions-Policy: accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; camera 'none'; display-capture 'none'; document-domain 'none'; encrypted-media 'none'; execution-while-not-rendered 'none'; execution-while-out-of-viewport 'none'; fullscreen 'none'; gamepad 'none'; geolocation 'none'; gyroscope 'none'; layout-animations 'none'; legacy-image-formats 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; navigation-override 'none'; oversized-images 'none'; payment 'none'; picture-in-picture 'none'; publickey-credentials-get 'none'; speaker-selection 'none'; sync-xhr 'none'; unoptimized-images 'none'; unsized-media 'none'; usb 'none'; vibrate 'none'; vr 'none'; screen-wake-lock 'none'; web-share 'none'; xr-spatial-tracking 'none';
+<code>
+Header always set Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), layout-animations=(), legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), oversized-images=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), speaker-selection=(), sync-xhr=(), unoptimized-images=(), unsized-media=(), usb=(), vibrate=(), vr=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
 </code>
 
 Yuck!
@@ -18,10 +20,10 @@ Yuck!
 The worst part is this example will be obsolete once google shoves a new feature through w3c and we all need to disable the new
 `intra-ocular-laser` feature.
 
-Please give us a
+Please give us a way to specify that the default is to deny the use of a feature.
 
 <code>
-Permissions-Policy: default 'none'
+Permissions-Policy: default()
 </code>
 
 Lo and behold my idea isn't original. Someone suggested the same thing 3 years ago.
@@ -33,7 +35,7 @@ There are lots of more complicated suggestions the comments. I don't personally 
 A good default of DENY and a whitelist of features you're actually using seems like a fine approach.
 
 <code>
-Permissions-Policy: default 'none'; accelerometer: 'self'
+Permissions-Policy: default=(),accelerometer('self')
 </code>
 
 Feel free to shoot me an email if you think I'm wrong.

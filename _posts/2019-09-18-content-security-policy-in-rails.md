@@ -43,7 +43,7 @@ Here's a good default to put in ```config/enviorments/production.rb```
 ```
 **Referer-Policy**: "same-origin" means do not tell any OTHER website we link to where the user came from. It is necessary to use same-origin instead of no-referrer as no-referrer breaks links like: ```link_to user_path(@user), method: :delete``` that use a special http action. 
 
-**X-Content-Type-Options:** "nosniff" means that the browser should trust the Content-Type send by the webserver eg. If they download a file called ```user_upload.js.json``` which was supposed to be json and the server believes is json but really contains malicious js form a user the browser will under no circumstances execute the file as javascript and treat it as json as the server directed.
+**X-Content-Type-Options:** "nosniff" means that the browser should trust the Content-Type sent by the webserver eg. If they download a file called ```user_upload.js.json``` which was supposed to be json and the server believes is json but really contains malicious js form a user the browser will under no circumstances execute the file as javascript and treat it as json as the server directed.
 
 **X-Frame-Options:** "SAMEORIGIN": No one can ```<iframe>``` us but ourselves.
 
