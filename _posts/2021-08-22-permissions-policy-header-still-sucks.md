@@ -5,7 +5,7 @@ date:   2021-08-23 10:00:00 +0800
 categories: [http]
 ---
 
-The HTTP header permissions policy (formerly feature-policy) controls what "features" the page can use. Eg. USB, accelerometer, battery, camera...
+The HTTP header permissions policy (formerly feature-policy) controls what features the page can use. Eg. USB, accelerometer, battery, camera...
 
 The most secure permissions policy header looks like this:
 
