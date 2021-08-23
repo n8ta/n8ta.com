@@ -7,15 +7,13 @@ categories: [http]
 
 The HTTP header permissions policy (formerly feature-policy) controls what features the page can use. Eg. USB, accelerometer, battery, camera...
 
-The most secure permissions policy header looks like this (apache config): 
-<br/>Note: The `=()` is an empty list. It could contain things like `self`, `https://blah.com` to specify who can
-use the feature
+The most secure permissions policy header looks like this (apache config):
 
 <code>
 Header always set Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), gamepad=(), geolocation=(), gyroscope=(), layout-animations=(), legacy-image-formats=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), oversized-images=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), speaker-selection=(), sync-xhr=(), unoptimized-images=(), unsized-media=(), usb=(), vibrate=(), vr=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
 </code>
 
-Yuck!
+Yuck! &nbsp; <small>Those =() are empty lists meaning nothing is allowed to use the feature</small>
 
 The worst part is this example will be obsolete once google shoves a new feature through w3c and we all need to disable the new
 `intra-ocular-laser` feature.
