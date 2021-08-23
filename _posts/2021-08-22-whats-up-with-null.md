@@ -105,4 +105,4 @@ We can unwrap our `long?` into a `long` and get a new variable with the correct 
 Of course you can do the same unwrapping trick for classes but you shouldn't need to double check every arguement is the type
 you asked for. Classes should default to non-nullable just like the primitives. 
 
-The current behavior is un-intuitive, boilerplate heavy, and inflexable.
+The current behavior is un-intuitive, boilerplate heavy, and inflexible.
