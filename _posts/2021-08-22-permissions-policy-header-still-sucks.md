@@ -15,7 +15,7 @@ Feature-Policy: accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'non
 
 Yuck!
 
-And it's not even teh complete. This example will be obsolete once google shoves a new feature through w3c and we all need to disable the new
+The worst part is this example will be obsolete once google shoves a new feature through w3c and we all need to disable the new
 `intra-ocular-laser` feature.
 
 Please give us a
