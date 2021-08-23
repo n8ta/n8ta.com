@@ -5,7 +5,7 @@ date:   2021-05-23 10:00:00 +0700
 categories: []
 ---
 
-We've heard a lot about how a lack of silicon chips is crippling manufacturing. I hold the opposite view
+We've heard a lot about how a lack of silicon chips is crippling manufacturing. I hold the opposite view,
 manufacturing is being crippled by a surplus of silicon. I just left the lovely state of Florida and while
 there I saw this fantastic light switch panel.
 
