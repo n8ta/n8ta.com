@@ -1,0 +1,41 @@
+$terminal_fonts: "Source Code Pro", Monaco, "Andale Mono", monospace;
+
+#scancode {
+margin-top: 1rem;
+  ol, ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .rm-button {
+    margin-right: 0.25rem;
+    //background: 0;
+    //border: 0;
+  }
+  .hcon {
+    display: flex;
+    justify-content: flex-start;
+    div {
+      margin-left: .5rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  #result-container {
+    margin-top: 1rem;
+    position: relative;
+    span {
+      font-family: $terminal_fonts;
+      font-size: .7rem;
+      position: absolute;
+      top: -.4rem;
+      left: .4rem;
+      background-color: white;
+    }
+  }
+  #result {
+    padding-top: 1rem;
+    width: 100%;
+    height: 4rem;
+  }
+}
