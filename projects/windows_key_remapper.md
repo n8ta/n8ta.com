@@ -11,7 +11,11 @@ title:  "Generate a registry update file to re-map windows keys"
 <div id="scancode">
 
 <br/>
-<p>Just insert all the re-mappings you want, download, run the registry file, reboot.</p> <p>Use the NOTHING option to just kill a key and not remap.</p>
+<p>Just insert all the re-mappings you want, download, run the registry file, reboot.</p>
+
+<p>Use the NOTHING option to just kill a key and not remap.</p>
+
+<p>If you need to undo these change download a reg file with no remappings, run, reboot.</p>
 
 <div class="hcon">
 
@@ -51,6 +55,7 @@ title:  "Generate a registry update file to re-map windows keys"
 <div class="right">
 <button title="After downloading double click the file to run, accept the pop-up, and restart" onClick="download()">Download</button>
 </div>
+
 
 <ul id="mappings">
 </ul>

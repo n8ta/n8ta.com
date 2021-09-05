@@ -74,7 +74,7 @@ function update_mappings_ui(from, to) {
     const mappings = document.getElementById('mappings');
     const li = document.createElement('li');
     let text = document.createElement('span');
-    text.textContent = `  ${map[from]} => ${map[to]}`
+    text.textContent = `  ${map[from]} ⇒ ${map[to]}`
     const remove = document.createElement('button')
     remove.classList.add("rm-button")
     remove.textContent = "❌";
