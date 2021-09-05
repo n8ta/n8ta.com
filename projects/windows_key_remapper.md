@@ -1,9 +1,8 @@
 ---
 project: Windows key remapper (registry)
 layout: project
-title:  "Generate a registry update file to re-map windows keys"
+title:  "Generate a registry update file to re-map windows keys (win10 tested)"
 ---
-
 <script src="/assets/scancode.js"></script>
 
 
@@ -11,9 +10,12 @@ title:  "Generate a registry update file to re-map windows keys"
 <div id="scancode">
 
 <br/>
-<p>Just insert all the re-mappings you want, download, run the registry file, reboot.</p>
-
-<p>Use the NOTHING option to just kill a key and not remap.</p>
+Remap any windows key to another (or to NOTHING).
+<ol>
+<li>Insert Mappings</li>
+<li>Download and run file</li>
+<li>Reboot</li>
+</ol>
 
 <p>If you need to undo these change download a reg file with no remappings, run, reboot.</p>
 
@@ -55,7 +57,6 @@ title:  "Generate a registry update file to re-map windows keys"
 <div class="right">
 <button title="After downloading double click the file to run, accept the pop-up, and restart" onClick="download()">Download</button>
 </div>
-
 
 <ul id="mappings">
 </ul>
