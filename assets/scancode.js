@@ -6,8 +6,7 @@ async function get_scancodes() {
     let text = (await (await fetch('/assets/scancodes.txt')).text()).split("\n");
     for (const code of text) {
         let hex = code.substr(0, 2).toString();
-        let human = code.substr(2, code.length - 2).trim().toString();
-        map[hex] = human;
+        map[hex] = code.substr(2, code.length - 2).trim().toString();
     }
     console.info(map);
     update_selects()
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let fom = document.getElementById('from');
     let to = document.getElementById('from');
     let result = document.getElementById('result');
-    result.value = init;
+    result.value = init + "00,00,00,00";
 });
 
 function insert() {
@@ -45,9 +44,29 @@ function insert() {
 function update_output() {
     let result = document.getElementById('result');
     let output = init;
-    for (const [from, to] of Object.entries(user_mappings)) {
-        output += `${map[from]} => ${map[to]} `
+    let num = (Object.values(user_mappings).length + 1).toString(16);
+    if (num.length > 2) {
+        alert("This program can't handle more than 0xFF mappings")
+        return;
     }
+    if (num.length === 1) {
+        num = "0" + num;
+    }
+    while (num.length < 8) {
+        num = "0" + num;
+    }
+    console.info(num)
+    let number_result = "";
+    for (let i = 0; i < 4; i++) {
+        number_result += num[2*i] + num[2*i+1]
+        number_result += ",";
+    }
+    output += number_result;
+
+    for (const [from, to] of Object.entries(user_mappings)) {
+        output += `${to.toLowerCase()},00,${from.toLowerCase()},00,`
+    }
+    output += "00,00,00,00";
     result.value = output;
 }
 
@@ -74,8 +93,6 @@ function update_mappings_ui(from, to) {
 function update_selects() {
     let from_select = document.getElementById('from');
     let to_select = document.getElementById('to');
-    from_select.innerHTML = "";
-    to_select.innerHMTL = "";
 
     let froms = Object.keys(user_mappings);
     let tos = Object.values(user_mappings);
@@ -87,7 +104,6 @@ function update_selects() {
         to_select.removeChild(to_select.firstChild);
     }
 
-
     let hexes = Object.keys(map);
     hexes.sort(function (aa, bb) {
         let a_val = map[aa];
@@ -96,7 +112,7 @@ function update_selects() {
         let b_index = alphabet.indexOf(b_val.toLowerCase());
         if (a_index === -1 && b_index === -1) {
             return a_val.toLowerCase().localeCompare(b_val.toLowerCase());
-        } else if (a_index === -1 && b_index !== -1) { // b in alpha
+        } else if (a_index === -1 && b_index !== -1) {
             return 1;
         } else if (a_index !== -1 && b_index === -1) {
             return -1;
@@ -110,18 +126,25 @@ function update_selects() {
             option.value = hex;
             option.text = map[hex];
             from_select.appendChild(option)
-        } else {
-            console.info("not appending ", hex);
         }
-        if (tos.indexOf(hex) === -1) {
-            let option = document.createElement('option');
-            option.value = hex;
-            option.text = map[hex];
-            to_select.appendChild(option)
-        } else {
-            console.info("not appending ", hex);
-        }
+        let option = document.createElement('option');
+        option.value = hex;
+        option.text = map[hex];
+        to_select.appendChild(option)
     }
+}
 
+function download() {
+    let contents = document.getElementById('result').value;
+    start_dl("swap-keys.reg", contents);
+}
 
+function start_dl(filename, text) {
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }

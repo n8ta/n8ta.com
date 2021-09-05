@@ -1,3 +1,4 @@
+00 NOTHING
 20 D
 40 F6
 60 Ctrl F3
@@ -43,19 +44,19 @@ A6 Alt Enter (Num)
 27 ; :
 47 Home
 67 Ctrl F10
-87 SH F11
+87 Shift F11
 08 7
 28 ' "
 48 Up Arrow
 68 Alt F1
-88 SH F12
+88 Shift F12
 09 8
 29 ` ~
 49 Pg Up
 69 Alt F2
 89 Ctrl F11
 0A 9
-2A L SH
+2A Left Shift
 4A - (num)
 6A Alt F3
 8A Ctrl F12
@@ -100,11 +101,11 @@ A6 Alt Enter (Num)
 33 , <
 34 . >
 35 / ?
-36 R SH
-37 PtScr
+36 Right Shift
+37 Print Screen
 38 Alt
-39 Spc
-3A CpsLk
+39 Space
+3A CapsLock
 3B F1
 3C F2
 3D F3
@@ -116,16 +117,16 @@ A6 Alt Enter (Num)
 51 3 Pg Dn
 52 0 Ins
 53 Del .
-54 SH F1
-55 SH F2
-56 SH F3
-57 SH F4
-58 SH F5
-59 SH F6
-5A SH F7
-5B SH F8
-5C SH F9
-5D SH F10
+54 Shift F1
+55 Shift F2
+56 Shift F3
+57 Shift F4
+58 Shift F5
+59 Shift F6
+5A Shift F7
+5B Shift F8
+5C Shift F9
+5D Shift F10
 5E Ctrl F1
 5F Ctrl F2
 6E Alt F7
