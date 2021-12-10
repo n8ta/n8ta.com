@@ -37,26 +37,20 @@ The coolest features for the end users are,
  
 Here's a few of those features
 
-1. Index of current cases
-
-{% include picture.html src="/assets/images/facets/cases.png" alt="multiple cases"%}
+1. Index of current cases  
+    {% include picture.html src="/assets/images/facets/cases.png" alt="multiple cases" %}
 
 2. A particular case and its subfolders, notice the PDF and ZIP buttons
-
-{% include picture.html src="/assets/images/facets/case_expanded.png" alt="single case view"%}
+    {% include picture.html src="/assets/images/facets/case_expanded.png" alt="single case view" %}
     
 3. Drag and drop document upload within a folder
-
-{% include picture.html src="/assets/images/facets/drag_and_drop.png" alt="two files being dragged and dropped to upload"%}
+    {% include picture.html src="/assets/images/facets/drag_and_drop.png" alt="two files being dragged and dropped to upload" %}
     
 4. Editing a user with custom roles 
-
-{% include picture.html src="/assets/images/facets/user%20view%20edit.png" alt="editting a user"%}
+    {% include picture.html src="/assets/images/facets/user%20view%20edit.png" alt="editting a user" %}
     
 5. Creating a token (this is something an admin would do), they then click the copy icon and email the token.
-
-{% include picture.html src="/assets/images/facets/copy%20token.png" alt="creating a token text field"%}
+    {% include picture.html src="/assets/images/facets/copy%20token.png" alt="creating a token text field" %}
 
 6. Using a token (limited system access for external people)
-
-{% include picture.html src="/assets/images/facets/token%20view.png" alt="creating a token text field"%}
+    {% include picture.html src="/assets/images/facets/token%20view.png" alt="creating a token text field" %}
