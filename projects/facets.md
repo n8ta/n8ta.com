@@ -39,24 +39,24 @@ Here's a few of those features
 
 1. Index of current cases
 
-    ![multiple cases](/assets/images/facets/cases.png)
+    ![multiple cases](/assets/images/facets/cases.png.webp)
 
 2. A particular case and its subfolders, notice the PDF and ZIP buttons
 
-    ![single case view](/assets/images/facets/case_expanded.png)
+    ![single case view](/assets/images/facets/case_expanded.png.webp)
     
 3. Drag and drop document upload within a folder
 
-    ![two files being dragged and dropped to upload](/assets/images/facets/drag_and_drop.png)
+    ![two files being dragged and dropped to upload](/assets/images/facets/drag_and_drop.png.webp)
     
 4. Editing a user with custom roles 
 
-    ![editting a user](/assets/images/facets/user%20view%20edit.png)
+    ![editting a user](/assets/images/facets/user%20view%20edit.png.webp)
     
 5. Creating a token (this is something an admin would do), they then click the copy icon and email the token.
 
-    ![creating a token text field](/assets/images/facets/copy%20token.png)
+    ![creating a token text field](/assets/images/facets/copy%20token.png.webp)
 
 6. Using a token (limited system access for external people)
 
-    ![creating a token text field](/assets/images/facets/token%20view.png)
+    ![creating a token text field](/assets/images/facets/token%20view.png.webp)
