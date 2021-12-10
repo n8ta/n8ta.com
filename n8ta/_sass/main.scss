@@ -84,6 +84,12 @@ body {
 }
 
 #info {
+  #info-links {
+    img {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
   grid-area: info;
   display: grid;
   grid-template-rows: min-content min-content;
