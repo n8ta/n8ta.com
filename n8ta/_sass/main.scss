@@ -66,10 +66,6 @@ html {
 
 
 body {
-  &.no_info {
-    grid-column-gap: 0;
-    max-width: 40rem;
-  }
   margin: 0rem auto 0rem auto;
   padding: 2rem;
   padding-top: 1rem;
@@ -79,8 +75,15 @@ body {
   grid-template-columns: 3fr 1fr;
   grid-column-gap: 1rem;
   grid-template-rows: auto;
-  grid-template-areas:
-          'content info'
+  grid-template-areas: 'content info';
+  &.no_info {
+    grid-column-gap: 0;
+    max-width: 40rem;
+    grid-template-columns: 1fr;
+  }
+  &.wide {
+    max-width: 60rem;
+  }
 }
 
 #info {
