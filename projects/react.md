@@ -23,6 +23,13 @@ title:  "Fast react: class components to useMemo"
     .border .border {
         margin: 1rem;
     }
+    .border-sm {
+        background-color: rgba(186,98,54,.3);
+        padding: .3rem;
+    }
+    .border .border-sm {
+        margin: .5rem;
+    }
 </style>
 <div id="react-app-root"></div>
 
