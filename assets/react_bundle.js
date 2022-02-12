@@ -7710,7 +7710,7 @@
 
 	const code = "const Parent = () => {\n" + "    const [count, setCount] = useState(false);\n" + "    return (\n" + "            <div className={\"border\"}>\n" + "                <h5>Parent</h5>\n" + "                <button onClick={() => setCount(count + 1)}>Re-render me</button>\n" + "                <p>Children are rendered with their parents. This becomes a problem fast as the tree grows.</p>\n" + "                <Child/>\n" + "            </div>\n" + "    )\n" + "}\n" + "\n" + "const Child = () => {\n" + "    const [count, setCount] = useState(false);\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <h5>Child</h5>\n" + "            <p>I am the child</p>\n" + "            <button onClick={() => setCount(count + 1)}>Re-render me</button>\n" + "        </div>\n" + "    );\n" + "}";
 
-	const Parent$1 = () => {
+	const Parent$2 = () => {
 	  const [count, setCount] = react.exports.useState(false);
 	  return /*#__PURE__*/React.createElement("div", {
 	    className: "border"
@@ -7730,7 +7730,7 @@
 
 	var Parent1 = (() => /*#__PURE__*/React.createElement(Two, {
 	  code: code
-	}, /*#__PURE__*/React.createElement(Parent$1, null)));
+	}, /*#__PURE__*/React.createElement(Parent$2, null)));
 
 	const counterCode = "class Counter extends React.Component {\n" + "    constructor(props) {\n" + "        super(props);\n" + "        this.state = {number: 0, pendingNumber: 10};\n" + "    }\n" + "\n" + "    render() {\n" + "        return (\n" + "            <div className={\"border\"}>\n" + "                <h5>Number Form</h5>\n" + "                <input placeholder={10} type={\"number\"}\n" + "                       onChange={e => this.setState({pendingNumber: e.target.valueAsNumber})}/>\n" + "                <button onClick={(e) => this.setState({number: this.state.pendingNumber})}>Set number</button>\n" + "                <DisplayNumber number={this.state.number}/>\n" + "\n" + "            </div>\n" + "        );\n" + "    }\n" + "}\n" + "\n" + "class DisplayNumber extends React.Component {\n" + "    constructor(props) {\n" + "        super(props);\n" + "    }\n" + "\n" + "    render() {\n" + "        return (\n" + "            <div className={\"border\"}>\n" + "                <h5>Display Number</h5>\n" + "                <p>The number is {this.props.number}</p>\n" + "            </div>\n" + "        );\n" + "    }\n" + "}";
 	const counter2Code = "class Counter2 extends React.Component {\n" + "    constructor(props) {\n" + "        super(props);\n" + "        this.state = {count: 0, pendingCount: 10};\n" + "    }\n" + "\n" + "    render() {\n" + "        return (\n" + "            <div className={\"border\"}>\n" + "                <DisplayNumber2 number={this.state.count}/>\n" + "                <input placeholder={10} type={\"number\"} " + "                       onChange={e => this.setState({pendingCount: e.target.valueAsNumber})}/>\n" + "                <button onClick={(e) => this.setState({count: this.state.pendingCount})}>" + "                       Set number" + "                </button>\n" + "            </div>\n" + "        );\n" + "    }\n" + "}\n" + "\n" + "class DisplayNumber2 extends React.Component {\n" + "    constructor(props) {\n" + "        super(props);\n" + "    }\n" + "\n" + "    shouldComponentUpdate(nextProps, nextState) {\n" + "        return nextProps.number !== this.props.number\n" + "    }\n" + "\n" + "    render() {\n" + "        return (\n" + "            <div className={\"border\"}>\n" + "                <h5>Display Number</h5>\n" + "                <p>The number is {this.props.number}</p>\n" + "            </div>\n" + "        );\n" + "    }\n" + "}";
@@ -7823,7 +7823,7 @@
 
 	}
 
-	const Parent2$1 = () => {
+	const Parent2$2 = () => {
 	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, "Here we have a counter component that passes down the finalized number to a display component. Notice how the display component re-renders on any change to the parent."), /*#__PURE__*/React.createElement(Two, {
 	    code: counterCode
 	  }, /*#__PURE__*/React.createElement(Counter, null)), /*#__PURE__*/React.createElement("p", null, "We can do better. How about if it only re-rendered when its props actually change"), /*#__PURE__*/React.createElement("p", null, "In the past this was done with ", /*#__PURE__*/React.createElement("a", {
@@ -7994,23 +7994,6 @@
 	  pages
 	}) => {
 	  const [current, setCurrent] = react.exports.useState(0);
-
-	  const prev = () => {
-	    const new_idx = Math.max(current - 1, 0);
-	    setCurrent(new_idx);
-	    document.documentElement.scrollTop = 0;
-	    document.body.scrollTop = 0;
-	    window.localStorage.setItem("pages-idx", JSON.stringify(new_idx));
-	  };
-
-	  const next = () => {
-	    const new_idx = Math.min(pages.length - 1, current + 1);
-	    setCurrent(new_idx);
-	    document.documentElement.scrollTop = 0;
-	    document.body.scrollTop = 0;
-	    window.localStorage.setItem("pages-idx", JSON.stringify(new_idx));
-	  };
-
 	  react.exports.useLayoutEffect(() => {
 	    try {
 	      hljs.highlightAll();
@@ -8023,22 +8006,32 @@
 	      if (Number.isInteger(idx) && idx >= 0 && idx < pages.length) setCurrent(idx);
 	    } catch {}
 	  }, []);
-	  const nextTitle = current + 1 < pages.length ? pages[current + 1].name.substr(0, 40) : "Next";
-	  const prevTitle = current - 1 >= 0 ? pages[current - 1].name.substr(0, 40) : "Prev";
-	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, pages[current].name), pages[current].component, /*#__PURE__*/React.createElement("button", {
-	    disabled: current === 0,
-	    onClick: prev
-	  }, prevTitle), /*#__PURE__*/React.createElement("button", {
-	    disabled: current === pages.length - 1,
-	    onClick: next
-	  }, nextTitle));
+
+	  const setCurrentPage = idx => {
+	    window.localStorage.setItem("pages-idx", JSON.stringify(idx));
+	    setCurrent(idx);
+	  };
+
+	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Index, {
+	    pages: pages,
+	    setCurrent: setCurrentPage
+	  }), /*#__PURE__*/React.createElement("h3", null, pages[current].name), pages[current].component);
 	};
+
+	const Index = /*#__PURE__*/React.memo(({
+	  pages,
+	  setCurrent
+	}) => /*#__PURE__*/React.createElement("ol", null, pages.map((page, idx) => /*#__PURE__*/React.createElement("li", {
+	  key: idx
+	}, /*#__PURE__*/React.createElement("a", {
+	  onClick: () => setCurrent(idx)
+	}, page.name)))));
 
 	const parentChild = "const Parent = () => {\n" + "    const [agreed, setAgreed] = useState(false);\n" + "    const [username, setUsername] = useState(null);\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <h5>Login Form</h5>\n" + "            <label>Username</label><br></br>\n" + "            <input\n" + "                onChange={(e) => setUsername(e.target.value)}\n" + "                type={\"username\"}/><br/>\n" + "            <label>Password</label><br/>\n" + "            <input type={\"password\"}/><br/>\n" + "            <Terms agree={() => setAgreed(true)}/>\n" + "        </div>\n" + "    )\n" + "}\n" + "const Terms = ({agree}) => <div className={\"border\"}>\n" + "    <label>Agree to terms?</label>\n" + "    <input type={'checkbox'} onClick={() => agree()}/>\n" + "</div>";
 	const parentChild2 = "const TermsMemo = React.memo(({agree}) => <div className={\"border\"}>\n" + "    <label>Agree to terms?</label>\n" + "    <input type={'checkbox'} onClick={() => agree()}/>\n" + "</div>)\n";
 	const parentChild3 = "const Parent3 = () => {\n" + "    const [agreed, setAgreed] = useState(false);\n" + "    const [username, setUsername] = useState(null);\n" + "    const agree = useCallback(() => setAgreed(true), [])\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <h5>Registration Form</h5>\n" + "            <label>Username</label><br/>\n" + "            <input\n" + "                onChange={(e) => setUsername(e.target.value)}\n" + "                type={\"username\"}/><br/>\n" + "            <label>Password</label><br/>\n" + "            <input type={\"password\"}/><br/>\n" + "            <TermsMemo agree={agree}/>\n" + "        </div>\n" + "    )\n" + "}\n" + "\n" + "const TermsMemo = React.memo(({agree}) => <div className={\"border\"}>\n" + "    <label>Agree to terms?</label>\n" + "    <input type={'checkbox'} onClick={() => agree()}/>\n" + "</div>)\n";
 
-	const Parent = () => {
+	const Parent$1 = () => {
 	  const [agreed, setAgreed] = react.exports.useState(false);
 	  const [username, setUsername] = react.exports.useState(null);
 	  return /*#__PURE__*/React.createElement("div", {
@@ -8062,7 +8055,7 @@
 	  onClick: () => agree()
 	}));
 
-	const Parent2 = () => {
+	const Parent2$1 = () => {
 	  const [agreed, setAgreed] = react.exports.useState(false);
 	  const [username, setUsername] = react.exports.useState(null);
 	  return /*#__PURE__*/React.createElement("div", {
@@ -8104,11 +8097,92 @@
 
 	const WhyGotchas = () => /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Okay so why do ", /*#__PURE__*/React.createElement("code", null, "==="), " semantics matter?"), /*#__PURE__*/React.createElement("p", null, "Take this component that passes a closure to it's child"), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild
-	}, /*#__PURE__*/React.createElement(Parent, null)), /*#__PURE__*/React.createElement("p", null, "Of course this component still re-renders with it's parent. Let's add ", /*#__PURE__*/React.createElement("code", null, "React.memo()")), /*#__PURE__*/React.createElement(Two, {
+	}, /*#__PURE__*/React.createElement(Parent$1, null)), /*#__PURE__*/React.createElement("p", null, "Of course this component still re-renders with it's parent. Let's add ", /*#__PURE__*/React.createElement("code", null, "React.memo()")), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild2
-	}, /*#__PURE__*/React.createElement(Parent2, null)), /*#__PURE__*/React.createElement("p", null, "But that's not enough because of the closure(). ", /*#__PURE__*/React.createElement("code", null, "useCallback"), " to the rescue. It provides a stable value for the closure we pass down. So useMemo's ", /*#__PURE__*/React.createElement("code", null, "==="), " check will pass."), /*#__PURE__*/React.createElement(Two, {
+	}, /*#__PURE__*/React.createElement(Parent2$1, null)), /*#__PURE__*/React.createElement("p", null, "But that's not enough because of the closure(). ", /*#__PURE__*/React.createElement("code", null, "useCallback"), " to the rescue. It provides a stable value for the closure we pass down. So useMemo's ", /*#__PURE__*/React.createElement("code", null, "==="), " check will pass."), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild3
 	}, /*#__PURE__*/React.createElement(Parent3, null)));
+
+	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const existingUsers = ["Alice", "Bob", "蓮", "王", "Mohammaad", "Sunita"];
+
+	const Parent = () => {
+	  const [username, setUsername] = React.useState("");
+	  const [password, setPassword] = React.useState("");
+	  const [month, setMonth] = React.useState("");
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "block"
+	  }, /*#__PURE__*/React.createElement("label", null, "Username"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    type: "text",
+	    value: username,
+	    onChange: e => setUsername(e.target.value)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Password"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    type: "text",
+	    value: password,
+	    onChange: e => setPassword(e.target.value)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("labe", null, "Birth Month"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+	    onChange: e => setMonth(e.target.value)
+	  }, months.map((month, index) => /*#__PURE__*/React.createElement("option", {
+	    key: index,
+	    value: month
+	  }, month))), /*#__PURE__*/React.createElement(Validator, {
+	    details: {
+	      username,
+	      password
+	    }
+	  }));
+	};
+
+	const Parent2 = () => {
+	  const [username, setUsername] = React.useState("");
+	  const [password, setPassword] = React.useState("");
+	  const [month, setMonth] = React.useState("");
+	  const details = react.exports.useMemo(() => {
+	    return {
+	      username,
+	      password
+	    };
+	  }, [username, password]);
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "block"
+	  }, /*#__PURE__*/React.createElement("label", null, "Username"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    type: "text",
+	    value: username,
+	    onChange: e => setUsername(e.target.value)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Password"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+	    type: "text",
+	    value: password,
+	    onChange: e => setPassword(e.target.value)
+	  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("labe", null, "Birth Month"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+	    onChange: e => setMonth(e.target.value)
+	  }, months.map((month, index) => /*#__PURE__*/React.createElement("option", {
+	    key: index,
+	    value: month
+	  }, month))), /*#__PURE__*/React.createElement(Validator, {
+	    details: details
+	  }));
+	};
+
+	const Validator = /*#__PURE__*/React.memo(({
+	  details
+	}) => {
+	  if (existingUsers.indexOf(details.username) !== -1) {
+	    return /*#__PURE__*/React.createElement("div", null, "Username already exists");
+	  } else if (details.password.length < 8) {
+	    return /*#__PURE__*/React.createElement("div", null, "Password must be at least 8 characters");
+	  } else {
+	    return /*#__PURE__*/React.createElement("div", null, "Valid");
+	  }
+	});
+	const pcode = "const Parent = () => {\n" + "    const [username, setUsername] = React.useState(\"\");\n" + "    const [password, setPassword] = React.useState(\"\");\n" + "    const [month, setMonth] = React.useState(\"\");\n" + "    return (\n" + "        <div className={\"block\"}>\n" + "            <label>Username</label><br/>\n" + "            <input type=\"text\" value={username} onChange={e => setUsername(e.target.value)} /><br/>\n" + "            <label>Password</label><br/>\n" + "            <input type=\"text\" value={password} onChange={e => setPassword(e.target.value)} /><br/>\n" + "            <labe>Birth Month</labe><br/>\n" + "            <select onChange={e => setMonth(e.target.value)}>\n" + "                {months.map((month, index) => <option key={index} value={month}>{month}</option>)}\n" + "            </select>\n" + "            <Validator details={{username, password}}/>\n" + "        </div>\n" + "    );\n" + "}\n" + "const Validator = React.memo(({details}) => {\n" + "    if (existingUsers.indexOf(details.username) !== -1) {\n" + "        return <div>Username already exists</div>\n" + "    } else if (details.password.length < 8) {\n" + "        return <div>Password must be at least 8 characters</div>\n" + "    } else {\n" + "        return <div>Valid</div>\n" + "    }\n" + "})";
+	const pcode2 = "const ParentMemo = () => {\n" + "    const [username, setUsername] = React.useState(\"\");\n" + "    const [password, setPassword] = React.useState(\"\");\n" + "    const [month, setMonth] = React.useState(\"\");\n" + "    const details = useMemo(() => { return { username, password} }, [username, password]);\n" + "    return (\n" + "        <div className={\"block\"}>\n" + "            <label>Username</label><br/>\n" + "            <input type=\"text\" value={username} onChange={e => setUsername(e.target.value)} /><br/>\n" + "            <label>Password</label><br/>\n" + "            <input type=\"text\" value={password} onChange={e => setPassword(e.target.value)} /><br/>\n" + "            <labe>Birth Month</labe><br/>\n" + "            <select onChange={e => setMonth(e.target.value)}>\n" + "                {months.map((month, index) => <option key={index} value={month}>{month}</option>)}\n" + "            </select>\n" + "            <Validator details={details}/>\n" + "        </div>\n" + "    );\n" + "}";
+	var NewObject = (() => {
+	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Two, {
+	    code: pcode
+	  }, /*#__PURE__*/React.createElement(Parent, null)), /*#__PURE__*/React.createElement("p", null, "So why is the validator rendering when we change Birth Month?"), /*#__PURE__*/React.createElement("p", null, "Remember ", /*#__PURE__*/React.createElement("code", null, " !== "), ". Each time we constructor details we allocating a new object that will not be equal to the prior even if the keys/values are the same."), /*#__PURE__*/React.createElement("p", null, "We fix this with useMemo. useMemo will only update the object when dependencies change."), /*#__PURE__*/React.createElement(Two, {
+	    code: pcode2
+	  }, /*#__PURE__*/React.createElement(Parent2, null)));
+	});
 
 	var songs = [{
 	  id: 0,
@@ -8124,13 +8198,13 @@
 	  name: "Going higher"
 	}];
 
-	const usePlayer = (timeCb, songCompleteCb) => {
-	  if (window.singleton_player) {
+	const usePlayer = (timeCb, songCompleteCb, field) => {
+	  if (window[field]) {
 	    // might just fuck around and rewrite the rest of react too.
-	    const oldCb = window.singleton_player.storage.songCompleteCb;
-	    window.singleton_player.storage.current.removeEventListener('ended', oldCb);
-	    window.singleton_player.storage.current.addEventListener('ended', songCompleteCb);
-	    return window.singleton_player;
+	    const oldCb = window[field].storage.songCompleteCb;
+	    window[field].storage.current.removeEventListener('ended', oldCb);
+	    window[field].storage.current.addEventListener('ended', songCompleteCb);
+	    return window[field];
 	  }
 
 	  const storage = {
@@ -8171,7 +8245,7 @@
 	  setInterval(() => {
 	    timeCb(player.position());
 	  }, 333);
-	  window.singleton_player = player;
+	  window[field] = player;
 	  return player;
 	};
 
@@ -8180,10 +8254,11 @@
 	  time,
 	  reported_time,
 	  paused,
-	  song_complete
+	  song_complete,
+	  field
 	}) => {
 	  const [playing, setPlaying] = react.exports.useState(null);
-	  const imperative_player = usePlayer(reported_time, song_complete);
+	  const imperative_player = usePlayer(reported_time, song_complete, field);
 
 	  if (playing !== song) {
 	    console.info("Declarative sets song!");
@@ -8237,835 +8312,8 @@
 	  }), /*#__PURE__*/React.createElement("p", null, player.current_song.name, " -- ", Math.round(player.position), "s out of ", Math.round(player.duration), "s"));
 	});
 
-	var reactDomTestUtils_production_min = {exports: {}};
-
-	/** @license React v17.0.2
-	 * react-dom-test-utils.production.min.js
-	 *
-	 * Copyright (c) Facebook, Inc. and its affiliates.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-
-	(function (module, exports) {
-
-	var h = objectAssign,
-	    l = react.exports,
-	    m = reactDom.exports,
-	    n = scheduler.exports;
-
-	function p(a) {
-	  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++) b += "&args[]=" + encodeURIComponent(arguments[c]);
-
-	  return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
-	}
-
-	var q = l.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-	function r(a) {
-	  var b = a,
-	      c = a;
-	  if (a.alternate) for (; b.return;) b = b.return;else {
-	    a = b;
-
-	    do b = a, 0 !== (b.flags & 1026) && (c = b.return), a = b.return; while (a);
-	  }
-	  return 3 === b.tag ? c : null;
-	}
-
-	function t(a) {
-	  if (r(a) !== a) throw Error(p(188));
-	}
-
-	function aa(a) {
-	  var b = a.alternate;
-
-	  if (!b) {
-	    b = r(a);
-	    if (null === b) throw Error(p(188));
-	    return b !== a ? null : a;
-	  }
-
-	  for (var c = a, d = b;;) {
-	    var e = c.return;
-	    if (null === e) break;
-	    var g = e.alternate;
-
-	    if (null === g) {
-	      d = e.return;
-
-	      if (null !== d) {
-	        c = d;
-	        continue;
-	      }
-
-	      break;
-	    }
-
-	    if (e.child === g.child) {
-	      for (g = e.child; g;) {
-	        if (g === c) return t(e), a;
-	        if (g === d) return t(e), b;
-	        g = g.sibling;
-	      }
-
-	      throw Error(p(188));
-	    }
-
-	    if (c.return !== d.return) c = e, d = g;else {
-	      for (var f = !1, k = e.child; k;) {
-	        if (k === c) {
-	          f = !0;
-	          c = e;
-	          d = g;
-	          break;
-	        }
-
-	        if (k === d) {
-	          f = !0;
-	          d = e;
-	          c = g;
-	          break;
-	        }
-
-	        k = k.sibling;
-	      }
-
-	      if (!f) {
-	        for (k = g.child; k;) {
-	          if (k === c) {
-	            f = !0;
-	            c = g;
-	            d = e;
-	            break;
-	          }
-
-	          if (k === d) {
-	            f = !0;
-	            d = g;
-	            c = e;
-	            break;
-	          }
-
-	          k = k.sibling;
-	        }
-
-	        if (!f) throw Error(p(189));
-	      }
-	    }
-	    if (c.alternate !== d) throw Error(p(190));
-	  }
-
-	  if (3 !== c.tag) throw Error(p(188));
-	  return c.stateNode.current === c ? a : b;
-	}
-
-	function u(a) {
-	  var b = a.keyCode;
-	  "charCode" in a ? (a = a.charCode, 0 === a && 13 === b && (a = 13)) : a = b;
-	  10 === a && (a = 13);
-	  return 32 <= a || 13 === a ? a : 0;
-	}
-
-	function v() {
-	  return !0;
-	}
-
-	function w() {
-	  return !1;
-	}
-
-	function x(a) {
-	  function b(c, b, e, g, f) {
-	    this._reactName = c;
-	    this._targetInst = e;
-	    this.type = b;
-	    this.nativeEvent = g;
-	    this.target = f;
-	    this.currentTarget = null;
-
-	    for (var d in a) a.hasOwnProperty(d) && (c = a[d], this[d] = c ? c(g) : g[d]);
-
-	    this.isDefaultPrevented = (null != g.defaultPrevented ? g.defaultPrevented : !1 === g.returnValue) ? v : w;
-	    this.isPropagationStopped = w;
-	    return this;
-	  }
-
-	  h(b.prototype, {
-	    preventDefault: function () {
-	      this.defaultPrevented = !0;
-	      var a = this.nativeEvent;
-	      a && (a.preventDefault ? a.preventDefault() : "unknown" !== typeof a.returnValue && (a.returnValue = !1), this.isDefaultPrevented = v);
-	    },
-	    stopPropagation: function () {
-	      var a = this.nativeEvent;
-	      a && (a.stopPropagation ? a.stopPropagation() : "unknown" !== typeof a.cancelBubble && (a.cancelBubble = !0), this.isPropagationStopped = v);
-	    },
-	    persist: function () {},
-	    isPersistent: v
-	  });
-	  return b;
-	}
-
-	var y = {
-	  eventPhase: 0,
-	  bubbles: 0,
-	  cancelable: 0,
-	  timeStamp: function (a) {
-	    return a.timeStamp || Date.now();
-	  },
-	  defaultPrevented: 0,
-	  isTrusted: 0
-	},
-	    ba = x(y),
-	    z = h({}, y, {
-	  view: 0,
-	  detail: 0
-	});
-	x(z);
-	var A,
-	    B,
-	    C,
-	    E = h({}, z, {
-	  screenX: 0,
-	  screenY: 0,
-	  clientX: 0,
-	  clientY: 0,
-	  pageX: 0,
-	  pageY: 0,
-	  ctrlKey: 0,
-	  shiftKey: 0,
-	  altKey: 0,
-	  metaKey: 0,
-	  getModifierState: D,
-	  button: 0,
-	  buttons: 0,
-	  relatedTarget: function (a) {
-	    return void 0 === a.relatedTarget ? a.fromElement === a.srcElement ? a.toElement : a.fromElement : a.relatedTarget;
-	  },
-	  movementX: function (a) {
-	    if ("movementX" in a) return a.movementX;
-	    a !== C && (C && "mousemove" === a.type ? (A = a.screenX - C.screenX, B = a.screenY - C.screenY) : B = A = 0, C = a);
-	    return A;
-	  },
-	  movementY: function (a) {
-	    return "movementY" in a ? a.movementY : B;
-	  }
-	});
-	x(E);
-	var da = h({}, E, {
-	  dataTransfer: 0
-	});
-	x(da);
-	var ea = h({}, z, {
-	  relatedTarget: 0
-	});
-	x(ea);
-	var fa = h({}, y, {
-	  animationName: 0,
-	  elapsedTime: 0,
-	  pseudoElement: 0
-	});
-	x(fa);
-	var ha = h({}, y, {
-	  clipboardData: function (a) {
-	    return "clipboardData" in a ? a.clipboardData : window.clipboardData;
-	  }
-	});
-	x(ha);
-	var ia = h({}, y, {
-	  data: 0
-	});
-	x(ia);
-	var ja = {
-	  Esc: "Escape",
-	  Spacebar: " ",
-	  Left: "ArrowLeft",
-	  Up: "ArrowUp",
-	  Right: "ArrowRight",
-	  Down: "ArrowDown",
-	  Del: "Delete",
-	  Win: "OS",
-	  Menu: "ContextMenu",
-	  Apps: "ContextMenu",
-	  Scroll: "ScrollLock",
-	  MozPrintableKey: "Unidentified"
-	},
-	    ka = {
-	  8: "Backspace",
-	  9: "Tab",
-	  12: "Clear",
-	  13: "Enter",
-	  16: "Shift",
-	  17: "Control",
-	  18: "Alt",
-	  19: "Pause",
-	  20: "CapsLock",
-	  27: "Escape",
-	  32: " ",
-	  33: "PageUp",
-	  34: "PageDown",
-	  35: "End",
-	  36: "Home",
-	  37: "ArrowLeft",
-	  38: "ArrowUp",
-	  39: "ArrowRight",
-	  40: "ArrowDown",
-	  45: "Insert",
-	  46: "Delete",
-	  112: "F1",
-	  113: "F2",
-	  114: "F3",
-	  115: "F4",
-	  116: "F5",
-	  117: "F6",
-	  118: "F7",
-	  119: "F8",
-	  120: "F9",
-	  121: "F10",
-	  122: "F11",
-	  123: "F12",
-	  144: "NumLock",
-	  145: "ScrollLock",
-	  224: "Meta"
-	},
-	    la = {
-	  Alt: "altKey",
-	  Control: "ctrlKey",
-	  Meta: "metaKey",
-	  Shift: "shiftKey"
-	};
-
-	function ma(a) {
-	  var b = this.nativeEvent;
-	  return b.getModifierState ? b.getModifierState(a) : (a = la[a]) ? !!b[a] : !1;
-	}
-
-	function D() {
-	  return ma;
-	}
-
-	var na = h({}, z, {
-	  key: function (a) {
-	    if (a.key) {
-	      var b = ja[a.key] || a.key;
-	      if ("Unidentified" !== b) return b;
-	    }
-
-	    return "keypress" === a.type ? (a = u(a), 13 === a ? "Enter" : String.fromCharCode(a)) : "keydown" === a.type || "keyup" === a.type ? ka[a.keyCode] || "Unidentified" : "";
-	  },
-	  code: 0,
-	  location: 0,
-	  ctrlKey: 0,
-	  shiftKey: 0,
-	  altKey: 0,
-	  metaKey: 0,
-	  repeat: 0,
-	  locale: 0,
-	  getModifierState: D,
-	  charCode: function (a) {
-	    return "keypress" === a.type ? u(a) : 0;
-	  },
-	  keyCode: function (a) {
-	    return "keydown" === a.type || "keyup" === a.type ? a.keyCode : 0;
-	  },
-	  which: function (a) {
-	    return "keypress" === a.type ? u(a) : "keydown" === a.type || "keyup" === a.type ? a.keyCode : 0;
-	  }
-	});
-	x(na);
-	var oa = h({}, E, {
-	  pointerId: 0,
-	  width: 0,
-	  height: 0,
-	  pressure: 0,
-	  tangentialPressure: 0,
-	  tiltX: 0,
-	  tiltY: 0,
-	  twist: 0,
-	  pointerType: 0,
-	  isPrimary: 0
-	});
-	x(oa);
-	var pa = h({}, z, {
-	  touches: 0,
-	  targetTouches: 0,
-	  changedTouches: 0,
-	  altKey: 0,
-	  metaKey: 0,
-	  ctrlKey: 0,
-	  shiftKey: 0,
-	  getModifierState: D
-	});
-	x(pa);
-	var qa = h({}, y, {
-	  propertyName: 0,
-	  elapsedTime: 0,
-	  pseudoElement: 0
-	});
-	x(qa);
-	var ra = h({}, E, {
-	  deltaX: function (a) {
-	    return "deltaX" in a ? a.deltaX : "wheelDeltaX" in a ? -a.wheelDeltaX : 0;
-	  },
-	  deltaY: function (a) {
-	    return "deltaY" in a ? a.deltaY : "wheelDeltaY" in a ? -a.wheelDeltaY : "wheelDelta" in a ? -a.wheelDelta : 0;
-	  },
-	  deltaZ: 0,
-	  deltaMode: 0
-	});
-	x(ra);
-	var F = null;
-
-	function G(a) {
-	  if (null === F) try {
-	    var b = ("require" + Math.random()).slice(0, 7);
-	    F = (module && module[b]).call(module, "timers").setImmediate;
-	  } catch (c) {
-	    F = function (a) {
-	      var b = new MessageChannel();
-	      b.port1.onmessage = a;
-	      b.port2.postMessage(void 0);
-	    };
-	  }
-	  return F(a);
-	}
-
-	var H = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.Events,
-	    sa = H[5],
-	    I = H[6],
-	    ta = m.unstable_batchedUpdates,
-	    J = q.IsSomeRendererActing,
-	    K = "function" === typeof n.unstable_flushAllWithoutAsserting,
-	    L = n.unstable_flushAllWithoutAsserting || function () {
-	  for (var a = !1; sa();) a = !0;
-
-	  return a;
-	};
-
-	function M(a) {
-	  try {
-	    L(), G(function () {
-	      L() ? M(a) : a();
-	    });
-	  } catch (b) {
-	    a(b);
-	  }
-	}
-
-	var N = 0,
-	    ua = !1,
-	    O = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.Events[6],
-	    va = m.unstable_batchedUpdates,
-	    Q = q.IsSomeRendererActing;
-
-	function wa(a, b) {
-	  jest.runOnlyPendingTimers();
-	  G(function () {
-	    try {
-	      n.unstable_flushAllWithoutAsserting() ? wa(a, b) : a();
-	    } catch (c) {
-	      b(c);
-	    }
-	  });
-	}
-
-	function xa(a, b, c, d, e, g, f, k, ca) {
-	  var P = Array.prototype.slice.call(arguments, 3);
-
-	  try {
-	    b.apply(c, P);
-	  } catch (Ga) {
-	    this.onError(Ga);
-	  }
-	}
-
-	var R = !1,
-	    S = null,
-	    T = !1,
-	    U = null,
-	    ya = {
-	  onError: function (a) {
-	    R = !0;
-	    S = a;
-	  }
-	};
-
-	function za(a, b, c, d, e, g, f, k, ca) {
-	  R = !1;
-	  S = null;
-	  xa.apply(ya, arguments);
-	}
-
-	function Aa(a, b, c, d, e, g, f, k, ca) {
-	  za.apply(this, arguments);
-
-	  if (R) {
-	    if (R) {
-	      var P = S;
-	      R = !1;
-	      S = null;
-	    } else throw Error(p(198));
-
-	    T || (T = !0, U = P);
-	  }
-	}
-
-	var V = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.Events,
-	    Ba = V[0],
-	    Ca = V[1],
-	    Da = V[2],
-	    Ea = V[3],
-	    Fa = V[4];
-
-	function Ha() {}
-
-	function Ia(a, b) {
-	  if (!a) return [];
-	  a = aa(a);
-	  if (!a) return [];
-
-	  for (var c = a, d = [];;) {
-	    if (5 === c.tag || 6 === c.tag || 1 === c.tag || 0 === c.tag) {
-	      var e = c.stateNode;
-	      b(e) && d.push(e);
-	    }
-
-	    if (c.child) c.child.return = c, c = c.child;else {
-	      if (c === a) return d;
-
-	      for (; !c.sibling;) {
-	        if (!c.return || c.return === a) return d;
-	        c = c.return;
-	      }
-
-	      c.sibling.return = c.return;
-	      c = c.sibling;
-	    }
-	  }
-	}
-
-	function W(a, b) {
-	  if (a && !a._reactInternals) {
-	    var c = "" + a;
-	    a = Array.isArray(a) ? "an array" : a && 1 === a.nodeType && a.tagName ? "a DOM node" : "[object Object]" === c ? "object with keys {" + Object.keys(a).join(", ") + "}" : c;
-	    throw Error(p(286, b, a));
-	  }
-	}
-
-	function X(a) {
-	  return !(!a || 1 !== a.nodeType || !a.tagName);
-	}
-
-	function Y(a) {
-	  return X(a) ? !1 : null != a && "function" === typeof a.render && "function" === typeof a.setState;
-	}
-
-	function Ja(a, b) {
-	  return Y(a) ? a._reactInternals.type === b : !1;
-	}
-
-	function Z(a, b) {
-	  W(a, "findAllInRenderedTree");
-	  return a ? Ia(a._reactInternals, b) : [];
-	}
-
-	function Ka(a, b) {
-	  W(a, "scryRenderedDOMComponentsWithClass");
-	  return Z(a, function (a) {
-	    if (X(a)) {
-	      var c = a.className;
-	      "string" !== typeof c && (c = a.getAttribute("class") || "");
-	      var e = c.split(/\s+/);
-
-	      if (!Array.isArray(b)) {
-	        if (void 0 === b) throw Error(p(11));
-	        b = b.split(/\s+/);
-	      }
-
-	      return b.every(function (a) {
-	        return -1 !== e.indexOf(a);
-	      });
-	    }
-
-	    return !1;
-	  });
-	}
-
-	function La(a, b) {
-	  W(a, "scryRenderedDOMComponentsWithTag");
-	  return Z(a, function (a) {
-	    return X(a) && a.tagName.toUpperCase() === b.toUpperCase();
-	  });
-	}
-
-	function Ma(a, b) {
-	  W(a, "scryRenderedComponentsWithType");
-	  return Z(a, function (a) {
-	    return Ja(a, b);
-	  });
-	}
-
-	function Na(a, b, c) {
-	  var d = a.type || "unknown-event";
-	  a.currentTarget = Ca(c);
-	  Aa(d, b, void 0, a);
-	  a.currentTarget = null;
-	}
-
-	function Oa(a, b, c) {
-	  for (var d = []; a;) {
-	    d.push(a);
-
-	    do a = a.return; while (a && 5 !== a.tag);
-
-	    a = a ? a : null;
-	  }
-
-	  for (a = d.length; 0 < a--;) b(d[a], "captured", c);
-
-	  for (a = 0; a < d.length; a++) b(d[a], "bubbled", c);
-	}
-
-	function Pa(a, b) {
-	  var c = a.stateNode;
-	  if (!c) return null;
-	  var d = Da(c);
-	  if (!d) return null;
-	  c = d[b];
-
-	  a: switch (b) {
-	    case "onClick":
-	    case "onClickCapture":
-	    case "onDoubleClick":
-	    case "onDoubleClickCapture":
-	    case "onMouseDown":
-	    case "onMouseDownCapture":
-	    case "onMouseMove":
-	    case "onMouseMoveCapture":
-	    case "onMouseUp":
-	    case "onMouseUpCapture":
-	    case "onMouseEnter":
-	      (d = !d.disabled) || (a = a.type, d = !("button" === a || "input" === a || "select" === a || "textarea" === a));
-	      a = !d;
-	      break a;
-
-	    default:
-	      a = !1;
-	  }
-
-	  if (a) return null;
-	  if (c && "function" !== typeof c) throw Error(p(231, b, typeof c));
-	  return c;
-	}
-
-	function Qa(a, b, c) {
-	  a && c && c._reactName && (b = Pa(a, c._reactName)) && (null == c._dispatchListeners && (c._dispatchListeners = []), null == c._dispatchInstances && (c._dispatchInstances = []), c._dispatchListeners.push(b), c._dispatchInstances.push(a));
-	}
-
-	function Ra(a, b, c) {
-	  var d = c._reactName;
-	  "captured" === b && (d += "Capture");
-	  if (b = Pa(a, d)) null == c._dispatchListeners && (c._dispatchListeners = []), null == c._dispatchInstances && (c._dispatchInstances = []), c._dispatchListeners.push(b), c._dispatchInstances.push(a);
-	}
-
-	var Sa = {},
-	    Ta = new Set(["mouseEnter", "mouseLeave", "pointerEnter", "pointerLeave"]);
-
-	function Ua(a) {
-	  return function (b, c) {
-	    if (l.isValidElement(b)) throw Error(p(228));
-	    if (Y(b)) throw Error(p(229));
-	    var d = "on" + a[0].toUpperCase() + a.slice(1),
-	        e = new Ha();
-	    e.target = b;
-	    e.type = a.toLowerCase();
-	    var g = Ba(b),
-	        f = new ba(d, e.type, g, e, b);
-	    f.persist();
-	    h(f, c);
-	    Ta.has(a) ? f && f._reactName && Qa(f._targetInst, null, f) : f && f._reactName && Oa(f._targetInst, Ra, f);
-	    m.unstable_batchedUpdates(function () {
-	      Ea(b);
-
-	      if (f) {
-	        var a = f._dispatchListeners,
-	            c = f._dispatchInstances;
-	        if (Array.isArray(a)) for (var d = 0; d < a.length && !f.isPropagationStopped(); d++) Na(f, a[d], c[d]);else a && Na(f, a, c);
-	        f._dispatchListeners = null;
-	        f._dispatchInstances = null;
-	        f.isPersistent() || f.constructor.release(f);
-	      }
-
-	      if (T) throw a = U, T = !1, U = null, a;
-	    });
-	    Fa();
-	  };
-	}
-
-	"blur cancel click close contextMenu copy cut auxClick doubleClick dragEnd dragStart drop focus input invalid keyDown keyPress keyUp mouseDown mouseUp paste pause play pointerCancel pointerDown pointerUp rateChange reset seeked submit touchCancel touchEnd touchStart volumeChange drag dragEnter dragExit dragLeave dragOver mouseMove mouseOut mouseOver pointerMove pointerOut pointerOver scroll toggle touchMove wheel abort animationEnd animationIteration animationStart canPlay canPlayThrough durationChange emptied encrypted ended error gotPointerCapture load loadedData loadedMetadata loadStart lostPointerCapture playing progress seeking stalled suspend timeUpdate transitionEnd waiting mouseEnter mouseLeave pointerEnter pointerLeave change select beforeInput compositionEnd compositionStart compositionUpdate".split(" ").forEach(function (a) {
-	  Sa[a] = Ua(a);
-	});
-	exports.Simulate = Sa;
-
-	exports.act = function (a) {
-	  function b() {
-	    N--;
-	    J.current = c;
-	    I.current = d;
-	  }
-
-	  !1 === ua && (ua = !0, console.error("act(...) is not supported in production builds of React, and might not behave as expected."));
-	  N++;
-	  var c = J.current,
-	      d = I.current;
-	  J.current = !0;
-	  I.current = !0;
-
-	  try {
-	    var e = ta(a);
-	  } catch (g) {
-	    throw b(), g;
-	  }
-
-	  if (null !== e && "object" === typeof e && "function" === typeof e.then) return {
-	    then: function (a, d) {
-	      e.then(function () {
-	        1 < N || !0 === K && !0 === c ? (b(), a()) : M(function (c) {
-	          b();
-	          c ? d(c) : a();
-	        });
-	      }, function (a) {
-	        b();
-	        d(a);
-	      });
-	    }
-	  };
-
-	  try {
-	    1 !== N || !1 !== K && !1 !== c || L(), b();
-	  } catch (g) {
-	    throw b(), g;
-	  }
-
-	  return {
-	    then: function (a) {
-	      a();
-	    }
-	  };
-	};
-
-	exports.findAllInRenderedTree = Z;
-
-	exports.findRenderedComponentWithType = function (a, b) {
-	  W(a, "findRenderedComponentWithType");
-	  a = Ma(a, b);
-	  if (1 !== a.length) throw Error("Did not find exactly one match (found: " + a.length + ") for componentType:" + b);
-	  return a[0];
-	};
-
-	exports.findRenderedDOMComponentWithClass = function (a, b) {
-	  W(a, "findRenderedDOMComponentWithClass");
-	  a = Ka(a, b);
-	  if (1 !== a.length) throw Error("Did not find exactly one match (found: " + a.length + ") for class:" + b);
-	  return a[0];
-	};
-
-	exports.findRenderedDOMComponentWithTag = function (a, b) {
-	  W(a, "findRenderedDOMComponentWithTag");
-	  a = La(a, b);
-	  if (1 !== a.length) throw Error("Did not find exactly one match (found: " + a.length + ") for tag:" + b);
-	  return a[0];
-	};
-
-	exports.isCompositeComponent = Y;
-	exports.isCompositeComponentWithType = Ja;
-	exports.isDOMComponent = X;
-
-	exports.isDOMComponentElement = function (a) {
-	  return !!(a && l.isValidElement(a) && a.tagName);
-	};
-
-	exports.isElement = function (a) {
-	  return l.isValidElement(a);
-	};
-
-	exports.isElementOfType = function (a, b) {
-	  return l.isValidElement(a) && a.type === b;
-	};
-
-	exports.mockComponent = function (a, b) {
-	  b = b || a.mockTagName || "div";
-	  a.prototype.render.mockImplementation(function () {
-	    return l.createElement(b, null, this.props.children);
-	  });
-	  return this;
-	};
-
-	exports.nativeTouchData = function (a, b) {
-	  return {
-	    touches: [{
-	      pageX: a,
-	      pageY: b
-	    }]
-	  };
-	};
-
-	exports.renderIntoDocument = function (a) {
-	  var b = document.createElement("div");
-	  return m.render(a, b);
-	};
-
-	exports.scryRenderedComponentsWithType = Ma;
-	exports.scryRenderedDOMComponentsWithClass = Ka;
-	exports.scryRenderedDOMComponentsWithTag = La;
-	exports.traverseTwoPhase = Oa;
-
-	exports.unstable_concurrentAct = function (a) {
-	  function b() {
-	    Q.current = c;
-	    O.current = d;
-	  }
-
-	  if (void 0 === n.unstable_flushAllWithoutAsserting) throw Error("This version of `act` requires a special mock build of Scheduler.");
-	  if (!0 !== setTimeout._isMockFunction) throw Error("This version of `act` requires Jest's timer mocks (i.e. jest.useFakeTimers).");
-	  var c = Q.current,
-	      d = O.current;
-	  Q.current = !0;
-	  O.current = !0;
-
-	  try {
-	    var e = va(a);
-	    if ("object" === typeof e && null !== e && "function" === typeof e.then) return {
-	      then: function (a, c) {
-	        e.then(function () {
-	          wa(function () {
-	            b();
-	            a();
-	          }, function (a) {
-	            b();
-	            c(a);
-	          });
-	        }, function (a) {
-	          b();
-	          c(a);
-	        });
-	      }
-	    };
-
-	    try {
-	      do var g = n.unstable_flushAllWithoutAsserting(); while (g);
-	    } finally {
-	      b();
-	    }
-	  } catch (f) {
-	    throw b(), f;
-	  }
-	};
-	}(reactDomTestUtils_production_min, reactDomTestUtils_production_min.exports));
-
-	const Song = /*#__PURE__*/React.memo(({
+	const badCode = "    return (\n" + "        <div className={\"border\"}>\n" + "            <PlayerContext.Provider\n" + "                value={{\n" + "                    current_song: current,\n" + "                    position: timeMeta.position,\n" + "                    duration: timeMeta.duration,\n" + "                    paused,\n" + "                    play_song,\n" + "                    pause\n" + "                }}\n" + "            >";
+	const Song$2 = /*#__PURE__*/React.memo(({
 	  song
 	}) => {
 	  const player = react.exports.useContext(PlayerContext);
@@ -9086,12 +8334,12 @@
 	    onClick: clicked
 	  }, button, " ", song.name)));
 	});
-	const SongList = /*#__PURE__*/React.memo(({
+	const SongList$2 = /*#__PURE__*/React.memo(({
 	  songs
 	}) => {
 	  return /*#__PURE__*/React.createElement("ul", {
 	    className: "border-sm"
-	  }, songs.map(s => /*#__PURE__*/React.createElement(Song, {
+	  }, songs.map(s => /*#__PURE__*/React.createElement(Song$2, {
 	    id: s.id,
 	    song: s
 	  })));
@@ -9132,48 +8380,258 @@
 	      pause
 	    }
 	  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DeclarativePlayer$1, {
+	    field: "player1",
 	    song: current,
 	    time: timeMeta.position,
 	    reported_time: recv_time,
 	    paused: paused,
 	    song_complete: () => null
-	  }), /*#__PURE__*/React.createElement(Cover, null), /*#__PURE__*/React.createElement(SongList, {
+	  }), /*#__PURE__*/React.createElement(Cover, null), /*#__PURE__*/React.createElement(SongList$2, {
 	    songs: songs
 	  }))));
 	};
 
 	const musicCode = "const Music = () => {\n" + "    const [timeMeta, setTimeMeta] = useState({position: 0, duration: 0});\n" + "    const [current, setCurrent] = useState(songs[0]);\n" + "    const [paused, setPaused] = useState(true);\n" + "\n" + "    const play_song = useCallback((song) => {\n" + "        setCurrent(song);\n" + "        setPaused(false);\n" + "    }, [])\n" + "\n" + "    const pause = useCallback(() => {\n" + "        setPaused(true)\n" + "    }, [])\n" + "\n" + "    const recv_time = useCallback(({current, duration}) => {\n" + "        setTimeMeta({position: current, duration: duration});\n" + "    }, [])\n" + "\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <PlayerContext.Provider\n" + "                value={{\n" + "                    current_song: current,\n" + "                    position: timeMeta.position,\n" + "                    duration: timeMeta.duration,\n" + "                    paused,\n" + "                    play_song,\n" + "                    pause\n" + "                }}\n" + "            >\n" + "                <>\n" + "                    <DeclarativePlayer\n" + "                        song={current} time={timeMeta.position} reported_time={recv_time}\n" + "                        paused={paused} song_complete={() => null}/>\n" + "                    <Cover/>\n" + "                    <SongList songs={songs}/>\n" + "                </>\n" + "            </PlayerContext.Provider>\n" + "        </div>\n" + "    )\n" + "}\n" + "const Song = React.memo(({song}) => {\n" + "    const player = useContext(PlayerContext);\n" + "    const button = ((song.id === player.current_song.id && player.paused) || song.id !== player.current_song.id) ? \"▶\" : \"❚❚\";\n" + "    const clicked = () => {\n" + "        if (song.id === player.current_song.id && !player.paused) {\n" + "            player.pause();\n" + "        } else {\n" + "            player.play_song(song);\n" + "        }\n" + "    }\n" + "\n" + "    return (<div className={\"border-sm\"}><li>\n" + "            <button onClick={clicked}>\n" + "                {button} {song.name}\n" + "            </button>\n" + "    </li></div>)\n" + "})\n" + "const SongList =  React.memo(({songs}) => {\n" + "    return <ul className={\"border-sm\"}>{songs.map((s) => <Song id={s.id} song={s}/>)}</ul>\n" + "})" + "";
 
+	const Song$1 = /*#__PURE__*/React.memo(({
+	  song
+	}) => {
+	  const player = react.exports.useContext(PlayerContext);
+	  const button = song.id === player.current_song.id && player.paused || song.id !== player.current_song.id ? "▶" : "❚❚";
+
+	  const clicked = () => {
+	    if (song.id === player.current_song.id && !player.paused) {
+	      player.pause();
+	    } else {
+	      console.info("play song", song.id);
+	      player.play_song(song);
+	    }
+	  };
+
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "border-sm"
+	  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
+	    onClick: clicked
+	  }, button, " ", song.name)));
+	});
+	const SongList$1 = /*#__PURE__*/React.memo(({
+	  songs
+	}) => {
+	  return /*#__PURE__*/React.createElement("ul", {
+	    className: "border-sm"
+	  }, songs.map(s => /*#__PURE__*/React.createElement(Song$1, {
+	    id: s.id,
+	    song: s
+	  })));
+	});
+
+	const MusicMemo = () => {
+	  const [timeMeta, setTimeMeta] = react.exports.useState({
+	    position: 0,
+	    duration: 0
+	  });
+	  const [current, setCurrent] = react.exports.useState(songs[0]);
+	  const [paused, setPaused] = react.exports.useState(true);
+	  const play_song = react.exports.useCallback(song => {
+	    setCurrent(song);
+	    setPaused(false);
+	  }, []);
+	  const pause = react.exports.useCallback(() => {
+	    setPaused(true);
+	  }, []);
+	  const recv_time = react.exports.useCallback(({
+	    current,
+	    duration
+	  }) => {
+	    setTimeMeta({
+	      position: current,
+	      duration: duration
+	    });
+	  }, []);
+	  const context_value = react.exports.useMemo(() => {
+	    return {
+	      current_song: current,
+	      position: timeMeta.position,
+	      duration: timeMeta.duration,
+	      paused,
+	      play_song,
+	      pause
+	    };
+	  }, [current, timeMeta.position, timeMeta.duration, paused, play_song, pause]);
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "border"
+	  }, /*#__PURE__*/React.createElement(PlayerContext.Provider, {
+	    value: context_value
+	  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DeclarativePlayer$1, {
+	    field: "player2",
+	    song: current,
+	    time: timeMeta.position,
+	    reported_time: recv_time,
+	    paused: paused,
+	    song_complete: () => null
+	  }), /*#__PURE__*/React.createElement(Cover, null), /*#__PURE__*/React.createElement(SongList$1, {
+	    songs: songs
+	  }))));
+	};
+
+	const musicMemoCode = "const Music = () => {\n" + "    const [timeMeta, setTimeMeta] = useState({position: 0, duration: 0});\n" + "    const [current, setCurrent] = useState(songs[0]);\n" + "    const [paused, setPaused] = useState(true);\n" + "\n" + "    const play_song = useCallback((song) => {\n" + "        setCurrent(song);\n" + "        setPaused(false);\n" + "    }, [])\n" + "\n" + "    const pause = useCallback(() => {\n" + "        setPaused(true)\n" + "    }, [])\n" + "\n" + "    const recv_time = useCallback(({current, duration}) => {\n" + "        setTimeMeta({position: current, duration: duration});\n" + "    }, [])\n" + "\n" + "    const context_value = useMemo(() => {\n" + "        return {\n" + "            current_song: current,\n" + "                position: timeMeta.position,\n" + "            duration: timeMeta.duration,\n" + "            paused,\n" + "            play_song,\n" + "            pause\n" + "        }\n" + "        }, [current, timeMeta.position, timeMeta.duration, paused, play_song, pause])\n" + "\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <PlayerContext.Provider\n" + "                value={context_value}\n" + "            >\n" + "                <>\n" + "                    <DeclarativePlayer\n" + "                        song={current} time={timeMeta.position} reported_time={recv_time}\n" + "                        paused={paused} song_complete={() => null}/>\n" + "                    <Cover/>\n" + "                    <SongList songs={songs}/>\n" + "                </>\n" + "            </PlayerContext.Provider>\n" + "        </div>\n" + "    )\n" + "}";
+
+	const ControllerContext = /*#__PURE__*/React.createContext({
+	  current_song: songs[0],
+	  paused: true,
+	  play_song: () => {},
+	  pause: () => {}
+	});
+
+	const TimeContext = /*#__PURE__*/React.createContext({
+	  position_ms: 0,
+	  duration_ms: 0
+	});
+
+	const Cover2 = () => {
+	  const time = react.exports.useContext(TimeContext);
+	  const player = react.exports.useContext(ControllerContext);
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "border"
+	  }, /*#__PURE__*/React.createElement("img", {
+	    height: 200,
+	    width: 200,
+	    alt: "jazzy cover",
+	    src: "/assets/images/allthat.jpg"
+	  }), /*#__PURE__*/React.createElement("p", null, player.current_song.name, " -- ", Math.round(time.position), "s out of ", Math.round(time.duration), "s"));
+	};
+
+	const Song = /*#__PURE__*/React.memo(({
+	  song
+	}) => {
+	  const controller = react.exports.useContext(ControllerContext);
+	  const button = song.id === controller.current_song.id && controller.paused || song.id !== controller.current_song.id ? "▶" : "❚❚";
+
+	  const clicked = () => {
+	    if (song.id === controller.current_song.id && !controller.paused) {
+	      controller.pause();
+	    } else {
+	      console.info("play song", song.id);
+	      controller.play_song(song);
+	    }
+	  };
+
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "border-sm"
+	  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
+	    onClick: clicked
+	  }, button, " ", song.name)));
+	});
+	Song.displayName = "Song";
+	const SongList = /*#__PURE__*/React.memo(({
+	  songs
+	}) => {
+	  return /*#__PURE__*/React.createElement("ul", {
+	    className: "border-sm"
+	  }, songs.map(s => /*#__PURE__*/React.createElement(Song, {
+	    id: s.id,
+	    song: s
+	  })));
+	});
+	SongList.displayName = "SongList";
+
+	const MusicBest = () => {
+	  const [timeMeta, setTimeMeta] = react.exports.useState({
+	    position: 0,
+	    duration: 0
+	  });
+	  const [current, setCurrent] = react.exports.useState(songs[0]);
+	  const [paused, setPaused] = react.exports.useState(true);
+	  const play_song = react.exports.useCallback(song => {
+	    setCurrent(song);
+	    setPaused(false);
+	  }, []);
+	  const pause = react.exports.useCallback(() => {
+	    setPaused(true);
+	  }, []);
+	  const recv_time = react.exports.useCallback(({
+	    current,
+	    duration
+	  }) => {
+	    setTimeMeta({
+	      position: current,
+	      duration: duration
+	    });
+	  }, []);
+	  const time_value = react.exports.useMemo(() => {
+	    return {
+	      position: timeMeta.position,
+	      duration: timeMeta.duration
+	    };
+	  }, [timeMeta]);
+	  const controller_value = react.exports.useMemo(() => {
+	    return {
+	      current_song: current,
+	      paused,
+	      play_song,
+	      pause
+	    };
+	  }, [current, paused, play_song, pause]);
+	  return /*#__PURE__*/React.createElement("div", {
+	    className: "border"
+	  }, /*#__PURE__*/React.createElement(ControllerContext.Provider, {
+	    value: controller_value
+	  }, /*#__PURE__*/React.createElement(TimeContext.Provider, {
+	    value: time_value
+	  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DeclarativePlayer$1, {
+	    field: "player3",
+	    song: current,
+	    time: timeMeta.position,
+	    reported_time: recv_time,
+	    paused: paused,
+	    song_complete: () => null
+	  }), /*#__PURE__*/React.createElement(Cover2, null), /*#__PURE__*/React.createElement(SongList, {
+	    songs: songs
+	  })))));
+	};
+
+	const musicBestCode = "const MusicBest = () => {\n" + "    const [timeMeta, setTimeMeta] = useState({position: 0, duration: 0});\n" + "    const [current, setCurrent] = useState(songs[0]);\n" + "    const [paused, setPaused] = useState(true);\n" + "\n" + "    const play_song = useCallback((song) => {\n" + "        setCurrent(song);\n" + "        setPaused(false);\n" + "    }, [])\n" + "\n" + "    const pause = useCallback(() => {\n" + "        setPaused(true)\n" + "    }, [])\n" + "\n" + "    const recv_time = useCallback(({current, duration}) => {\n" + "        setTimeMeta({position: current, duration: duration});\n" + "    }, [])\n" + "\n" + "\n" + "    const time_value = useMemo(() => {\n" + "        return {\n" + "            position: timeMeta.position,\n" + "            duration: timeMeta.duration,\n" + "        }\n" + "    }, [timeMeta])\n" + "\n" + "    const controller_value = useMemo(() => {\n" + "        return {\n" + "            current_song: current,\n" + "            paused,\n" + "            play_song,\n" + "            pause\n" + "        }\n" + "    }, [current, paused, play_song, pause])\n" + "\n" + "    return (\n" + "        <div className={\"border\"}>\n" + "            <ControllerContext.Provider value={controller_value}>\n" + "                <TimeContext.Provider value={time_value}>\n" + "                    <>\n" + "                        <DeclarativePlayer field={\"player3\"}\n" + "                                           song={current} time={timeMeta.position} reported_time={recv_time}\n" + "                                           paused={paused} song_complete={() => null}/>\n" + "                        <Cover2/>\n" + "                        <SongList songs={songs}/>\n" + "                    </>\n" + "                </TimeContext.Provider>\n" + "            </ControllerContext.Provider>\n" + "        </div>\n" + "    )\n" + "}";
+
 	const Contexts = () => /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Remember how we saved a render by by memo'ing the DisplayNumber component? This wouldn't work if we had passed down pendingNumber and number."), /*#__PURE__*/React.createElement("p", null, "Contexts are often large chunks of data must be consumed together. How about a real example from a real program?"), /*#__PURE__*/React.createElement("h4", null, "\xBF Why are the songs constantly rendering ?"), /*#__PURE__*/React.createElement(Two, {
 	  code: musicCode
-	}, /*#__PURE__*/React.createElement(Music, null)), /*#__PURE__*/React.createElement("p", null, "Consuming a context is just like being passed an object as a prop. ", /*#__PURE__*/React.createElement("strong", null, "objects make bad props"), ". Every time the object is re-constructed for any modification you have to re-render. So if something in your context is frequently updating (Here the current position in the song) you'll always have to re-render."), /*#__PURE__*/React.createElement("h4", null, "So how do I handle contexts?"), /*#__PURE__*/React.createElement("ol", null, /*#__PURE__*/React.createElement("li", null, "No context is the best context"), /*#__PURE__*/React.createElement("li", null, "Keep contexts small so that components aren't being updated when irrelevant data changes"), /*#__PURE__*/React.createElement("li", null, "(worst case) Consume context at a higher level and divide it into props")));
+	}, /*#__PURE__*/React.createElement(Music, null)), /*#__PURE__*/React.createElement("h5", null, "Problem #1. Object construction"), /*#__PURE__*/React.createElement("p", null, "We need to fix this"), /*#__PURE__*/React.createElement("pre", null, /*#__PURE__*/React.createElement("code", {
+	  className: "block hljs language-js"
+	}, badCode)), /*#__PURE__*/React.createElement(Two, {
+	  code: musicMemoCode
+	}, /*#__PURE__*/React.createElement(MusicMemo, null)), /*#__PURE__*/React.createElement("p", null, "We fixed the ", /*#__PURE__*/React.createElement("code", null, " !== "), " object react bug! Why is it still broken?"), /*#__PURE__*/React.createElement(Two, {
+	  code: musicBestCode
+	}, /*#__PURE__*/React.createElement(MusicBest, null)), /*#__PURE__*/React.createElement("p", null, "By removing the frequently updating time information we can skip rendering songs unnecessarily."), /*#__PURE__*/React.createElement("p", null, "Consuming a context is just like being passed an object as a prop. ", /*#__PURE__*/React.createElement("strong", null, "objects make bad props"), ". Every time the object is re-constructed for any modification you have to re-render. So if something in your context is frequently updating (Here the current position in the song) you'll always have to re-render."), /*#__PURE__*/React.createElement("h4", null, "So how do I handle contexts?"), /*#__PURE__*/React.createElement("ol", null, /*#__PURE__*/React.createElement("li", null, "No context is the best context"), /*#__PURE__*/React.createElement("li", null, "Keep contexts small so that components aren't being updated when irrelevant data changes"), /*#__PURE__*/React.createElement("li", null, "(worst case) Consume context at a higher level and divide it into props")));
 
 	function App() {
 	  const p2 = {
-	    name: "2. Child Parent Relationship",
+	    name: "Child Parent Relationship",
 	    component: /*#__PURE__*/React.createElement(Parent1, null)
 	  };
 	  const p3 = {
-	    name: "3. Components only NEED to render when their props / internal state change",
-	    component: /*#__PURE__*/React.createElement(Parent2$1, null)
+	    name: "Components only NEED to render when their props / internal state change",
+	    component: /*#__PURE__*/React.createElement(Parent2$2, null)
 	  };
 	  const p4 = {
-	    name: "4. Functional Components + useMemo",
+	    name: "Functional Components + useMemo",
 	    component: /*#__PURE__*/React.createElement(Functional, null)
 	  };
 	  const p1 = {
-	    name: "1. Gotchas",
+	    name: "Gotchas",
 	    component: /*#__PURE__*/React.createElement(Gotchas, null)
 	  };
 	  const p5 = {
-	    name: "5. Why should I care about the gotchas?",
+	    name: "Why should I care about the gotchas?",
 	    component: /*#__PURE__*/React.createElement(WhyGotchas, null)
 	  };
 	  const p6 = {
-	    name: "6. What about contexts?",
+	    name: "Object construction gotcha (useMemo)",
+	    component: /*#__PURE__*/React.createElement(NewObject, null)
+	  };
+	  const p7 = {
+	    name: "What about contexts?",
 	    component: /*#__PURE__*/React.createElement(Contexts, null)
 	  };
-	  const pages = [p1, p2, p3, p4, p5, p6];
+	  const pages = [p1, p2, p3, p4, p5, p6, p7];
 	  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
 	    className: "container"
 	  }, /*#__PURE__*/React.createElement(Pages, {
