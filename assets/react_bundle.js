@@ -8026,15 +8026,9 @@
 	  const nextTitle = current + 1 < pages.length ? pages[current + 1].name.substr(0, 40) : "Next";
 	  const prevTitle = current - 1 >= 0 ? pages[current - 1].name.substr(0, 40) : "Prev";
 	  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, pages[current].name), pages[current].component, /*#__PURE__*/React.createElement("button", {
-	    style: {
-	      width: '300px'
-	    },
 	    disabled: current === 0,
 	    onClick: prev
 	  }, prevTitle), /*#__PURE__*/React.createElement("button", {
-	    style: {
-	      width: '300px'
-	    },
 	    disabled: current === pages.length - 1,
 	    onClick: next
 	  }, nextTitle));
@@ -8110,9 +8104,9 @@
 
 	const WhyGotchas = () => /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Okay so why do ", /*#__PURE__*/React.createElement("code", null, "==="), " semantics matter?"), /*#__PURE__*/React.createElement("p", null, "Take this component that passes a closure to it's child"), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild
-	}, /*#__PURE__*/React.createElement(Parent, null)), /*#__PURE__*/React.createElement("p", null, "But that's not enough, enter ", /*#__PURE__*/React.createElement("code", null, "React.memo()")), /*#__PURE__*/React.createElement(Two, {
+	}, /*#__PURE__*/React.createElement(Parent, null)), /*#__PURE__*/React.createElement("p", null, "Of course this component still re-renders with it's parent. Let's add ", /*#__PURE__*/React.createElement("code", null, "React.memo()")), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild2
-	}, /*#__PURE__*/React.createElement(Parent2, null)), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("code", null, "useCallback"), " to the rescue. It provides a stable value for the closure we pass down."), /*#__PURE__*/React.createElement(Two, {
+	}, /*#__PURE__*/React.createElement(Parent2, null)), /*#__PURE__*/React.createElement("p", null, "But that's not enough because of the closure(). ", /*#__PURE__*/React.createElement("code", null, "useCallback"), " to the rescue. It provides a stable value for the closure we pass down. So useMemo's ", /*#__PURE__*/React.createElement("code", null, "==="), " check will pass."), /*#__PURE__*/React.createElement(Two, {
 	  code: parentChild3
 	}, /*#__PURE__*/React.createElement(Parent3, null)));
 
