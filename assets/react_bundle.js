@@ -7954,6 +7954,11 @@
 	  qs
 	}) => {
 	  const [index, setIndex] = react.exports.useState(0);
+	  react.exports.useLayoutEffect(() => {
+	    try {
+	      hljs.highlightAll();
+	    } catch {}
+	  }, [index]);
 	  return /*#__PURE__*/React.createElement("div", null, qs[index % qs.length], /*#__PURE__*/React.createElement("button", {
 	    onClick: () => setIndex(oldIdx => Math.max(0, oldIdx - 1))
 	  }, "Prev"), /*#__PURE__*/React.createElement("button", {
