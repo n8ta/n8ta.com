@@ -40,8 +40,14 @@ h1 {
   margin-bottom: 0;
 }
 
+.post_list time {
+  display: block;
+}
+time {
+  font-style: italic;
+}
 
-#latest-post {
+.latest-posts {
   margin-top: 1rem;
   padding: .5rem;
   background-color: $alert_yellow;

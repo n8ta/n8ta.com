@@ -43,9 +43,8 @@ layout: default
         <em><q>If it breaks then you get to keep both pieces.</q></em></p>
     <ol class="spaced-list">
         {% for post in site.posts %}
-        <li>
-            <i><time datetime="{{post.date}}">{{ post.date | date_to_string }}</time></i>
-            <br/>
+        <li class="post_list">
+            <time datetime="{{post.date}}">{{ post.date | date_to_string }}</time>
             <a href="{{ post.url }}">{{ post.title }}</a>
         </li>
         {% endfor %}
