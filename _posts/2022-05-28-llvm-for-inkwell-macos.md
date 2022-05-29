@@ -11,7 +11,8 @@ cd llvm-project
 git checkout remotes/origin/release/13.x
 mkdir build && cd build
 cmake ../llvm -DCMAKE_INSTALL_PREFIX=$HOME/llvm-13
-make
+cd ..
+mv build/* $HOME/llvm-13
 ```
 
 I'm compiling LLVM for use with [inkwell](https://thedan64.github.io/inkwell/inkwell/index.html) which relies on the `LLVM_SYS_130_PREFIX`
