@@ -22,7 +22,7 @@ The front end of mofDB is a essentially a collection of filters (left column) th
 
 ### API
 
-The mofDB project is difficult because of it's scale there are easily 400,000 materials with a dozen properties each, and a handful of children models with even more data. 
+The biggest challenge of the mofDB project was scale. There are easily 400,000 materials with a dozen properties each, and a handful of children models with even more data. 
 A common use case for  researchers is to download all of the data from a given set of materials (often ~100k) within mofDB.  This means we need
 to be able to compile and serve that information in near real time. This is acheived by caching a json copy of all materials so
 that a query can simply concat them together before devivering them to the user. Before this caching it took about ~10ms * # of materials.
