@@ -5,6 +5,12 @@ external_url: https://mof.tech.northwestern.edu
 title:  "mofDB is a database for high throughput screenings of metal organic frameworks. >4 Million Records"
 ---
 
+### Journal Article about MofDB
+- Publication in the Journal of Chemical Engineering Data:<br/>
+  [MOFX-DB: An Online Database of Computational Adsorption Data for Nanoporous Materials](https://pubs.acs.org/doi/10.1021/acs.jced.2c00583)
+- PDF:<br/>
+  [acs.jced.2c00583.pdf](/assets/files/acs.jced.2c00583.pdf)
+
 ### Purpose
 
 MofDB is an api/webfront-end and database I built for the [Snurr Research Group at Northwestern](http://www.iec.northwestern.edu/). The database
