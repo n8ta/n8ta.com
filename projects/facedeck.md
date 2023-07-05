@@ -10,7 +10,7 @@ Facedeck provides a deck of cards (with student photos) that professors can flip
 The stack of cards adapts as you get students right and wrong so you can practice those you get wrong more.
 
 Facedeck has existed at northwestern for a long time and I had the project or rewriting it (the existing project was in laravel and was poorly structured which made it difficult to extend). 
-I was able to rewrite the system in less than a week (with about 30% the line of code of the old system) and then get started on new features. 
+I was able to rewrite the system in less than a week (with about 30% the lines of code of the old system) and then get started on new features. 
 
 The other group facedeck serves is residence hall leaders. Since there's no good API available for finding out which students are in a resident hall, 
 I added API endpoints that Student Affairs uses to create custom groups on facedeck.
