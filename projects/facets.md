@@ -13,7 +13,7 @@ Unfortunately this system is only accessible to professor @ Northwestern so you 
 
 ### Tech
 
-FACETS is essentially a complicated file storage system that provisions access on the fly based on human resources data.
+FACETS is essentially a file storage system that provisions access on the fly based on human resources data.
 The system parses those apis responses to determine:
 
 1. Are they a professor? 
@@ -22,15 +22,14 @@ The system parses those apis responses to determine:
 4. Which documents in those cases?
 
 FAECTS also allows for custom roles to be added to users like Department Administrator,
-Dean, Provost, etc. which all allow different levels of access for special admin folks.
+Dean, Provost, etc. which all allow different levels of access for unique roles.
 
 The other complexity the system handles is allowing people who do not have access to a Northwestern University single-sign-on account (netid) to access the system to upload their reference letters (about faculty up for tenure).
-To handle these people I added the ability facets to generate secure one time use tokens that can be emailed and allow the recipient to upload
-a single document into the case (and then revoke access). The tokens look something like this [facets.mccormick.northwestern.edu/tokens/35783cf2672835428f8c08f88c9f7da3b024d292](#).
+To handle these unauthenticatable users I added the ability for facets to generate a secure one time use token that can be emailed, allowing these external users to upload a single document into the case. The tokens look something like this [facets.mccormick.northwestern.edu/tokens/35783cf2672835428f8c08f88c9f7da3b024d292](#).
 
-The coolest features for the end users are, 
+The most useful features for the end users are, 
 
-1. PDF merge of entire case or selected docs (I swear MANY people merge the case into one pdf and print it),
+1. PDF merge of entire case or selected docs (MANY people merge the case into one pdf and print it)
 2. ZIP of selected documents
 3. Auto file naming (previously the department administrators renamed all files by hand to match a convention)
 4. Drag and drop file upload (dropzone.js -> rails endpoint)
