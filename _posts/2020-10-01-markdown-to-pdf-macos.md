@@ -11,10 +11,28 @@ I write my homework in markdown and my professors usually want pdfs.
 ## Install dependencies
 
 ```bash
-# Install homebrew (see below)
+# Install homebrew from https://brew.sh/
 brew install pandoc
-brew cask install basictex
+brew install basictex
+
+# Add /Library/TeX/texbin to your path (varies by shell, here's how for bash) so pandoc can find pdflatex
+export PATH=$PATH:/Library/TeX/texbin
 ````
+
+## Do it
+```bash
+pandoc -f markdown-implicit_figures -t pdf file.md > file.pdf
+```
+
+## Explanation 
+
+`-f` means *from*
+
+You can also just use markdown but your images will be moved around like in latex which I generally don't want.
+
+`-t` means *to*
+
+`>` redirect output to file.pdf
 
 <a href='https://brew.sh/' target='_blank'>homebrew</a>
 
@@ -27,16 +45,3 @@ This is the main macOS package manager. If you do any programming on macOS you'l
 
 basictex provides pdflatex, a lib needed by pandoc to convert markdown -> pdf
 
-
-## Do it
-```bash
-pandoc -f markdown-implicit_figures -t pdf file.md > file.pdf
-```
-
-`-f` means *from*
-
-You can also just use markdown but your images will be moved around like in latex which I generally don't want.
-
-`-t` means *to*
-
-`>` redirect output to file.pdf
